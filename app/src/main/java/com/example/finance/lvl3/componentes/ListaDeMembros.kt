@@ -35,6 +35,7 @@ import com.example.finance.ui.theme.backgroundLista
 
 @Composable
 fun ListaDeMembros(casa: Casa) {
+
     var expandirConteudo by remember { mutableStateOf(true) }
 
 

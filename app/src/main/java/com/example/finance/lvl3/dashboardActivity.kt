@@ -10,16 +10,9 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -33,14 +26,12 @@ import androidx.core.app.ActivityCompat
 import com.example.finance.lvl1.Login
 import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.lvl3.componentes.isPortrait
-import com.example.finance.lvl3.componentes.listaDeMembros
+import com.example.finance.lvl3.componentes.ListaDeMembros
 import com.example.finance.lvl3.componentes.resumoFinanceiroCardLado
 import com.example.finance.lvl3.componentes.resumoFinanceiroCardPe
-import com.example.finance.lvl3.mostradores.showCasa
 import com.example.finance.ui.theme.FinanceTheme
 import com.example.finance.ui.theme.backgroundDark
 import com.example.finance.ui.theme.backgroundLight
-import com.example.finance.ui.theme.contentBackground
 
 class dashboardActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,7 +84,7 @@ fun dashboard() {
         }
         Box(modifier = Modifier
             .fillMaxWidth()){
-            listaDeMembros(casa = casa)
+            ListaDeMembros(casa = casa)
         }
         Box (modifier = Modifier
             .weight(6f)
