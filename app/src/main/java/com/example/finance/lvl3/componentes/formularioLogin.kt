@@ -50,7 +50,10 @@ fun loginForm(onCadastroClick: () -> Unit, context: Context) {
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email", color = textColor) },
+            label = {
+                Text(
+                    text = "Email",
+                    style = MaterialTheme.typography.labelMedium) },
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Next,
                 keyboardType = KeyboardType.Email
@@ -66,8 +69,8 @@ fun loginForm(onCadastroClick: () -> Unit, context: Context) {
             value = senha,
             onValueChange = { senha = it },
             label = { Text(
-                "Senha",
-                color = textColor
+                text = "Senha",
+                style = MaterialTheme.typography.labelMedium
             ) },
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions.Default.copy(
@@ -92,10 +95,14 @@ fun loginForm(onCadastroClick: () -> Unit, context: Context) {
             TextButton(onClick = {
                 avisoLongo(context, "trocar a senha está indisponível no momento.")
             }) {
-                Text(text = "Esqueceu a senha?")
+                Text(
+                    text = "Esqueceu a senha?",
+                    style = MaterialTheme.typography.bodyMedium)
             }
             TextButton(onClick = onCadastroClick) {
-                Text(text = "Não tem uma conta? Cadastre-se")
+                Text(
+                    text = "Não tem uma conta? Cadastre-se",
+                    style = MaterialTheme.typography.bodyMedium)
             }
         }
 
@@ -107,7 +114,9 @@ fun loginForm(onCadastroClick: () -> Unit, context: Context) {
                 .fillMaxWidth()
                 .padding(16.dp),
         ) {
-            Text("Entrar")
+            Text(
+                text = "Entrar",
+                style = MaterialTheme.typography.titleMedium)
 
         }
     }

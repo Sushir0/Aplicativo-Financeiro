@@ -97,9 +97,11 @@ private fun listaSimples(casa: Casa){
                 shape = RoundedCornerShape(8.dp),
                 modifier = Modifier
                     .padding(3.dp)) {
-                Text(text = morador.nome,
+                Text(
+                    text = morador.nome,
                     modifier = Modifier
-                        .padding(2.dp))
+                        .padding(2.dp),
+                    style = MaterialTheme.typography.bodyLarge)
             }
         }
     }
@@ -110,7 +112,7 @@ private fun listaDetalhada(casa: Casa){
     LazyRow(modifier = Modifier
     ){
         items(casa.moradores){morador->
-            Card(shape = RoundedCornerShape(3.dp),
+            Card(shape = RoundedCornerShape(6.dp),
                 modifier = Modifier
                     .padding(horizontal = 12.dp)) {
                 Column (modifier = Modifier.padding(4.dp)){
@@ -118,9 +120,15 @@ private fun listaDetalhada(casa: Casa){
                         modifier = Modifier
                             .padding(2.dp),
                         style = MaterialTheme.typography.titleLarge)
-                    Text(text = "Valor recebido: "+morador.recebimentos)
-                    Text(text = "Gasto total: "+morador.recebimentos)
-                    Text(text = "Valor de sobra: "+morador.recebimentos)
+                    Text(
+                        text = "Valor recebido: "+morador.recebimentos,
+                        style = MaterialTheme.typography.bodyMedium)
+                    Text(
+                        text = "Gasto total: "+morador.recebimentos,
+                        style = MaterialTheme.typography.bodyMedium)
+                    Text(
+                        text = "Valor de sobra: "+morador.recebimentos,
+                        style = MaterialTheme.typography.bodyMedium)
                 }
             }
         }

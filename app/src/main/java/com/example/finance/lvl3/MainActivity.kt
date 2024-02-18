@@ -64,7 +64,7 @@ fun telaInicialDeLogin() {
     var textColor = MaterialTheme.colorScheme.onBackground
 
 
-    var exibirLoginForm by remember { mutableStateOf(false) }
+    var exibirLoginForm by remember { mutableStateOf(true) }
     var pesoCard = 3f
     if(exibirLoginForm){
         pesoCard = 2f
@@ -85,9 +85,9 @@ fun telaInicialDeLogin() {
         ) {
             Text(
                 text = "Planeja Dinheiro",
-                fontSize = 32.sp,
                 color = textColor,
                 fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.displaySmall
 
             )
         }

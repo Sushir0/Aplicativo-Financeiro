@@ -65,8 +65,13 @@ fun resumoFinanceiroCardPe(casa: Casa) {
                             .padding(8.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = "Gastos")
-                        Text(text = casa.gastosTotais.toString())
+                        Text(
+                            text = "Gastos",
+                            style = MaterialTheme.typography.bodyLarge)
+                        Text(
+                            text = casa.gastosTotais.toString(),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
                     }
                 }
             }
@@ -87,8 +92,12 @@ fun resumoFinanceiroCardPe(casa: Casa) {
                             .padding(3.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = "Recebimentos")
-                        Text(text = casa.gastosTotais.toString())
+                        Text(
+                            text = "Recebimentos",
+                            style = MaterialTheme.typography.bodyLarge)
+                        Text(
+                            text = casa.gastosTotais.toString(),
+                            style = MaterialTheme.typography.bodyMedium)
                     }
                 }
             }
@@ -117,8 +126,12 @@ fun resumoFinanceiroCardPe(casa: Casa) {
                             .padding(8.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = "Valor de sobra")
-                        Text(text = casa.gastosTotais.toString())
+                        Text(
+                            text = "Valor de sobra",
+                            style = MaterialTheme.typography.bodyLarge)
+                        Text(
+                            text = casa.gastosTotais.toString(),
+                            style = MaterialTheme.typography.bodyMedium)
                     }
                 }
             }
@@ -145,7 +158,7 @@ fun resumoFinanceiroCardLado(casa: Casa) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(contentBackground),
+                    .background(contentResumo),
                 contentAlignment = Alignment.Center
 
             ) {
@@ -154,8 +167,12 @@ fun resumoFinanceiroCardLado(casa: Casa) {
                         .padding(8.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = "Gastos")
-                    Text(text = casa.gastosTotais.toString())
+                    Text(
+                        text = "Gastos",
+                        style = MaterialTheme.typography.bodyLarge)
+                    Text(
+                        text = casa.gastosTotais.toString(),
+                        style = MaterialTheme.typography.bodyMedium)
                 }
             }
         }
@@ -168,7 +185,7 @@ fun resumoFinanceiroCardLado(casa: Casa) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(contentBackground),
+                    .background(contentResumo),
                 contentAlignment = Alignment.Center
             ) {
                 Column(
@@ -176,8 +193,12 @@ fun resumoFinanceiroCardLado(casa: Casa) {
                         .padding(8.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = "Recebimentos")
-                    Text(text = casa.gastosTotais.toString())
+                    Text(
+                        text = "Recebimentos",
+                        style = MaterialTheme.typography.bodyLarge)
+                    Text(
+                        text = casa.gastosTotais.toString(),
+                        style = MaterialTheme.typography.bodyMedium)
                 }
             }
         }
@@ -190,7 +211,7 @@ fun resumoFinanceiroCardLado(casa: Casa) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(contentBackground),
+                    .background(contentResumo),
                 contentAlignment = Alignment.Center
             ) {
                 Column(
@@ -198,8 +219,12 @@ fun resumoFinanceiroCardLado(casa: Casa) {
                         .padding(8.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = "Sobra")
-                    Text(text = casa.gastosTotais.toString())
+                    Text(
+                        text = "Sobra",
+                        style = MaterialTheme.typography.bodyLarge)
+                    Text(
+                        text = casa.gastosTotais.toString(),
+                        style = MaterialTheme.typography.bodyMedium)
                 }
             }
         }
@@ -209,14 +234,17 @@ fun resumoFinanceiroCardLado(casa: Casa) {
 
 @Preview
 @Composable
-fun resumoFinanceiroCardPreview() {
-
+fun resumoFinanceiroCardLadoPreview() {
     testeCadastro()
-    if(isPortrait()){
-        resumoFinanceiroCardPe(casa = Login.getCasaLogada())
-    }else{
-        resumoFinanceiroCardLado(Login.getCasaLogada())
-    }
+    resumoFinanceiroCardLado(Login.getCasaLogada())
+
+}
+
+@Preview
+@Composable
+fun resumoFinanceiroCardPePreview() {
+    testeCadastro()
+    resumoFinanceiroCardPe(casa = Login.getCasaLogada())
 
 }
 

@@ -60,7 +60,10 @@ fun cadastroForm(onCadastroClick: () -> Unit, context: Context) {
         OutlinedTextField(
             value = nome,
             onValueChange = {nome = it},
-            label = { Text(text = "Nome", style = MaterialTheme.typography.labelMedium) },
+            label = {
+                Text(
+                    text = "Nome",
+                    style = MaterialTheme.typography.labelMedium) },
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Next
             ),
@@ -68,10 +71,14 @@ fun cadastroForm(onCadastroClick: () -> Unit, context: Context) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(paddings))
+
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email", style = MaterialTheme.typography.labelMedium) },
+            label = {
+                Text(
+                    text = "Email",
+                    style = MaterialTheme.typography.labelMedium) },
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Next,
                 keyboardType = KeyboardType.Email
@@ -107,7 +114,7 @@ fun cadastroForm(onCadastroClick: () -> Unit, context: Context) {
                 onValueChange = { nomeCasa = it },
                 label = { Text(
                     text = "Nome da casa",
-                    color = textColor)},
+                    style = MaterialTheme.typography.labelMedium)},
                 keyboardOptions = KeyboardOptions.Default.copy(
                     imeAction = ImeAction.Done
                 ),
@@ -185,7 +192,9 @@ fun cadastroForm(onCadastroClick: () -> Unit, context: Context) {
                 .fillMaxWidth()
                 .padding(16.dp),
         ) {
-            Text("Cadastrar", style = MaterialTheme.typography.titleMedium)
+            Text(
+                text = "Cadastrar",
+                style = MaterialTheme.typography.titleMedium)
         }
     }
 }
