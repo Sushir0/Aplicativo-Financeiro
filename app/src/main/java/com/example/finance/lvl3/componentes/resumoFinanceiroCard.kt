@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -26,11 +25,10 @@ import androidx.compose.ui.unit.dp
 import com.example.finance.lvl1.Casa
 import com.example.finance.lvl1.Login
 import com.example.finance.lvl2.Login.testeCadastro
-import com.example.finance.ui.theme.contentBackground
 import com.example.finance.ui.theme.contentResumo
 
 @Composable
-fun resumoFinanceiroCardPe(casa: Casa) {
+fun ResumoFinanceiroCardVertical(casa: Casa) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -140,7 +138,7 @@ fun resumoFinanceiroCardPe(casa: Casa) {
     }
 }
 @Composable
-fun resumoFinanceiroCardLado(casa: Casa) {
+fun ResumoFinanceiroCardHorizontal(casa: Casa) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -234,17 +232,17 @@ fun resumoFinanceiroCardLado(casa: Casa) {
 
 @Preview
 @Composable
-fun resumoFinanceiroCardLadoPreview() {
+fun ResumoFinanceiroCardHorizontalPreview() {
     testeCadastro()
-    resumoFinanceiroCardLado(Login.getCasaLogada())
+    ResumoFinanceiroCardHorizontal(Login.getCasaLogada())
 
 }
 
 @Preview
 @Composable
-fun resumoFinanceiroCardPePreview() {
+fun ResumoFinanceiroCardVerticalPreview() {
     testeCadastro()
-    resumoFinanceiroCardPe(casa = Login.getCasaLogada())
+    ResumoFinanceiroCardVertical(casa = Login.getCasaLogada())
 
 }
 

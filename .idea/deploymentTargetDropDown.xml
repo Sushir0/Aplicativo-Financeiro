@@ -2,16 +2,19 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="MainPreview">
+        <State />
+      </entry>
       <entry key="TwoCardsColumnPreview">
         <State />
       </entry>
       <entry key="TwoCardsRowPreview">
         <State />
       </entry>
-      <entry key="listaDeMembrosPreview">
+      <entry key="app">
         <State />
       </entry>
-      <entry key="mainPreview">
+      <entry key="listaDeMembrosPreview">
         <State />
       </entry>
       <entry key="resumoFinanceiroCardPreview">

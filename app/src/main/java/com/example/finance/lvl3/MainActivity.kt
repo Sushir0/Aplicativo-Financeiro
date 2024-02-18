@@ -1,8 +1,6 @@
 package com.example.finance.lvl3
 
-import android.content.Context
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -19,7 +17,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,9 +30,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.finance.lvl3.componentes.cadastroForm
-import com.example.finance.lvl3.componentes.loginForm
+import com.example.finance.lvl3.componentes.CadastroForm
+import com.example.finance.lvl3.componentes.LoginForm
 import com.example.finance.ui.theme.FinanceTheme
 import com.example.finance.ui.theme.backgroundDark
 import com.example.finance.ui.theme.backgroundLight
@@ -46,7 +42,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FinanceTheme() {
-                telaInicialDeLogin()
+                TelaInicialDeLogin()
             }
         }
     }
@@ -54,12 +50,12 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun telaInicialDeLogin() {
+fun TelaInicialDeLogin() {
     var background: Color
-    if(isSystemInDarkTheme()){
-        background = backgroundDark
+    background = if(isSystemInDarkTheme()){
+        backgroundDark
     }else{
-        background = backgroundLight
+        backgroundLight
     }
     var textColor = MaterialTheme.colorScheme.onBackground
 
@@ -111,9 +107,9 @@ fun telaInicialDeLogin() {
                     
                 ){
                     if(exibirLoginForm){
-                        loginForm({ exibirLoginForm = !exibirLoginForm }, context = LocalContext.current)
+                        LoginForm({ exibirLoginForm = !exibirLoginForm }, context = LocalContext.current)
                     }else{
-                        cadastroForm({ exibirLoginForm = !exibirLoginForm }, context = LocalContext.current)
+                        CadastroForm({ exibirLoginForm = !exibirLoginForm }, context = LocalContext.current)
                     }
 
                 }
@@ -124,9 +120,9 @@ fun telaInicialDeLogin() {
 
 @Preview(showBackground = true)
 @Composable
-fun mainPreview(){
+fun MainPreview(){
     FinanceTheme() {
-        telaInicialDeLogin()
+        TelaInicialDeLogin()
     }
 
 }

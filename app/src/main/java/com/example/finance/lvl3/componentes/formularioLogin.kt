@@ -20,7 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -28,16 +27,14 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.finance.lvl1.Login
-import com.example.finance.lvl2.Login.cadastrarComNovaCasa
 import com.example.finance.lvl2.Login.logar
 import com.example.finance.lvl3.abrirDashboard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun loginForm(onCadastroClick: () -> Unit, context: Context) {
+fun LoginForm(onCadastroClick: () -> Unit, context: Context) {
     testeCasaExistente()
 
-    var textColor = MaterialTheme.colorScheme.onBackground
     var email by remember { mutableStateOf("email teste") }
     var senha by remember { mutableStateOf("senha teste") }
 
@@ -124,8 +121,8 @@ fun loginForm(onCadastroClick: () -> Unit, context: Context) {
 
 @Preview
 @Composable
-fun loginFormPreview() {
-    loginForm({ }, context = LocalContext.current)
+fun LoginFormPreview() {
+    LoginForm({ }, context = LocalContext.current)
 }
 
 fun logar(email: String, senha: String, context: Context){

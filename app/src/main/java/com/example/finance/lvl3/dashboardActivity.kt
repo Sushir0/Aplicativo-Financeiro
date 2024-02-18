@@ -27,8 +27,8 @@ import com.example.finance.lvl1.Login
 import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.lvl3.componentes.isPortrait
 import com.example.finance.lvl3.componentes.ListaDeMembros
-import com.example.finance.lvl3.componentes.resumoFinanceiroCardLado
-import com.example.finance.lvl3.componentes.resumoFinanceiroCardPe
+import com.example.finance.lvl3.componentes.ResumoFinanceiroCardHorizontal
+import com.example.finance.lvl3.componentes.ResumoFinanceiroCardVertical
 import com.example.finance.ui.theme.FinanceTheme
 import com.example.finance.ui.theme.backgroundDark
 import com.example.finance.ui.theme.backgroundLight
@@ -43,7 +43,7 @@ class dashboardActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    dashboard()
+                    Dashboard()
                 }
             }
         }
@@ -52,12 +52,12 @@ class dashboardActivity : ComponentActivity() {
 
 
 @Composable
-fun dashboard() {
+fun Dashboard() {
     var background: Color
-    if(isSystemInDarkTheme()){
-        background = backgroundDark
+    background = if(isSystemInDarkTheme()){
+        backgroundDark
     }else{
-        background = backgroundLight
+        backgroundLight
     }
     var textColor = MaterialTheme.colorScheme.onBackground
     val casa = Login.getCasaLogada()
@@ -78,9 +78,9 @@ fun dashboard() {
         }
 
         if(isPortrait()){
-            resumoFinanceiroCardPe(casa = Login.getCasaLogada())
+            ResumoFinanceiroCardVertical(casa = Login.getCasaLogada())
         }else{
-            resumoFinanceiroCardLado(casa = Login.getCasaLogada())
+            ResumoFinanceiroCardHorizontal(casa = Login.getCasaLogada())
         }
         Box(modifier = Modifier
             .fillMaxWidth()){
@@ -103,9 +103,9 @@ fun dashboard() {
 
 @Preview
 @Composable
-fun dashboardPreview() {
+fun DashboardPreview() {
     testeCadastro()
-    dashboard()
+    Dashboard()
     
 }
 

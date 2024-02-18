@@ -38,8 +38,7 @@ import com.example.finance.lvl3.abrirDashboard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun cadastroForm(onCadastroClick: () -> Unit, context: Context) {
-    var textColor = MaterialTheme.colorScheme.onBackground
+fun CadastroForm(onCadastroClick: () -> Unit, context: Context) {
     val paddings = 6.dp
 
     var nome by remember { mutableStateOf("") }
@@ -201,8 +200,8 @@ fun cadastroForm(onCadastroClick: () -> Unit, context: Context) {
 
 @Preview
 @Composable
-fun cadastroFormPreview() {
-    cadastroForm({ }, context = LocalContext.current)
+fun CadastroFormPreview() {
+    CadastroForm({ }, context = LocalContext.current)
 }
 
 
