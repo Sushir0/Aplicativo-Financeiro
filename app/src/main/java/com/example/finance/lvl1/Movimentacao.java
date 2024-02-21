@@ -14,7 +14,7 @@ public class Movimentacao {
         gastoPessoal,
         recebimentoPessoal,
     }
-    private Tipo tipoMovimentacao;
+    private final Tipo tipoMovimentacao;
 
     public Movimentacao(String assunto, Tipo tipoMovimentacao, String data, double valor){
         this.assunto = assunto;
@@ -30,5 +30,9 @@ public class Movimentacao {
         Log.d("mostrar", "data: "+data);
         Log.d("mostrar", "valor: "+valor);
         Log.d("mostrar", "tipo movimentacao: "+tipoMovimentacao);
+    }
+
+    public Boolean isGasto(){
+        return tipoMovimentacao.equals(Tipo.gastoCasa) || tipoMovimentacao.equals(Tipo.gastoPessoal);
     }
 }

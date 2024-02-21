@@ -11,6 +11,8 @@ val backgroundLight = Color(0xFFFFFFFF)
 val contentBackground = Color(0x22105049)
 val contentResumo = Color(0x56218DC7)
 val backgroundLista = Color(0x1A808080)
+val backgroundGasto = Color(0x409B0C0C)
+val backgroundRecebimento = Color(0x400EDA18)
 //Color(0xAB218DC7)
 
 
