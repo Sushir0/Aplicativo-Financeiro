@@ -75,4 +75,12 @@ public class Pessoa {
             recebimento.showMovimentacao();
         }
     }
+
+    public Double getGastosTotais(){
+        double soma = 0;
+        for (Movimentacao gasto : gastos){
+            soma += gasto.valor;
+        }
+        return soma;
+    }
 }

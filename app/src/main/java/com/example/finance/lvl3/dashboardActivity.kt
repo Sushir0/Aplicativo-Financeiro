@@ -26,10 +26,9 @@ import androidx.core.app.ActivityCompat
 import com.example.finance.lvl1.Login
 import com.example.finance.lvl1.Movimentacao
 import com.example.finance.lvl2.Login.testeCadastro
+import com.example.finance.lvl3.componentes.ResumoFinanceiroCardCasa
 import com.example.finance.lvl3.componentes.isPortrait
 import com.example.finance.lvl3.listas.ListaDeMembros
-import com.example.finance.lvl3.componentes.ResumoFinanceiroCardHorizontal
-import com.example.finance.lvl3.componentes.ResumoFinanceiroCardVertical
 import com.example.finance.lvl3.listas.ListaDeMovimentacoes
 import com.example.finance.ui.theme.FinanceTheme
 import com.example.finance.ui.theme.backgroundDark
@@ -68,7 +67,6 @@ fun Dashboard() {
             .fillMaxSize()
             .background(background),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceEvenly
 
     ){
         Box(
@@ -82,18 +80,13 @@ fun Dashboard() {
                 )
         }
 
-        if(isPortrait()){
-            ResumoFinanceiroCardVertical(casa = Login.getCasaLogada())
-        }else{
-            ResumoFinanceiroCardHorizontal(casa = Login.getCasaLogada())
-        }
+        ResumoFinanceiroCardCasa(casa = casa)
         Box(modifier = Modifier
-            .fillMaxWidth()){
+            .padding(vertical = 16.dp)){
             ListaDeMembros(casa = casa)
         }
         Box (modifier = Modifier
-            .weight(6f)
-            .padding(8.dp)){
+            .padding(vertical = 16.dp)){
             ListaDeMovimentacoes(movimentacoes = casa.gastos)
 
         }

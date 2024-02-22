@@ -24,16 +24,92 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.finance.lvl1.Casa
 import com.example.finance.lvl1.Login
+import com.example.finance.lvl1.Pessoa
 import com.example.finance.lvl2.Login.testeCadastro
+import com.example.finance.ui.theme.backgroundGasto
+import com.example.finance.ui.theme.backgroundRecebimento
 import com.example.finance.ui.theme.contentResumo
 
+
 @Composable
-fun ResumoFinanceiroCardVertical(casa: Casa) {
+fun ResumoFinanceiroCardCasa(casa: Casa) {
+    var modoVertical = isPortrait()
+    if(modoVertical){
+        ResumoVertical(
+            gastos = casa.gastosTotais.toString(),
+            recebimentos = casa.gastosTotais.toString(),
+            sobras = casa.gastosTotais.toString()
+        )
+    }else{
+        ResumoHorizontal(
+            gastos = casa.gastosTotais.toString(),
+            recebimentos = casa.gastosTotais.toString(),
+            sobras = casa.gastosTotais.toString()
+        )
+    }
+}
+
+@Composable
+fun ResumoFinanceiroCardResidente(residente: Pessoa) {
+    var modoVertical = isPortrait()
+    if(modoVertical){
+        ResumoVertical(
+            gastos = residente.gastosTotais.toString(),
+            recebimentos = residente.gastosTotais.toString(),
+            sobras = residente.gastosTotais.toString()
+        )
+    }else{
+        ResumoHorizontal(
+            gastos = residente.gastosTotais.toString(),
+            recebimentos = residente.gastosTotais.toString(),
+            sobras = residente.gastosTotais.toString()
+        )
+    }
+}
+
+@Composable
+fun ResumoVertical(gastos: String, recebimentos: String, sobras: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(12.dp)
-            .verticalScroll(rememberScrollState()),
+            .padding(12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Box(modifier = Modifier.weight(1f)){
+                ItemSobrasSimples(sobras = sobras)
+            }
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+
+
+            Box (modifier = Modifier.weight(1f)){
+                ItemRecebimentos(recebimentos = recebimentos)
+            }
+            Box (modifier = Modifier.weight(1f)){
+                ItemGastos(gastos = gastos)
+            }
+        }
+
+    }
+}
+
+@Composable
+fun ResumoHorizontal(gastos: String, recebimentos: String, sobras: String) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
@@ -44,189 +120,106 @@ fun ResumoFinanceiroCardVertical(casa: Casa) {
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
 
-            Card(shape = RoundedCornerShape(12.dp),
-                modifier = Modifier
-                    .height(72.dp)
-                    .weight(1f)
-                    .padding(horizontal = 8.dp)
-
-                ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(contentResumo),
-                    contentAlignment = Alignment.Center
-
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .padding(8.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "Gastos",
-                            style = MaterialTheme.typography.bodyLarge)
-                        Text(
-                            text = casa.gastosTotais.toString(),
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                    }
-                }
+            Box(modifier = Modifier.weight(1f)){
+                ItemRecebimentos(recebimentos = recebimentos)
             }
-            Card(shape = RoundedCornerShape(12.dp),
-                    modifier = Modifier
-                        .height(72.dp)
-                        .weight(1f)
-                        .padding(horizontal = 8.dp)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(contentResumo),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .padding(3.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "Recebimentos",
-                            style = MaterialTheme.typography.bodyLarge)
-                        Text(
-                            text = casa.gastosTotais.toString(),
-                            style = MaterialTheme.typography.bodyMedium)
-                    }
-                }
+            Box(modifier = Modifier.weight(1f)){
+                ItemSobrasSimples(sobras = sobras)
+            }
+            Box(modifier = Modifier.weight(1f)){
+                ItemGastos(gastos = gastos)
             }
         }
-        Row(
+    }
+    
+}
+@Composable
+private fun ItemGastos(gastos: String) {
+    Card(shape = RoundedCornerShape(12.dp),
+        modifier = Modifier
+            .height(72.dp)
+            .padding(horizontal = 8.dp)
+
+    ) {
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
+                .fillMaxSize()
+                .background(backgroundGasto),
+            contentAlignment = Alignment.Center
+
         ) {
-
-            Card(shape = RoundedCornerShape(12.dp),
+            Column(
                 modifier = Modifier
-                    .height(72.dp)
-                    .weight(1f)
-                    .padding(horizontal = 8.dp)
+                    .padding(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(contentResumo),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .padding(8.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "Valor de sobra",
-                            style = MaterialTheme.typography.bodyLarge)
-                        Text(
-                            text = casa.gastosTotais.toString(),
-                            style = MaterialTheme.typography.bodyMedium)
-                    }
-                }
+                Text(
+                    text = "Gastos",
+                    style = MaterialTheme.typography.bodyLarge)
+                Text(
+                    text = gastos,
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
-
         }
     }
 }
+
 @Composable
-fun ResumoFinanceiroCardHorizontal(casa: Casa) {
-    Row(
+private fun ItemRecebimentos(recebimentos: String) {
+    Card(shape = RoundedCornerShape(12.dp),
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        horizontalArrangement = Arrangement.SpaceEvenly
+            .height(72.dp)
+            .padding(horizontal = 8.dp)
     ) {
-
-        Card(shape = RoundedCornerShape(12.dp),
+        Box(
             modifier = Modifier
-                .height(72.dp)
-                .weight(1f)
-                .padding(horizontal = 8.dp)
-
+                .fillMaxSize()
+                .background(backgroundRecebimento),
+            contentAlignment = Alignment.Center
         ) {
-            Box(
+            Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(contentResumo),
-                contentAlignment = Alignment.Center
-
+                    .padding(3.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Column(
-                    modifier = Modifier
-                        .padding(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "Gastos",
-                        style = MaterialTheme.typography.bodyLarge)
-                    Text(
-                        text = casa.gastosTotais.toString(),
-                        style = MaterialTheme.typography.bodyMedium)
-                }
+                Text(
+                    text = "Recebimentos",
+                    style = MaterialTheme.typography.bodyLarge)
+                Text(
+                    text = recebimentos,
+                    style = MaterialTheme.typography.bodyMedium)
             }
         }
-        Card(shape = RoundedCornerShape(12.dp),
-            modifier = Modifier
-                .height(72.dp)
-                .weight(1f)
-                .padding(horizontal = 8.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(contentResumo),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "Recebimentos",
-                        style = MaterialTheme.typography.bodyLarge)
-                    Text(
-                        text = casa.gastosTotais.toString(),
-                        style = MaterialTheme.typography.bodyMedium)
-                }
-            }
-        }
-        Card(shape = RoundedCornerShape(12.dp),
-            modifier = Modifier
-                .height(72.dp)
-                .weight(1f)
-                .padding(horizontal = 8.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(contentResumo),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "Sobra",
-                        style = MaterialTheme.typography.bodyLarge)
-                    Text(
-                        text = casa.gastosTotais.toString(),
-                        style = MaterialTheme.typography.bodyMedium)
-                }
-            }
-        }
+    }
+}
 
+@Composable
+private fun ItemSobrasSimples(sobras: String) {
+    Card(shape = RoundedCornerShape(12.dp),
+        modifier = Modifier
+            .height(72.dp)
+            .padding(horizontal = 8.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(contentResumo),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Valor de sobra",
+                    style = MaterialTheme.typography.bodyLarge)
+                Text(
+                    text = sobras,
+                    style = MaterialTheme.typography.bodyMedium)
+            }
+        }
     }
 }
 
@@ -234,7 +227,11 @@ fun ResumoFinanceiroCardHorizontal(casa: Casa) {
 @Composable
 fun ResumoFinanceiroCardHorizontalPreview() {
     testeCadastro()
-    ResumoFinanceiroCardHorizontal(Login.getCasaLogada())
+    ResumoHorizontal(
+        gastos = Login.getCasaLogada().gastosTotais.toString(),
+        recebimentos = Login.getCasaLogada().gastosTotais.toString(),
+        sobras = Login.getCasaLogada().gastosTotais.toString()
+    )
 
 }
 
@@ -242,8 +239,11 @@ fun ResumoFinanceiroCardHorizontalPreview() {
 @Composable
 fun ResumoFinanceiroCardVerticalPreview() {
     testeCadastro()
-    ResumoFinanceiroCardVertical(casa = Login.getCasaLogada())
-
+    ResumoVertical(
+        gastos = Login.getCasaLogada().gastosTotais.toString(),
+        recebimentos = Login.getCasaLogada().gastosTotais.toString(),
+        sobras = Login.getCasaLogada().gastosTotais.toString()
+    )
 }
 
 @Composable
