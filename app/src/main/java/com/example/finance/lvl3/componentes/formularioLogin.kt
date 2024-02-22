@@ -33,7 +33,6 @@ import com.example.finance.lvl3.abrirDashboard
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginForm(onCadastroClick: () -> Unit, context: Context) {
-    testeCasaExistente()
 
     var email by remember { mutableStateOf("email teste") }
     var senha by remember { mutableStateOf("senha teste") }

@@ -30,6 +30,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.finance.lvl1.Login
+import com.example.finance.lvl1.Movimentacao
+import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.lvl3.componentes.CadastroForm
 import com.example.finance.lvl3.componentes.LoginForm
 import com.example.finance.ui.theme.FinanceTheme
@@ -122,6 +125,10 @@ fun TelaInicialDeLogin() {
 @Composable
 fun MainPreview(){
     FinanceTheme() {
+        testeCadastro()
+        val gasto = Movimentacao("assunto", Movimentacao.Tipo.gastoPessoal, "15/10/2024", 3596.5)
+        Login.getCasaLogada().addGasto(gasto)
+        Login.getCasaLogada().addGasto(gasto)
         TelaInicialDeLogin()
     }
 

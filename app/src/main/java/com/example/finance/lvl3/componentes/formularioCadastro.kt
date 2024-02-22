@@ -225,10 +225,3 @@ fun cadastrarEmCasaExistente(nome: String, email: String, senha: String, idCasa:
     }
 }
 
-fun testeCasaExistente(){
-    var flagFirstCasa = mutableStateOf(true)
-    if(flagFirstCasa.value){
-        cadastrarComNovaCasa("nome teste", "email teste", "senha teste", "nome Casa")
-        flagFirstCasa.value = false
-    }
-}
