@@ -1,5 +1,7 @@
 package com.example.finance.lvl2.validações
 
+import com.example.finance.lvl1.Login.verificarCredenciais
+
 const val tamanhoMinimoNome = 2
 const val tamanhoMaximoNome = 15
 
@@ -39,7 +41,7 @@ fun validarTamanhoString(frase: String, tamanhoMinimo: Int, tamanhoMaximo: Int):
     }else{ return false }
 }
 
-fun validarFormulario(nome: String, email: String, senha: String): List<String>{
+fun validarFormularioCadastro(nome: String, email: String, senha: String): List<String>{
     val erros = mutableListOf<String>()
     if (!verificarNome(nome)) {
         erros.add("Nome inválido.")
@@ -53,7 +55,7 @@ fun validarFormulario(nome: String, email: String, senha: String): List<String>{
     return erros;
 }
 
-fun validarFormulario(email: String, senha: String): List<String>{
+fun validarFormularioLogin(email: String, senha: String): List<String>{
     val erros = mutableListOf<String>()
     if (!verificarEmail(email)) {
         erros.add("E-mail inválido.")
@@ -61,5 +63,9 @@ fun validarFormulario(email: String, senha: String): List<String>{
     if (!verificarSenha(senha)) {
         erros.add("Senha inválida.")
     }
+    if(!verificarCredenciais(email, senha)){
+        erros.add("email ou senha incorretos.")
+    }
+
     return erros;
 }

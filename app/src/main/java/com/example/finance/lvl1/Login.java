@@ -31,7 +31,7 @@ public class Login {
         casaLogada = buscarCasaPorPessoa(usuarioLogado);
         return buscarCasaPorPessoa(loginEncontrado.pessoa);
     }
-    private static boolean verificarCredenciais(String email, String senha){
+    public static boolean verificarCredenciais(String email, String senha){
         for (Login login : listaDeLogins){
             if(login.email.equals(email) && login.senha.equals(senha)){
                 return true;
