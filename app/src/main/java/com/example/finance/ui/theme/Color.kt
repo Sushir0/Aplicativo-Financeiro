@@ -14,6 +14,8 @@ val backgroundLista = Color(0x1A808080)
 val backgroundGasto = Color(0x409B0C0C)
 val backgroundRecebimento = Color(0x400EDA18)
 //Color(0xAB218DC7)
+val primary = Color(0xFF7090BA)
+val secondary = Color(0xFF02acf8)
 
 
 val Purple80 = Color(0xFFD0BCFF)
