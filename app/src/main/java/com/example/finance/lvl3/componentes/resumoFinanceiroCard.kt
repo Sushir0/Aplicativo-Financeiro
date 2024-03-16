@@ -31,6 +31,7 @@ import com.example.finance.lvl1.Login
 import com.example.finance.lvl1.Pessoa
 import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.lvl3.auxiliares.isPortrait
+import com.example.finance.lvl3.auxiliares.valorMonetario
 import com.example.finance.ui.theme.backgroundDark
 import com.example.finance.ui.theme.backgroundGasto
 import com.example.finance.ui.theme.backgroundLight
@@ -231,11 +232,11 @@ private fun ItemSobrasSimples(sobras: String) {
 }
 
 @Composable
-fun NovoResumoFinanceiro() {
+fun NovoResumoFinanceiro(recebimentos: Double, gastos: Double, sobras: Double) {
     Column {
-        ItemOutlined(texto = "Recebimentos", valor = 8888.88) {    }
-        ItemOutlined(texto = "Gastos", valor = 8888.88) {    }
-        ItemSobra(valor = 80.0)
+        ItemOutlined(texto = "Recebimentos", valor = recebimentos) {    }
+        ItemOutlined(texto = "Gastos", valor = gastos) {    }
+        ItemSobra(valor = sobras)
     }
 }
 
@@ -265,7 +266,7 @@ fun ItemSobra(valor: Double){
                     horizontalAlignment = Alignment.CenterHorizontally
                 ){
                     Text(text = "Valor de Sobra", style = MaterialTheme.typography.titleLarge)
-                    Text(text = "R$ "+valor, style = MaterialTheme.typography.titleMedium)
+                    Text(text = valorMonetario(valor), style = MaterialTheme.typography.titleMedium)
 
 
                 }
@@ -294,7 +295,7 @@ fun ItemOutlined(texto:String, valor:Double, onClick:()-> Unit) {
                     verticalAlignment = Alignment.CenterVertically){
                     Column (Modifier.padding(8.dp)){
                         Text(text = texto, style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.onBackground)
-                        Text(text = "R$ "+valor, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onBackground)
+                        Text(text = valorMonetario(valor), style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onBackground)
                     }
                     Text(text = "Ver Mais ->", color = MaterialTheme.colorScheme.onBackground)
                 }
@@ -310,7 +311,7 @@ fun ItemOutlined(texto:String, valor:Double, onClick:()-> Unit) {
 @Composable
 fun NovoResumoPreview() {
     testeCadastro()
-    NovoResumoFinanceiro()
+    NovoResumoFinanceiro(888.88, 888.88, 80.0)
 }
 
 //@Preview

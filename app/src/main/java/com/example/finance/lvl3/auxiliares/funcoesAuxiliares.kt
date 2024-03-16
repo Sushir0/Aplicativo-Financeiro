@@ -9,3 +9,7 @@ fun isPortrait(): Boolean {
     val orientacao = LocalConfiguration.current.orientation
     return orientacao == Configuration.ORIENTATION_PORTRAIT
 }
+
+fun valorMonetario(valor: Double): String {
+    return "R$ "+String.format("%.2f", valor)
+}
