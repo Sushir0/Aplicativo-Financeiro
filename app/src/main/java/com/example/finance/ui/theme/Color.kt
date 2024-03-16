@@ -17,6 +17,8 @@ val backgroundRecebimento = Color(0x400EDA18)
 val primary = Color(0xFF7090BA)
 val secondary = Color(0xFF02acf8)
 
+val corPadrao = Color(0xFFD8289D)
+
 
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)

@@ -14,8 +14,14 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -34,10 +40,10 @@ import com.example.finance.lvl3.componentes.NovoResumoFinanceiro
 import com.example.finance.lvl3.componentes.ResumoFinanceiroCardCasa
 import com.example.finance.lvl3.listas.ListaDeMembros
 import com.example.finance.lvl3.listas.ListaDeMovimentacoes
+import com.example.finance.lvl3.listas.NovaListaDeMembros
 import com.example.finance.ui.theme.FinanceTheme
 import com.example.finance.ui.theme.backgroundDark
 import com.example.finance.ui.theme.backgroundLight
-import com.example.finance.ui.theme.primary
 
 class dashboardActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -115,8 +121,14 @@ fun NewDashboard() {
         Column (modifier = Modifier
             .verticalScroll(rememberScrollState()),
         ){
-            NovoResumoFinanceiro()
-
+            NovoResumoFinanceiro(casa.gastosTotais, casa.gastosTotais,casa.gastosTotais)
+            Box(modifier = Modifier.padding(
+                horizontal = 16.dp,
+                vertical = 16.dp)
+            ) {
+                Divider(color = MaterialTheme.colorScheme.onBackground, thickness = 1.dp)
+            }
+            NovaListaDeMembros(pessoas = casa.moradores)
 
         }
     }
@@ -125,20 +137,38 @@ fun NewDashboard() {
 
 @Composable
 private fun Header(casa: Casa) {
-    Box (
+    var background = if(isSystemInDarkTheme()){Color.Transparent
+    }else{ MaterialTheme.colorScheme.primary }
+    var colorOnBackground = if(isSystemInDarkTheme()){MaterialTheme.colorScheme.onBackground
+    }else{MaterialTheme.colorScheme.onPrimary}
+
+    Row (
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primary),
-        contentAlignment = Alignment.Center
+            .background(background),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
 
     ){
         Text(
             text = casa.nome,
             modifier = Modifier
                 .padding(4.dp),
-            color = MaterialTheme.colorScheme.onBackground,
+            color = colorOnBackground,
             style = MaterialTheme.typography.displaySmall
         )
+        IconButton(
+            onClick = { },
+            modifier = Modifier
+                .padding(8.dp)
+        ) {
+            Icon(
+                Icons.Outlined.Settings,
+                contentDescription = "Configurações",
+                modifier = Modifier.size(32.dp),
+                tint = colorOnBackground
+            )
+        }
     }
 
 

@@ -2,6 +2,8 @@ package com.example.finance.lvl1;
 
 import android.util.Log;
 
+import com.example.finance.R;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -11,6 +13,8 @@ public class Pessoa {
     private Integer id;
     private ArrayList<Movimentacao> gastos = new ArrayList<>();
     private ArrayList<Movimentacao> recebimentos = new ArrayList<>();
+    private int fotoURL = R.drawable.imagem_usuario_padrao;
+    private Long corPerfil = 0xFFD8289DL;
 
     public String getNome() {
         return nome;
@@ -82,5 +86,13 @@ public class Pessoa {
             soma += gasto.valor;
         }
         return soma;
+    }
+
+    public Long getCorPerfil() {
+        return corPerfil;
+    }
+
+    public int getFotoURL() {
+        return fotoURL;
     }
 }
