@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -131,6 +132,7 @@ fun NewDashboard() {
             NovaListaDeMembros(pessoas = casa.moradores)
 
         }
+        ButtonAdicionar()
     }
 
 }
@@ -170,8 +172,27 @@ private fun Header(casa: Casa) {
             )
         }
     }
+}
 
+@Composable
+fun ButtonAdicionar() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        contentAlignment = Alignment.BottomEnd
+    ){
+        IconButton(onClick = { /*TODO*/ }) {
+            Icon(
+                Icons.Outlined.AddCircle,
+                contentDescription = "Adicionar movimentações",
+                modifier = Modifier
+                    .size(48.dp)
+            )
 
+        }
+    }
+    
 }
 
 @Preview
