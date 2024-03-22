@@ -45,6 +45,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FinanceTheme() {
+                testeCadastro()
+                val gasto = Movimentacao("assunto", "15/10/2024", 3596.5)
+                Login.getCasaLogada().addGasto(gasto)
+                Login.getCasaLogada().addGasto(gasto)
                 TelaInicialDeLogin()
             }
         }
@@ -126,7 +130,7 @@ fun TelaInicialDeLogin() {
 fun MainPreview(){
     FinanceTheme() {
         testeCadastro()
-        val gasto = Movimentacao("assunto", Movimentacao.Tipo.gastoPessoal, "15/10/2024", 3596.5)
+        val gasto = Movimentacao("assunto", "15/10/2024", 3596.5)
         Login.getCasaLogada().addGasto(gasto)
         Login.getCasaLogada().addGasto(gasto)
         TelaInicialDeLogin()

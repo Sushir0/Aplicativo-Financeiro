@@ -11,16 +11,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -37,6 +41,9 @@ import com.example.finance.lvl1.Casa
 import com.example.finance.lvl1.Login
 import com.example.finance.lvl1.Movimentacao
 import com.example.finance.lvl2.Login.testeCadastro
+import com.example.finance.lvl3.componentes.ButtonAdicionar
+import com.example.finance.lvl3.componentes.Footer
+import com.example.finance.lvl3.componentes.Header
 import com.example.finance.lvl3.componentes.NovoResumoFinanceiro
 import com.example.finance.lvl3.componentes.ResumoFinanceiroCardCasa
 import com.example.finance.lvl3.listas.ListaDeMembros
@@ -130,76 +137,25 @@ fun NewDashboard() {
                 Divider(color = MaterialTheme.colorScheme.onBackground, thickness = 1.dp)
             }
             NovaListaDeMembros(pessoas = casa.moradores)
-
-        }
-        ButtonAdicionar()
-    }
-
-}
-
-@Composable
-private fun Header(casa: Casa) {
-    var background = if(isSystemInDarkTheme()){Color.Transparent
-    }else{ MaterialTheme.colorScheme.primary }
-    var colorOnBackground = if(isSystemInDarkTheme()){MaterialTheme.colorScheme.onBackground
-    }else{MaterialTheme.colorScheme.onPrimary}
-
-    Row (
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(background),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-
-    ){
-        Text(
-            text = casa.nome,
-            modifier = Modifier
-                .padding(4.dp),
-            color = colorOnBackground,
-            style = MaterialTheme.typography.displaySmall
-        )
-        IconButton(
-            onClick = { },
-            modifier = Modifier
-                .padding(8.dp)
-        ) {
-            Icon(
-                Icons.Outlined.Settings,
-                contentDescription = "Configurações",
-                modifier = Modifier.size(32.dp),
-                tint = colorOnBackground
-            )
-        }
-    }
-}
-
-@Composable
-fun ButtonAdicionar() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        contentAlignment = Alignment.BottomEnd
-    ){
-        IconButton(onClick = { /*TODO*/ }) {
-            Icon(
-                Icons.Outlined.AddCircle,
-                contentDescription = "Adicionar movimentações",
-                modifier = Modifier
-                    .size(48.dp)
-            )
+            Spacer(modifier = Modifier.height(64.dp))
 
         }
     }
-    
+    Footer()
+
 }
+
+
+
+
+
+
 
 @Preview
 @Composable
 fun DashboardPreview() {
     testeCadastro()
-    val gasto = Movimentacao("assunto", Movimentacao.Tipo.gastoPessoal, "15/10/2024", 3596.5)
+    val gasto = Movimentacao("assunto", "15/10/2024", 3596.5)
     Login.getCasaLogada().addGasto(gasto)
     Login.getCasaLogada().addGasto(gasto)
     Login.getCasaLogada().addGasto(gasto)

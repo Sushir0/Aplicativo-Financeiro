@@ -9,7 +9,7 @@ public class Casa {
     public String nome;
     protected Integer id;
     public ArrayList<Pessoa> moradores = new ArrayList<>();
-    public ArrayList<Movimentacao> gastos = new ArrayList<>();
+    public ArrayList<Movimentacao> movimentacoes = new ArrayList<>();
 
     public Casa(String nome){
         this.nome = nome;
@@ -23,16 +23,17 @@ public class Casa {
     }
 
     public boolean addGasto(Movimentacao move){
-        return gastos.add(move);
+        move.setTipo(Movimentacao.Tipo.gastoCasa);
+        return movimentacoes.add(move);
     }
 
-    private void editGasto(Movimentacao gastoOriginal, Movimentacao gastoModificado){
-        Integer index = gastos.indexOf(gastoOriginal);
-        gastos.set(index, gastoModificado);
+    private void editMovimentacao(Movimentacao movimentacaoOriginal, Movimentacao movimentacaoModificada){
+        Integer index = movimentacoes.indexOf(movimentacaoOriginal);
+        movimentacoes.set(index, movimentacaoModificada);
     }
 
-    private boolean excluirGasto(Movimentacao gastoASerExcluidor){
-        return gastos.remove(gastoASerExcluidor);
+    private boolean excluirMovimentacao(Movimentacao movimentacaoASerExcluida){
+        return movimentacoes.remove(movimentacaoASerExcluida);
     }
 
     public void showCasa(){
@@ -49,9 +50,20 @@ public class Casa {
     }
 
     public void showGastos(){
-        for (Movimentacao gasto : gastos){
+        ArrayList<Movimentacao> gastos = getGastos();
+        for (Movimentacao gasto : movimentacoes){
             gasto.showMovimentacao();
         }
+    }
+
+    public ArrayList<Movimentacao> getGastos() {
+        ArrayList<Movimentacao> gastos = new ArrayList<>();
+        for (Movimentacao movimentacao : movimentacoes){
+            if(movimentacao.isGastoCasa()){
+                gastos.add(movimentacao);
+            }
+        }
+        return gastos;
     }
 
     public Integer getId(){
@@ -60,10 +72,13 @@ public class Casa {
 
     public Double getGastosTotais(){
         double soma = 0;
-        for (Movimentacao gasto : gastos){
-            soma += gasto.valor;
+        for (Movimentacao movimentacao : movimentacoes){
+            if(movimentacao.isGastoCasa())
+            soma += movimentacao.valor;
         }
         return soma;
     }
+
+
 
 }

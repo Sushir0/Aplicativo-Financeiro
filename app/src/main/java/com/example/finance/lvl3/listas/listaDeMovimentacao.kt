@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.dp
 import com.example.finance.lvl1.Login
 import com.example.finance.lvl1.Movimentacao
 import com.example.finance.lvl2.Login.testeCadastro
+import com.example.finance.lvl3.auxiliares.isPortrait
 import com.example.finance.lvl3.componentes.BotaoExpandirConteudo
-import com.example.finance.lvl3.componentes.isPortrait
 import com.example.finance.ui.theme.backgroundGasto
 import com.example.finance.ui.theme.backgroundRecebimento
 
@@ -146,7 +146,7 @@ private fun ItemDetalhado(movimentacao: Movimentacao) {
 @Composable
 fun ListaDeGastosPreview() {
     testeCadastro()
-    val gasto = Movimentacao("assunto", Movimentacao.Tipo.gastoPessoal, "15/10/2024", 3596.5)
+    val gasto = Movimentacao("assunto", "15/10/2024", 3596.5)
     Login.getCasaLogada().addGasto(gasto)
     Login.getCasaLogada().addGasto(gasto)
     ListaDeMovimentacoes(

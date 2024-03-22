@@ -14,11 +14,10 @@ public class Movimentacao {
         gastoPessoal,
         recebimentoPessoal,
     }
-    private final Tipo tipoMovimentacao;
+    private Tipo tipoMovimentacao;
 
-    public Movimentacao(String assunto, Tipo tipoMovimentacao, String data, double valor){
+    public Movimentacao(String assunto, String data, double valor){
         this.assunto = assunto;
-        this.tipoMovimentacao = tipoMovimentacao;
         this.data = data;
         this.valor = valor;
         Random random = new Random();
@@ -35,4 +34,18 @@ public class Movimentacao {
     public Boolean isGasto(){
         return tipoMovimentacao.equals(Tipo.gastoCasa) || tipoMovimentacao.equals(Tipo.gastoPessoal);
     }
+
+    public Boolean isGastoPessoal(){
+        return tipoMovimentacao.equals(Tipo.gastoPessoal);
+    }
+
+    public Boolean isGastoCasa(){
+        return tipoMovimentacao.equals(Tipo.gastoCasa);
+    }
+
+    public Boolean isRecebimentoPessoal(){
+        return tipoMovimentacao.equals(Tipo.recebimentoPessoal);
+    }
+
+    public void setTipo(Tipo tipoMovimentacao){ this.tipoMovimentacao = tipoMovimentacao; }
 }
