@@ -1,4 +1,4 @@
-package com.example.finance.lvl3
+package com.example.finance.lvl3.telas
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -33,8 +33,8 @@ import androidx.compose.ui.unit.dp
 import com.example.finance.lvl1.Login
 import com.example.finance.lvl1.Movimentacao
 import com.example.finance.lvl2.Login.testeCadastro
-import com.example.finance.lvl3.componentes.CadastroForm
-import com.example.finance.lvl3.componentes.LoginForm
+import com.example.finance.lvl3.componentes.formularios.CadastroForm
+import com.example.finance.lvl3.componentes.formularios.LoginForm
 import com.example.finance.ui.theme.FinanceTheme
 import com.example.finance.ui.theme.backgroundDark
 import com.example.finance.ui.theme.backgroundLight

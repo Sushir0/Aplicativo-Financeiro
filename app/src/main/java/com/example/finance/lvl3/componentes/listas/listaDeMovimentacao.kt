@@ -1,4 +1,4 @@
-package com.example.finance.lvl3.listas
+package com.example.finance.lvl3.componentes.listas
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.dp
 import com.example.finance.lvl1.Login
 import com.example.finance.lvl1.Movimentacao
 import com.example.finance.lvl2.Login.testeCadastro
-import com.example.finance.lvl3.auxiliares.isPortrait
-import com.example.finance.lvl3.componentes.BotaoExpandirConteudo
+import com.example.finance.lvl3.utils.isPortrait
+import com.example.finance.lvl3.widgets.BotaoExpandirConteudo
 import com.example.finance.ui.theme.backgroundGasto
 import com.example.finance.ui.theme.backgroundRecebimento
 

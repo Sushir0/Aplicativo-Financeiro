@@ -1,4 +1,4 @@
-package com.example.finance.lvl3.listas
+package com.example.finance.lvl3.componentes.listas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,7 +28,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,8 +36,8 @@ import com.example.finance.lvl1.Casa
 import com.example.finance.lvl1.Login
 import com.example.finance.lvl1.Pessoa
 import com.example.finance.lvl2.Login.testeCadastro
-import com.example.finance.lvl3.auxiliares.isPortrait
-import com.example.finance.lvl3.componentes.BotaoExpandirConteudo
+import com.example.finance.lvl3.utils.isPortrait
+import com.example.finance.lvl3.widgets.BotaoExpandirConteudo
 
 @Composable
 fun ListaDeMembros(casa: Casa) {
@@ -132,6 +131,7 @@ fun NovaListaDeMembros(pessoas: List<Pessoa>) {
                 NovoItemLista(pessoa = pessoa)
             }
         }*/
+
         Row(modifier = Modifier.horizontalScroll(rememberScrollState())){
             pessoas.forEach(){ pessoa ->
                 NovoItemLista(pessoa = pessoa)
@@ -149,7 +149,7 @@ private fun NovoItemLista(pessoa: Pessoa) {
     ){
         Box(
             modifier = Modifier
-                .background(Color(pessoa.corPerfil))
+                .background(Color(pessoa.perfil.corPerfil))
         ){
             Row (
                 modifier = Modifier.
@@ -158,7 +158,7 @@ private fun NovoItemLista(pessoa: Pessoa) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ){
                 Image(
-                    painter = painterResource(id = pessoa.fotoURL)
+                    painter = painterResource(id = pessoa.perfil.fotoURL)
                     , contentDescription = "Foto de "+pessoa.nome,
                     modifier = Modifier.size(96.dp))
                     Text(

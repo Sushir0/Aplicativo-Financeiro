@@ -1,4 +1,4 @@
-package com.example.finance.lvl3.componentes
+package com.example.finance.lvl3.componentes.formularios
 
 import android.content.Context
 import androidx.compose.foundation.layout.Column
@@ -28,7 +28,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.finance.lvl1.Login
 import com.example.finance.lvl2.Login.logar
-import com.example.finance.lvl3.abrirDashboard
+import com.example.finance.lvl3.telas.abrirDashboard
+import com.example.finance.lvl3.utils.avisoDeErros
+import com.example.finance.lvl3.utils.avisoLongo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -105,7 +107,7 @@ fun LoginForm(onCadastroClick: () -> Unit, context: Context) {
 
 
         Button(
-            onClick = {logar(email, senha, context)},
+            onClick = { logar(email, senha, context) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),

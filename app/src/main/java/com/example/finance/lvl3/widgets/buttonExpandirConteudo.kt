@@ -1,4 +1,4 @@
-package com.example.finance.lvl3.componentes
+package com.example.finance.lvl3.widgets
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding

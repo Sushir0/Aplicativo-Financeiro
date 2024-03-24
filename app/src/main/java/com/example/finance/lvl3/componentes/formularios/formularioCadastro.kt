@@ -1,4 +1,4 @@
-package com.example.finance.lvl3.componentes
+package com.example.finance.lvl3.componentes.formularios
 
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
@@ -33,7 +33,9 @@ import com.example.finance.lvl1.Login
 import com.example.finance.lvl2.Login.cadastrarComCasaExistente
 import com.example.finance.lvl2.Login.cadastrarComNovaCasa
 import com.example.finance.lvl2.Login.testeCadastro
-import com.example.finance.lvl3.abrirDashboard
+import com.example.finance.lvl3.telas.abrirDashboard
+import com.example.finance.lvl3.utils.avisoDeErros
+import com.example.finance.lvl3.utils.avisoLongo
 
 
 @OptIn(ExperimentalMaterial3Api::class)

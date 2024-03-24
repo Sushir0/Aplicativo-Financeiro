@@ -1,4 +1,4 @@
-package com.example.finance.lvl3.auxiliares
+package com.example.finance.lvl3.utils
 
 import android.content.res.Configuration
 import androidx.compose.runtime.Composable
