@@ -12,7 +12,7 @@ public class Pessoa {
     private String nome;
     private Integer id;
     private ArrayList<Movimentacao> movimentacoes = new ArrayList<>();
-    private Perfil perfil;
+    private Perfil perfil = new Perfil();
 
     public String getNome() {
         return nome;
