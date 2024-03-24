@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.finance.lvl1.Data
 import com.example.finance.lvl1.Login
 import com.example.finance.lvl1.Movimentacao
 import com.example.finance.lvl2.Login.testeCadastro
@@ -128,7 +129,7 @@ private fun ItemDetalhado(movimentacao: Movimentacao) {
                     modifier = Modifier.padding(4.dp)
                 )
                 Text(
-                    text = movimentacao.data,
+                    text = movimentacao.data.getDataString(),
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(2.dp)
                 )
@@ -146,7 +147,7 @@ private fun ItemDetalhado(movimentacao: Movimentacao) {
 @Composable
 fun ListaDeGastosPreview() {
     testeCadastro()
-    val gasto = Movimentacao("assunto", "15/10/2024", 3596.5)
+    val gasto = Movimentacao("assunto", Data(15,10,2024), 3596.5)
     Login.getCasaLogada().addGasto(gasto)
     Login.getCasaLogada().addGasto(gasto)
     ListaDeMovimentacoes(

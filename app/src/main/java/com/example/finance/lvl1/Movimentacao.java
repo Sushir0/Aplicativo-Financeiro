@@ -8,7 +8,7 @@ public class Movimentacao {
     public String assunto;
     private Integer id;
     public double valor;
-    public String data;
+    public Data data;
     public enum Tipo{
         gastoCasa,
         gastoPessoal,
@@ -16,7 +16,7 @@ public class Movimentacao {
     }
     private Tipo tipoMovimentacao;
 
-    public Movimentacao(String assunto, String data, double valor){
+    public Movimentacao(String assunto, Data data, double valor){
         this.assunto = assunto;
         this.data = data;
         this.valor = valor;
