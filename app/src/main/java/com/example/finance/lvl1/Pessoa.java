@@ -12,8 +12,7 @@ public class Pessoa {
     private String nome;
     private Integer id;
     private ArrayList<Movimentacao> movimentacoes = new ArrayList<>();
-    private int fotoURL = R.drawable.imagem_usuario_padrao;
-    private Long corPerfil = 0xFFD8289DL;
+    private Perfil perfil;
 
     public String getNome() {
         return nome;
@@ -81,11 +80,7 @@ public class Pessoa {
         return soma;
     }
 
-    public Long getCorPerfil() {
-        return corPerfil;
-    }
+    public Perfil getPerfil(){ return perfil; }
 
-    public int getFotoURL() {
-        return fotoURL;
-    }
+
 }
