@@ -73,8 +73,9 @@ public class Casa {
     public Double getGastosTotais(){
         double soma = 0;
         for (Movimentacao movimentacao : movimentacoes){
-            if(movimentacao.isGastoCasa())
-            soma += movimentacao.valor;
+            if(movimentacao.isGastoCasa()) {
+                soma += movimentacao.valor;
+            }
         }
         return soma;
     }
