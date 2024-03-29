@@ -144,14 +144,21 @@ fun NewDashboard() {
 @Composable
 fun DashboardPreview() {
     testeCadastro()
-    val gasto = Movimentacao("assunto", Data(15,10,2024), 3596.5)
+    for(i in 1..10){
+        val gasto = Movimentacao("assunto", Data(i*2,i,i+2000), 3596.5)
+        Login.getCasaLogada().addGasto(gasto)
+    }
+    val gasto = Movimentacao("assunto", Data(5, 7 ,2003), 3596.5)
     Login.getCasaLogada().addGasto(gasto)
-    Login.getCasaLogada().addGasto(gasto)
-    Login.getCasaLogada().addGasto(gasto)
-    Login.getCasaLogada().addGasto(gasto)
-    Login.getCasaLogada().addGasto(gasto)
-    Login.getCasaLogada().addGasto(gasto)
-    NewDashboard()
+    FinanceTheme {
+        // A surface container using the 'background' color from the theme
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            NewDashboard()
+        }
+    }
 
     
 }
