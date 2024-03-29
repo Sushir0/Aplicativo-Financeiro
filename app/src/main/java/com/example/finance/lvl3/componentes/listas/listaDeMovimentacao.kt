@@ -129,7 +129,7 @@ private fun ItemDetalhado(movimentacao: Movimentacao) {
                     modifier = Modifier.padding(4.dp)
                 )
                 Text(
-                    text = movimentacao.data.getDataString(),
+                    text = movimentacao.data.toString(),
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(2.dp)
                 )
