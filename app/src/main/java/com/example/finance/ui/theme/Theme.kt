@@ -67,7 +67,7 @@ fun FinanceTheme(
             if (darkTheme){
                 window.statusBarColor = backgroundDark.toArgb()
             }else{
-                window.statusBarColor = LightColorScheme.primary.toArgb()
+                window.statusBarColor = colorScheme.primary.toArgb()
             }
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
