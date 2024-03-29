@@ -228,16 +228,16 @@ private fun ItemSobrasSimples(sobras: String) {
 }
 
 @Composable
-fun NovoResumoFinanceiro(recebimentos: Double, gastos: Double, sobras: Double) {
+fun NovoResumoFinanceiro(recebimentos: Double, gastos: Double, saldo: Double) {
     Column {
         ItemOutlined(texto = "Recebimentos", valor = recebimentos) {    }
         ItemOutlined(texto = "Gastos", valor = gastos) {    }
-        ItemSobra(valor = sobras)
+        ItemSaldo(valor = saldo)
     }
 }
 
 @Composable
-fun ItemSobra(valor: Double){
+fun ItemSaldo(valor: Double){
     var background = if(valor>=0){
         backgroundRecebimento
     }else{
@@ -261,7 +261,7 @@ fun ItemSobra(valor: Double){
                         .padding(horizontal = 40.dp, vertical = 8.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ){
-                    Text(text = "Valor de Sobra", style = MaterialTheme.typography.titleLarge)
+                    Text(text = "Saldo", style = MaterialTheme.typography.titleLarge)
                     Text(text = valorMonetario(valor), style = MaterialTheme.typography.titleMedium)
 
 
