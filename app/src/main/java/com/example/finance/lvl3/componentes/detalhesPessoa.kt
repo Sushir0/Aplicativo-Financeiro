@@ -20,7 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.finance.lvl1.Login
 import com.example.finance.lvl1.Pessoa
 import com.example.finance.lvl2.Login.testeCadastro
-import com.example.finance.lvl3.Dashboard
 import com.example.finance.ui.theme.FinanceTheme
 import com.example.finance.ui.theme.backgroundDark
 import com.example.finance.ui.theme.backgroundLight

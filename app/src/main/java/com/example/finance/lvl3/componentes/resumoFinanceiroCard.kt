@@ -1,6 +1,5 @@
 package com.example.finance.lvl3.componentes
 
-import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -11,9 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
@@ -23,15 +20,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.finance.lvl1.Casa
 import com.example.finance.lvl1.Login
 import com.example.finance.lvl1.Pessoa
 import com.example.finance.lvl2.Login.testeCadastro
-import com.example.finance.lvl3.auxiliares.isPortrait
-import com.example.finance.lvl3.auxiliares.valorMonetario
+import com.example.finance.lvl3.utils.isPortrait
+import com.example.finance.lvl3.utils.valorMonetario
 import com.example.finance.ui.theme.backgroundDark
 import com.example.finance.ui.theme.backgroundGasto
 import com.example.finance.ui.theme.backgroundLight
