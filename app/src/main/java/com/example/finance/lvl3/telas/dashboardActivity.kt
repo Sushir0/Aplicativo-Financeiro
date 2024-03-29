@@ -6,9 +6,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,6 +32,9 @@ import androidx.core.app.ActivityCompat
 import com.example.finance.lvl1.Data
 import com.example.finance.lvl1.Login
 import com.example.finance.lvl1.Movimentacao
+import com.example.finance.lvl1.getDatasDeMovimentacoes
+import com.example.finance.lvl1.getDatasUtilizadas
+import com.example.finance.lvl1.ordenarDatas
 import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.lvl3.layouts.Footer
 import com.example.finance.lvl3.layouts.Header
@@ -130,7 +135,7 @@ fun NewDashboard() {
 
         }
     }
-    Footer()
+    Footer(getDatasUtilizadas(casa.movimentacoes))
 
 }
 
