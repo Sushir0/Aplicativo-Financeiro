@@ -13,3 +13,12 @@ fun isPortrait(): Boolean {
 fun valorMonetario(valor: Double): String {
     return "R$ "+String.format("%.2f", valor)
 }
+
+fun contemExclamacao(texto: String): Boolean {
+    val textoSemExclamacao = texto.replace("!", "")
+    return texto != textoSemExclamacao
+}
+
+fun retirarExclamacao(texto: String): String {
+    return texto.replace("!", "")
+}
