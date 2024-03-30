@@ -1,5 +1,10 @@
 package com.example.finance.lvl1
 
+import androidx.compose.material3.DatePickerState
+import androidx.compose.material3.ExperimentalMaterial3Api
+import java.util.Calendar
+import java.util.Date
+
 class Data (val dia : Int, val mes : Int, val ano : Int){
 
     override fun toString() : String{
@@ -100,3 +105,17 @@ fun getMesAbreviados(mes : Int) : String{
         else -> throw IllegalArgumentException("Mês inválido: $mes")
     }
 }
+
+
+fun converterDataMillisParaData(dataMillis : Long, datePicker : Boolean = false): Data {
+    val calendar = Calendar.getInstance().apply { timeInMillis = dataMillis }
+    val dia = if(datePicker) {
+        calendar.get(Calendar.DAY_OF_MONTH) + 1
+    } else{
+        calendar.get(Calendar.DAY_OF_MONTH)
+    }
+    val mes = calendar.get(Calendar.MONTH) + 1 // Adiciona 1 ao mês
+    val ano = calendar.get(Calendar.YEAR)
+    return Data(dia, mes, ano)
+}
+
