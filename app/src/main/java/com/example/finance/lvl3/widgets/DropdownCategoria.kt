@@ -36,12 +36,6 @@ fun DropdownCategoria(
     modifier: Modifier = Modifier
 ) {
     var expandedMenu = remember { mutableStateOf<Boolean>(expandedInicial) }
-    var background: Color
-    background = if(isSystemInDarkTheme()){
-        backgroundDark
-    }else{
-        backgroundLight
-    }
     var textoBotao = if(categoriaSelecionada.value == null){
         "Selecione uma categoria."
     }else{
@@ -49,7 +43,7 @@ fun DropdownCategoria(
     }
 
 
-    Column(modifier = modifier.background(background)) {
+    Column(modifier = modifier) {
         OutlinedButton(
             modifier = modifier,
             shape = RoundedCornerShape(4.dp),
@@ -57,8 +51,8 @@ fun DropdownCategoria(
         ) {
             Text(
                 text = textoBotao,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onBackground)
+                style = MaterialTheme.typography.titleSmall,
+                )
 
         }
         DropdownMenu(
