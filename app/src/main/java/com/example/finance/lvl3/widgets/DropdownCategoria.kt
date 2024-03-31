@@ -3,6 +3,7 @@ package com.example.finance.lvl3.widgets
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenu
@@ -31,7 +32,7 @@ import com.example.finance.ui.theme.backgroundLight
 fun DropdownCategoria(
     expanded : MutableState<Boolean>,
     categorias: List<Categoria>,
-    categoriaSelecionada : MutableState<Categoria>,
+    categoriaSelecionada : MutableState<Categoria?>,
     modifier: Modifier
 ) {
     var background: Color
@@ -40,6 +41,11 @@ fun DropdownCategoria(
     }else{
         backgroundLight
     }
+    var textoBotao = if(categoriaSelecionada.value == null){
+        "Selecione uma categoria."
+    }else{
+        categoriaSelecionada.value!!.nome
+    }
     Column(modifier = modifier.background(background)) {
         OutlinedButton(
             modifier = modifier,
@@ -47,7 +53,7 @@ fun DropdownCategoria(
             onClick = { expanded.value = true },
         ) {
             Text(
-                text = categoriaSelecionada.value.nome,
+                text = textoBotao,
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onBackground)
 
@@ -75,7 +81,7 @@ fun DropdownCategoria(
 private fun DropdownItem(
     categoria : Categoria,
     expanded: MutableState<Boolean>,
-    categoriaSelecionada: MutableState<Categoria>,
+    categoriaSelecionada: MutableState<Categoria?>,
     modifier: Modifier
 ) {
     DropdownMenuItem(
@@ -98,7 +104,7 @@ private fun DropdownCategoriaPrev() {
     FinanceTheme {
         gerarCategoriasBasicas()
         var expandedMenu = remember { mutableStateOf<Boolean>(true) }
-        var categoriaSelecionada = remember{ mutableStateOf(categorias[0]) }
+        var categoriaSelecionada = remember { mutableStateOf<Categoria?>(null) }
         DropdownCategoria(
             expanded = expandedMenu,
             categorias = categorias,
