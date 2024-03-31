@@ -10,6 +10,7 @@ public class Casa {
     protected Integer id;
     public ArrayList<Pessoa> moradores = new ArrayList<>();
     public ArrayList<Movimentacao> movimentacoes = new ArrayList<>();
+    private Perfil perfil = new Perfil(true);
 
     public Casa(String nome){
         this.nome = nome;
@@ -82,5 +83,7 @@ public class Casa {
     }
 
 
-
+    public Perfil getPerfil() {
+        return perfil;
+    }
 }
