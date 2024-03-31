@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -52,21 +53,28 @@ fun DropdownMembro(
         membroSelecionado.value!!.perfil.fotoURL
     }
 
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier,
+    ) {
         OutlinedButton(
             modifier = modifier,
             shape = RoundedCornerShape(4.dp),
             onClick = { expandedMenu.value = true },
         ) {
-            Image(
-                painter = painterResource(id = imageDoBotao)
-                , contentDescription = textoBotao,
-                modifier = Modifier.size(24.dp))
-            Text(
-                modifier = Modifier.padding(start = 6.dp),
-                text = textoBotao,
-                style = MaterialTheme.typography.titleSmall,
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                Image(
+                    painter = painterResource(id = imageDoBotao)
+                    , contentDescription = textoBotao,
+                    modifier = Modifier.size(24.dp))
+                Text(
+                    modifier = Modifier.padding(start = 6.dp),
+                    text = textoBotao,
+                    style = MaterialTheme.typography.titleSmall,
+                )
+            }
         }
         DropdownMenu(
             expanded = expandedMenu.value,
@@ -167,7 +175,6 @@ private fun DropdownMembroPrev() {
             membros = Login.getCasaLogada().moradores,
             membroSelecionado = membroSelecionado,
             modifier = Modifier.width(150.dp)
-
         )
     }
 }
