@@ -9,12 +9,7 @@ public class Movimentacao {
     private Integer id;
     public double valor;
     public Data data;
-    public enum Tipo{
-        gastoCasa,
-        gastoPessoal,
-        recebimentoPessoal,
-    }
-    private Tipo tipoMovimentacao;
+    public Categoria categoria;
 
     public Movimentacao(String assunto, Data data, double valor){
         this.assunto = assunto;
@@ -28,24 +23,16 @@ public class Movimentacao {
         Log.d("mostrar", "ID: "+id);
         Log.d("mostrar", "data: "+data);
         Log.d("mostrar", "valor: "+valor);
-        Log.d("mostrar", "tipo movimentacao: "+tipoMovimentacao);
     }
 
     public Boolean isGasto(){
-        return tipoMovimentacao.equals(Tipo.gastoCasa) || tipoMovimentacao.equals(Tipo.gastoPessoal);
+        return categoria.isGasto();
     }
 
-    public Boolean isGastoPessoal(){
-        return tipoMovimentacao.equals(Tipo.gastoPessoal);
-    }
 
-    public Boolean isGastoCasa(){
-        return tipoMovimentacao.equals(Tipo.gastoCasa);
-    }
 
-    public Boolean isRecebimentoPessoal(){
-        return tipoMovimentacao.equals(Tipo.recebimentoPessoal);
-    }
 
-    public void setTipo(Tipo tipoMovimentacao){ this.tipoMovimentacao = tipoMovimentacao; }
+
+
+    public void setCategoria(Categoria categoria){ this.categoria = categoria; }
 }
