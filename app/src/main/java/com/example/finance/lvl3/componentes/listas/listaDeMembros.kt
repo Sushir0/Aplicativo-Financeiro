@@ -149,7 +149,7 @@ private fun NovoItemLista(pessoa: Pessoa) {
     ){
         Box(
             modifier = Modifier
-                .background(Color(pessoa.perfil.corPerfil))
+                .background(pessoa.perfil.corPerfil)
         ){
             Row (
                 modifier = Modifier.
