@@ -22,9 +22,10 @@ public class Casa {
         return moradores.add(morador);
     }
 
-    public boolean addGasto(Movimentacao move){
-        move.setTipo(Movimentacao.Tipo.gastoCasa);
+    public boolean addGasto(Movimentacao move, Categoria categoria){
+        move.setCategoria(categoria);
         return movimentacoes.add(move);
+
     }
 
     private void editMovimentacao(Movimentacao movimentacaoOriginal, Movimentacao movimentacaoModificada){
@@ -59,7 +60,7 @@ public class Casa {
     public ArrayList<Movimentacao> getGastos() {
         ArrayList<Movimentacao> gastos = new ArrayList<>();
         for (Movimentacao movimentacao : movimentacoes){
-            if(movimentacao.isGastoCasa()){
+            if(movimentacao.categoria.isGasto()){
                 gastos.add(movimentacao);
             }
         }
@@ -73,7 +74,7 @@ public class Casa {
     public Double getGastosTotais(){
         double soma = 0;
         for (Movimentacao movimentacao : movimentacoes){
-            if(movimentacao.isGastoCasa()) {
+            if(movimentacao.isGasto()) {
                 soma += movimentacao.valor;
             }
         }

@@ -21,7 +21,7 @@ public class Pessoa {
     public ArrayList<Movimentacao> getGastos() {
         ArrayList<Movimentacao> gastos = new ArrayList<>();
         for (Movimentacao movimentacao : movimentacoes){
-            if(movimentacao.isGastoPessoal()){
+            if(movimentacao.isGasto()){
                 gastos.add(movimentacao);
             }
         }
@@ -32,7 +32,7 @@ public class Pessoa {
     public ArrayList<Movimentacao> getRecebimentos() {
         ArrayList<Movimentacao> recebimentos = new ArrayList<>();
         for(Movimentacao movimentacao : movimentacoes){
-            if (movimentacao.isRecebimentoPessoal()){
+            if (!movimentacao.isGasto()){
                 recebimentos.add(movimentacao);
             }
         }
