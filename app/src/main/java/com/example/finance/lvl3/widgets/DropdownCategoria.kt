@@ -26,6 +26,7 @@ import com.example.finance.ui.theme.backgroundDark
 import com.example.finance.ui.theme.backgroundLight
 
 
+
 @Composable
 fun DropdownCategoria(
     expanded : MutableState<Boolean>,
