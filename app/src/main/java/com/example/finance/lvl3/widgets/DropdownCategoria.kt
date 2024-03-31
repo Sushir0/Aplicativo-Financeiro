@@ -30,11 +30,12 @@ import com.example.finance.ui.theme.backgroundLight
 
 @Composable
 fun DropdownCategoria(
-    expanded : MutableState<Boolean>,
+    expandedInicial : Boolean = false,
     categorias: List<Categoria>,
     categoriaSelecionada : MutableState<Categoria?>,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
+    var expandedMenu = remember { mutableStateOf<Boolean>(expandedInicial) }
     var background: Color
     background = if(isSystemInDarkTheme()){
         backgroundDark
@@ -46,11 +47,13 @@ fun DropdownCategoria(
     }else{
         categoriaSelecionada.value!!.nome
     }
+
+
     Column(modifier = modifier.background(background)) {
         OutlinedButton(
             modifier = modifier,
             shape = RoundedCornerShape(4.dp),
-            onClick = { expanded.value = true },
+            onClick = { expandedMenu.value = true },
         ) {
             Text(
                 text = textoBotao,
@@ -59,15 +62,15 @@ fun DropdownCategoria(
 
         }
         DropdownMenu(
-            expanded = expanded.value,
+            expanded = expandedMenu.value,
             onDismissRequest = {
-                expanded.value = false
+                expandedMenu.value = false
             }
         ) {
             categorias.forEach { categoria ->
                 DropdownItem(
                     categoria = categoria,
-                    expanded = expanded,
+                    expanded = expandedMenu,
                     categoriaSelecionada = categoriaSelecionada,
                     modifier = modifier
                 )
@@ -103,13 +106,10 @@ private fun DropdownItem(
 private fun DropdownCategoriaPrev() {
     FinanceTheme {
         gerarCategoriasBasicas()
-        var expandedMenu = remember { mutableStateOf<Boolean>(true) }
         var categoriaSelecionada = remember { mutableStateOf<Categoria?>(null) }
         DropdownCategoria(
-            expanded = expandedMenu,
             categorias = categorias,
             categoriaSelecionada = categoriaSelecionada,
-            modifier = Modifier.width(200.dp)
         )
     }
 }
