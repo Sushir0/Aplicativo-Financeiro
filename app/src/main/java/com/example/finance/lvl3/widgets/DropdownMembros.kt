@@ -2,7 +2,9 @@ package com.example.finance.lvl3.widgets
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -44,6 +46,11 @@ fun DropdownMembro(
     }else{
         membroSelecionado.value!!.nome
     }
+    var imageDoBotao = if (isCasaSelected.value){
+        Login.getCasaLogada().perfil.fotoURL
+    }else{
+        membroSelecionado.value!!.perfil.fotoURL
+    }
 
     Column(modifier = modifier) {
         OutlinedButton(
@@ -51,7 +58,12 @@ fun DropdownMembro(
             shape = RoundedCornerShape(4.dp),
             onClick = { expandedMenu.value = true },
         ) {
+            Image(
+                painter = painterResource(id = imageDoBotao)
+                , contentDescription = textoBotao,
+                modifier = Modifier.size(24.dp))
             Text(
+                modifier = Modifier.padding(start = 6.dp),
                 text = textoBotao,
                 style = MaterialTheme.typography.titleSmall,
             )
