@@ -26,13 +26,13 @@ import com.example.finance.lvl3.utils.retirarExclamacao
 import com.example.finance.lvl3.widgets.ButtonAdicionar
 
 @Composable
-fun Footer(datasUtilizadas : List<String>) {
+fun Footer(datasUtilizadas : List<String>, openBottomSheetClick:  () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize(),
         verticalArrangement = Arrangement.Bottom
     ) {
-        ButtonAdicionar()
+        ButtonAdicionar(openBottomSheetClick)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -81,6 +81,6 @@ private fun Item(texto : String) {
 fun FooterPrev() {
     var lista = mutableListOf<String>()
     lista.add("Ano atual")
-    Footer(lista)
+    Footer(lista, {  })
 
 }
