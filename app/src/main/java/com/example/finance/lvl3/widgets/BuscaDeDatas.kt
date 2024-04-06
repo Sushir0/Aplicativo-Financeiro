@@ -1,5 +1,6 @@
 package com.example.finance.lvl3.widgets
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
@@ -38,7 +39,8 @@ fun BuscaDeDatas(
     ) {
         Text(
             text = textButton,
-            style = MaterialTheme.typography.titleSmall
+            style = MaterialTheme.typography.titleSmall,
+            modifier = Modifier.padding(8.dp)
         )
     }
     if (showDialog) {
