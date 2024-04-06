@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenu
@@ -45,7 +47,7 @@ fun DropdownCategoria(
 
     Column(modifier = modifier) {
         OutlinedButton(
-            modifier = modifier,
+            modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(4.dp),
             onClick = { expandedMenu.value = true },
         ) {
@@ -59,14 +61,15 @@ fun DropdownCategoria(
             expanded = expandedMenu.value,
             onDismissRequest = {
                 expandedMenu.value = false
-            }
+            },
+            modifier = modifier
+
         ) {
             categorias.forEach { categoria ->
                 DropdownItem(
                     categoria = categoria,
                     expanded = expandedMenu,
-                    categoriaSelecionada = categoriaSelecionada,
-                    modifier = modifier
+                    categoriaSelecionada = categoriaSelecionada
                 )
             }
         }
@@ -78,8 +81,7 @@ fun DropdownCategoria(
 private fun DropdownItem(
     categoria : Categoria,
     expanded: MutableState<Boolean>,
-    categoriaSelecionada: MutableState<Categoria?>,
-    modifier: Modifier
+    categoriaSelecionada: MutableState<Categoria?>
 ) {
     DropdownMenuItem(
         text = { Text(
@@ -90,7 +92,6 @@ private fun DropdownItem(
             categoriaSelecionada.value = categoria
             expanded.value = false
         },
-        modifier = modifier,
     )
 }
 
