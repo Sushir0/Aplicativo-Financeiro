@@ -36,6 +36,7 @@ import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.lvl3.telas.abrirDashboard
 import com.example.finance.lvl3.utils.avisoDeErros
 import com.example.finance.lvl3.utils.avisoLongo
+import com.example.finance.ui.theme.FinanceTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -203,7 +204,10 @@ fun CadastroForm(onCadastroClick: () -> Unit, context: Context) {
 @Preview
 @Composable
 fun CadastroFormPreview() {
-    CadastroForm({ }, context = LocalContext.current)
+    FinanceTheme {
+        CadastroForm({ }, context = LocalContext.current)
+    }
+
 }
 
 
