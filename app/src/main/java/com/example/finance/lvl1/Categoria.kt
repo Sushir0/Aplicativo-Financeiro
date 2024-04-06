@@ -15,6 +15,15 @@ class Categoria (
 var categorias = mutableListOf<Categoria>()
 
 
+fun getCategorias(
+    afetaCasa : Boolean = false,
+    afetaPessoa: Boolean = false,
+):List<Categoria>{
+    return categorias.filter {
+        (it.afetaPessoa && afetaPessoa) || (it.afetaCasa && afetaCasa)
+    }
+}
+
 fun gerarCategoriasBasicas(){
     categorias.add( Categoria(
         nome = "Contas da casa",
