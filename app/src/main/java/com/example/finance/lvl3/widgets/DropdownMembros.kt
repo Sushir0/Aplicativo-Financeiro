@@ -62,7 +62,7 @@ fun DropdownMembro(
             onClick = { expandedMenu.value = true },
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(8.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Image(
@@ -80,7 +80,8 @@ fun DropdownMembro(
             expanded = expandedMenu.value,
             onDismissRequest = {
                 expandedMenu.value = false
-            }
+            },
+            modifier = modifier.fillMaxWidth(.95f)
         ) {
             DropdownItemCasa(
                 casa = Login.getCasaLogada(),
@@ -174,7 +175,7 @@ private fun DropdownMembroPrev() {
             expandedInicial = false,
             membros = Login.getCasaLogada().moradores,
             membroSelecionado = membroSelecionado,
-            modifier = Modifier.width(150.dp)
+
         )
     }
 }
