@@ -47,6 +47,7 @@ fun BuscaDeDatas(
         BuscaDeDatasDialog(
             onConfirm = { dataSelecionada ->
                 data = dataSelecionada
+                onConfirm(dataSelecionada)
             },
             onDismiss = { showDialog = false },
         )
@@ -71,7 +72,12 @@ fun BuscaDeDatasDialog(
             Button(onClick = {
 
                 val selectedDateMillis = dateState.selectedDateMillis ?: System.currentTimeMillis()
-                val dataSelecionada = converterDataMillisParaData(selectedDateMillis, datePicker = dateState.selectedDateMillis != null)
+
+                val dataSelecionada = converterDataMillisParaData(
+                    selectedDateMillis,
+                    datePicker = (dateState.selectedDateMillis != null ||
+                            dateState.selectedDateMillis?.let { converterDataMillisParaData(dataMillis = it).dia } == 1))
+
 
                 onConfirm(dataSelecionada)
 

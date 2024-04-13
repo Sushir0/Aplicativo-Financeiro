@@ -109,10 +109,13 @@ fun getMesAbreviados(mes : Int) : String{
 
 fun converterDataMillisParaData(dataMillis : Long, datePicker : Boolean = false): Data {
     val calendar = Calendar.getInstance().apply { timeInMillis = dataMillis }
-    val dia = if(datePicker) {
-        calendar.get(Calendar.DAY_OF_MONTH) + 1
+    var dia : Int
+
+    if(datePicker) {
+        calendar.add(Calendar.DAY_OF_MONTH, 1)
+        dia = calendar.get(Calendar.DAY_OF_MONTH)
     } else{
-        calendar.get(Calendar.DAY_OF_MONTH)
+        dia = calendar.get(Calendar.DAY_OF_MONTH)
     }
     val mes = calendar.get(Calendar.MONTH) + 1 // Adiciona 1 ao mês
     val ano = calendar.get(Calendar.YEAR)
