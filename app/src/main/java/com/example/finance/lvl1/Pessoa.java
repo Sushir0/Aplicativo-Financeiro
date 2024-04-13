@@ -47,6 +47,10 @@ public class Pessoa {
         casa.addMorador(this);
     }
 
+    public boolean addMovimentacao(Movimentacao movimentacao){
+        return movimentacoes.add(movimentacao);
+    }
+
 
 
 
