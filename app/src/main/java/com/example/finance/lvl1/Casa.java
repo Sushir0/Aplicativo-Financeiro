@@ -23,9 +23,9 @@ public class Casa {
         return moradores.add(morador);
     }
 
-    public boolean addGasto(Movimentacao move, Categoria categoria){
-        move.setCategoria(categoria);
-        return movimentacoes.add(move);
+    public boolean addMovimentacao(Movimentacao movimentacao){
+
+        return movimentacoes.add(movimentacao);
 
     }
 
