@@ -2,11 +2,11 @@ package com.example.finance.lvl2.Login
 
 import com.example.finance.lvl1.Casa
 import com.example.finance.lvl1.Login
-import com.example.finance.lvl2.validações.validarFormularioCadastro
+import com.example.finance.lvl2.validações.validarFormularioCadastroLogin
 import com.example.finance.lvl2.validações.verificarNome
 
 fun cadastrarComCasaExistente(nome : String, email : String, senha : String, idCasa: Int): List<String>{
-    val erros = validarFormularioCadastro(nome, email, senha)
+    val erros = validarFormularioCadastroLogin(nome, email, senha)
 
     if (erros.isEmpty()) {
         Login.Cadastro(nome, email, senha, idCasa)
@@ -17,7 +17,7 @@ fun cadastrarComCasaExistente(nome : String, email : String, senha : String, idC
 
 fun cadastrarComNovaCasa(nome: String, email: String, senha: String, nomeCasa: String): List<String>{
     val erros = mutableListOf<String>()
-        erros.addAll(validarFormularioCadastro(nome, email, senha))
+        erros.addAll(validarFormularioCadastroLogin(nome, email, senha))
     if(!verificarNome(nomeCasa)){erros.add("Nome da casa inválido.")}
 
     if (erros.isEmpty()) {
