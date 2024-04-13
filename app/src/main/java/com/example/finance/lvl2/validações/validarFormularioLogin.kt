@@ -34,14 +34,7 @@ fun verificarSenha(senha: String): Boolean{
     return true
 }
 
-
-fun validarTamanhoString(frase: String, tamanhoMinimo: Int, tamanhoMaximo: Int): Boolean{
-    if(frase.length> tamanhoMaximo && frase.length<tamanhoMinimo){
-        return true
-    }else{ return false }
-}
-
-fun validarFormularioCadastro(nome: String, email: String, senha: String): List<String>{
+fun validarFormularioCadastroLogin(nome: String, email: String, senha: String): List<String>{
     val erros = mutableListOf<String>()
     if (!verificarNome(nome)) {
         erros.add("Nome inválido.")
