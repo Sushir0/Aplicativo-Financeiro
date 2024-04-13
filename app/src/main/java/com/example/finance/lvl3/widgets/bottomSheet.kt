@@ -26,7 +26,7 @@ fun BottomSheet(isSheetOpen: Boolean, onDismiss : ()-> Unit){
             sheetState = rememberModalBottomSheetState(),
             onDismissRequest = onDismiss
         ) {
-            FormularioMovimentacao()
+            FormularioMovimentacao(onDismiss)
         }
     }
 
