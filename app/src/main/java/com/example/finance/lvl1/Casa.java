@@ -82,6 +82,20 @@ public class Casa {
         return soma;
     }
 
+    public Double getRecebimentosTotais(){
+        double soma = 0;
+        for (Movimentacao movimentacao : movimentacoes){
+            if (!movimentacao.isGasto()){
+                soma += movimentacao.valor;
+            }
+        }
+        return soma;
+    }
+
+    public Double getSaldo(){
+        return getRecebimentosTotais() - getGastosTotais();
+    }
+
 
     public Perfil getPerfil() {
         return perfil;
