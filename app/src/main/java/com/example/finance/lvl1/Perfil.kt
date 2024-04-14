@@ -17,13 +17,13 @@ class Perfil (isCasa : Boolean = false){
 
 object GeradorDeCor {
     private val cores = listOf(
-        Color.Red,
-        Color.Green,
-        Color.Blue,
-        Color.Cyan,
-        Color.Magenta,
-        Color.Yellow,
-        Color.Gray
+        Color.Red.copy(alpha = 0.5f),
+        Color.Green.copy(alpha = 0.5f),
+        Color.Blue.copy(alpha = 0.5f),
+        Color.Cyan.copy(alpha = 0.5f),
+        Color.Magenta.copy(alpha = 0.5f),
+        Color.Yellow.copy(alpha = 0.5f),
+        Color.Gray.copy(alpha = 0.5f)
     )
     fun obterCor(): Color {
         return cores.random()
