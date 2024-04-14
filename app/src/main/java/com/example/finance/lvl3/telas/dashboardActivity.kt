@@ -75,46 +75,6 @@ class dashboardActivity : ComponentActivity() {
 
 }
 
-
-@Composable
-fun Dashboard() {
-    var background: Color
-    background = if(isSystemInDarkTheme()){
-        backgroundDark
-    }else{
-        backgroundLight
-    }
-    var textColor = MaterialTheme.colorScheme.onBackground
-    val casa = Login.getCasaLogada()
-    Column (
-        modifier = Modifier
-            .fillMaxSize()
-            .background(background),
-        horizontalAlignment = Alignment.CenterHorizontally,
-
-    ){
-        Text(
-            text = casa.nome,
-            color = textColor,
-            style = MaterialTheme.typography.displaySmall
-            )
-
-
-        ResumoFinanceiroCardCasa(casa = casa)
-        Box(modifier = Modifier
-            .padding(vertical = 16.dp)){
-            ListaDeMembros(casa = casa)
-        }
-        Box (modifier = Modifier
-            .padding(vertical = 16.dp)){
-            ListaDeMovimentacoes(movimentacoes = casa.gastos)
-        }
-
-    }
-
-
-}
-
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NewDashboard() {
