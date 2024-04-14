@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.example.finance.lvl1.Casa
 
 @Composable
-fun Header(casa: Casa) {
+fun Header(nome : String) {
     var background = if(isSystemInDarkTheme()){
         Color.Transparent
     }else{ MaterialTheme.colorScheme.primary }
@@ -39,7 +39,7 @@ fun Header(casa: Casa) {
 
     ){
         Text(
-            text = casa.nome,
+            text = nome,
             modifier = Modifier
                 .padding(4.dp),
             color = colorOnBackground,

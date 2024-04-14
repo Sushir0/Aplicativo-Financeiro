@@ -19,7 +19,7 @@ class Movimentacao (var assunto: String, var  data: Data, var  valor: Double, va
         return categoria!!.isGasto
     }
 
-    fun isOnPeriodo(mes: Int?, ano: Int): Boolean {
+    fun isOnPeriodo(mes: Int? = null, ano: Int): Boolean {
         return if (mes == null) {
             ano == data!!.ano
         } else {

@@ -24,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import com.example.finance.lvl1.Data
 import com.example.finance.lvl1.Login
 import com.example.finance.lvl1.Movimentacao
+import com.example.finance.lvl1.gerarCategoriasBasicas
+import com.example.finance.lvl1.getCategorias
 import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.lvl3.utils.isPortrait
 import com.example.finance.lvl3.widgets.BotaoExpandirConteudo
@@ -68,7 +70,7 @@ fun ListaDeMovimentacoes(movimentacoes : List<Movimentacao>) {
 
 @Composable
 private fun ItemSimples(movimentacao: Movimentacao) {
-    val corDoCard = if(movimentacao.isGasto){
+    val corDoCard = if(movimentacao.isGasto()){
         backgroundGasto
     }else{
         backgroundRecebimento
@@ -103,7 +105,7 @@ private fun ItemSimples(movimentacao: Movimentacao) {
 
 @Composable
 private fun ItemDetalhado(movimentacao: Movimentacao) {
-    val corDoCard = if(movimentacao.isGasto){
+    val corDoCard = if(movimentacao.isGasto()){
         backgroundGasto
     }else{
         backgroundRecebimento
@@ -147,11 +149,12 @@ private fun ItemDetalhado(movimentacao: Movimentacao) {
 @Composable
 fun ListaDeGastosPreview() {
     testeCadastro()
-    val gasto = Movimentacao("assunto", Data(15,10,2024), 3596.5)
-    Login.getCasaLogada().addGasto(gasto)
-    Login.getCasaLogada().addGasto(gasto)
+    gerarCategoriasBasicas()
+    val categoria1 = getCategorias().get(0)
+    val gasto = Movimentacao("assunto", Data(15,10,2024), 3596.5, categoria1)
+
     ListaDeMovimentacoes(
-        movimentacoes = Login.getCasaLogada().gastos
+        movimentacoes = Login.getCasaLogada().getGastos(ano = 2024)
     )
 }
 

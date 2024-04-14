@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.finance.lvl1.Casa
 import com.example.finance.lvl1.Login
+import com.example.finance.lvl1.MovimentacaoHolder
 import com.example.finance.lvl1.Pessoa
 import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.ui.theme.FinanceTheme
@@ -35,23 +36,11 @@ import com.example.finance.ui.theme.FinanceTheme
 @Composable
 fun DropdownMembro(
     expandedInicial : Boolean = false,
-    membros : List<Pessoa>,
+    membros : List<MovimentacaoHolder>,
     modifier : Modifier = Modifier,
-    membroSelecionado : MutableState<Pessoa?>,
-    isCasaSelected : MutableState<Boolean> = remember{ mutableStateOf(true) }
+    membroSelecionado : MutableState<MovimentacaoHolder>,
 ) {
-
     var expandedMenu = remember { mutableStateOf<Boolean>(expandedInicial) }
-    var textoBotao = if(isCasaSelected.value){
-        Login.getCasaLogada().nome
-    }else{
-        membroSelecionado.value!!.nome
-    }
-    var imageDoBotao = if (isCasaSelected.value){
-        Login.getCasaLogada().perfil.fotoURL
-    }else{
-        membroSelecionado.value!!.perfil.fotoURL
-    }
 
     Column(
         modifier = modifier,
@@ -66,12 +55,12 @@ fun DropdownMembro(
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Image(
-                    painter = painterResource(id = imageDoBotao)
-                    , contentDescription = textoBotao,
+                    painter = painterResource(id = membroSelecionado.value.perfil.fotoURL)
+                    , contentDescription = membroSelecionado.value.nome,
                     modifier = Modifier.size(24.dp))
                 Text(
                     modifier = Modifier.padding(start = 6.dp),
-                    text = textoBotao,
+                    text = membroSelecionado.value.nome,
                     style = MaterialTheme.typography.titleSmall,
                 )
             }
@@ -83,20 +72,12 @@ fun DropdownMembro(
             },
             modifier = modifier.fillMaxWidth(.95f)
         ) {
-            DropdownItemCasa(
-                casa = Login.getCasaLogada(),
-                expanded = expandedMenu,
-                membroSelecionado = membroSelecionado,
-                modifier = modifier,
-                isCasaSelected = isCasaSelected
-            )
             membros.forEach { membro ->
                 DropdownItemPessoa(
                     membro = membro,
                     expanded = expandedMenu,
                     membroSelecionado = membroSelecionado,
-                    modifier = modifier,
-                    isCasaSelected = isCasaSelected
+                    modifier = modifier
                 )
             }
         }
@@ -106,11 +87,10 @@ fun DropdownMembro(
 
 @Composable
 private fun DropdownItemPessoa(
-    membro : Pessoa,
+    membro : MovimentacaoHolder,
     expanded: MutableState<Boolean>,
-    membroSelecionado: MutableState<Pessoa?>,
+    membroSelecionado: MutableState<MovimentacaoHolder>,
     modifier: Modifier,
-    isCasaSelected: MutableState<Boolean>
 ) {
     Divider(
         color = MaterialTheme.colorScheme.onBackground,
@@ -124,7 +104,6 @@ private fun DropdownItemPessoa(
         ) },
         onClick = {
             membroSelecionado.value = membro
-            isCasaSelected.value = false
             expanded.value = false
         },
         modifier = modifier.background(membro.perfil.corPerfil),
@@ -137,43 +116,20 @@ private fun DropdownItemPessoa(
     )
 }
 
-@Composable
-private fun DropdownItemCasa(
-    casa : Casa,
-    expanded: MutableState<Boolean>,
-    membroSelecionado: MutableState<Pessoa?>,
-    modifier: Modifier,
-    isCasaSelected: MutableState<Boolean>
-) {
-    DropdownMenuItem(
-        text = { Text(
-            text = casa.nome,
-            style = MaterialTheme.typography.titleSmall,
-        ) },
-        onClick = {
-            membroSelecionado.value = null
-            isCasaSelected.value = true
-            expanded.value = false
-        },
-        modifier = modifier.background(casa.perfil.corPerfil),
-        leadingIcon = {
-            Image(
-                painter = painterResource(id = casa.perfil.fotoURL)
-                , contentDescription = "Foto de "+casa.nome,
-                modifier = Modifier.size(24.dp))
-        }
-    )
-}
+
 
 @Preview
 @Composable
 private fun DropdownMembroPrev() {
     FinanceTheme {
         testeCadastro()
-        var membroSelecionado = remember { mutableStateOf<Pessoa?>(null) }
+        val membros = ArrayList<MovimentacaoHolder>()
+        membros.add(Login.getCasaLogada())
+        membros.addAll(Login.getCasaLogada().moradores)
+        var membroSelecionado = remember { mutableStateOf<MovimentacaoHolder>(Login.getCasaLogada()) }
         DropdownMembro(
             expandedInicial = false,
-            membros = Login.getCasaLogada().moradores,
+            membros = membros,
             membroSelecionado = membroSelecionado,
 
         )

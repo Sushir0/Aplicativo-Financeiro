@@ -7,11 +7,16 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.finance.lvl1.Login
+import com.example.finance.lvl1.MovimentacaoHolder
+import com.example.finance.lvl1.Pessoa
 import com.example.finance.lvl1.gerarCategoriasBasicas
 import com.example.finance.lvl2.Login.testeCadastro
 
@@ -19,14 +24,17 @@ import com.example.finance.lvl2.Login.testeCadastro
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomSheet(isSheetOpen: Boolean, onDismiss : ()-> Unit){
+fun BottomSheet(isSheetOpen: Boolean, onDismiss : ()-> Unit, membroSelecionado : MutableState<MovimentacaoHolder>){
 
     if(isSheetOpen){
         ModalBottomSheet(
             sheetState = rememberModalBottomSheetState(),
             onDismissRequest = onDismiss
         ) {
-            FormularioMovimentacao(onDismiss)
+            FormularioMovimentacao(
+                onDismiss,
+                membroSelecionado = membroSelecionado
+            )
         }
     }
 
@@ -41,6 +49,12 @@ private fun BottomSheetPrev() {
     }
     gerarCategoriasBasicas()
     testeCadastro()
-    BottomSheet(isSheetOpen) { isSheetOpen = false }
+    BottomSheet(
+        isSheetOpen,
+        membroSelecionado = remember {
+            mutableStateOf<MovimentacaoHolder>(Login.getCasaLogada())
+        },
+        onDismiss = { isSheetOpen = false }
+    )
 }
 

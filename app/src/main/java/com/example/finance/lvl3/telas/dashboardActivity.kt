@@ -8,11 +8,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -36,19 +34,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
-import com.example.finance.lvl1.Data
 import com.example.finance.lvl1.Login
-import com.example.finance.lvl1.Movimentacao
+import com.example.finance.lvl1.MovimentacaoHolder
 import com.example.finance.lvl1.gerarCategoriasBasicas
-import com.example.finance.lvl1.getDatasDeMovimentacoes
 import com.example.finance.lvl1.getDatasUtilizadas
-import com.example.finance.lvl1.ordenarDatas
+import com.example.finance.lvl2.Getters.getMembros
 import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.lvl3.layouts.Footer
 import com.example.finance.lvl3.layouts.Header
 import com.example.finance.lvl3.componentes.NovoResumoFinanceiro
-import com.example.finance.lvl3.componentes.ResumoFinanceiroCardCasa
-import com.example.finance.lvl3.componentes.listas.ListaDeMembros
 import com.example.finance.lvl3.componentes.listas.ListaDeMovimentacoes
 import com.example.finance.lvl3.componentes.listas.NovaListaDeMembros
 import com.example.finance.lvl3.widgets.BottomSheet
@@ -78,28 +72,34 @@ class dashboardActivity : ComponentActivity() {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NewDashboard() {
+    val membroSelecionado = remember {
+        mutableStateOf<MovimentacaoHolder>(Login.getCasaLogada())
+    }
+
+
     var isSheetOpen by rememberSaveable { mutableStateOf(false) }
+
     var background: Color
     background = if(isSystemInDarkTheme()){
         backgroundDark
     }else{
         backgroundLight
     }
-    val casa = Login.getCasaLogada()
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .background(background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Header(casa = casa)
+        Header(membroSelecionado.value.nome)
         Column (modifier = Modifier
             .verticalScroll(rememberScrollState()),
         ){
             NovoResumoFinanceiro(
-                casa.recebimentosTotais,
-                casa.gastosTotais,
-                casa.saldo
+                recebimentos = membroSelecionado.value.recebimentos,
+                gastos = membroSelecionado.value.gastos,
+                saldo = membroSelecionado.value.saldo
             )
             Box(modifier = Modifier.padding(
                 horizontal = 16.dp,
@@ -107,8 +107,8 @@ fun NewDashboard() {
             ) {
                 Divider(color = MaterialTheme.colorScheme.onBackground, thickness = 1.dp)
             }
-            NovaListaDeMembros(pessoas = casa.moradores)
-            ListaDeMovimentacoes(movimentacoes = casa.movimentacoes)
+            NovaListaDeMembros(membros = getMembros(), membroSelecionado)
+            ListaDeMovimentacoes(movimentacoes = membroSelecionado.value.movimentacoes)
 
 
             Spacer(modifier = Modifier.height(64.dp))
@@ -116,10 +116,14 @@ fun NewDashboard() {
 
     }
     Footer(
-        getDatasUtilizadas(casa.movimentacoes),
+        getDatasUtilizadas(membroSelecionado.value.movimentacoes),
         openBottomSheetClick = { isSheetOpen = true }
         )
-    BottomSheet(isSheetOpen = isSheetOpen) { isSheetOpen = false }
+    BottomSheet(
+        isSheetOpen = isSheetOpen,
+        onDismiss = { isSheetOpen = false },
+        membroSelecionado = membroSelecionado
+    )
 
 }
 
