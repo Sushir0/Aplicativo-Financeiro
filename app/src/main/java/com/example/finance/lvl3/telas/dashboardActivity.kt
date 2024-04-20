@@ -21,7 +21,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,9 +36,12 @@ import androidx.core.app.ActivityCompat
 import com.example.finance.lvl1.Login
 import com.example.finance.lvl1.MovimentacaoHolder
 import com.example.finance.lvl1.gerarCategoriasBasicas
-import com.example.finance.lvl1.getDatasUtilizadas
+import com.example.finance.lvl1.getPeriodosFromMovimentacoes
+import com.example.finance.lvl1.getPeriodoFromNome
+import com.example.finance.lvl1.getUltimoPeriodoUtilizado
 import com.example.finance.lvl2.Getters.getMembros
 import com.example.finance.lvl2.Login.testeCadastro
+import com.example.finance.lvl2.Movimentacao.testeAdicionarMovimentacao
 import com.example.finance.lvl3.layouts.Footer
 import com.example.finance.lvl3.layouts.Header
 import com.example.finance.lvl3.componentes.NovoResumoFinanceiro
@@ -76,6 +78,18 @@ fun NewDashboard() {
         mutableStateOf<MovimentacaoHolder>(Login.getCasaLogada())
     }
 
+    val periodoSelecionado = remember{
+        mutableStateOf(
+            getUltimoPeriodoUtilizado(
+                getPeriodosFromMovimentacoes(
+                    membroSelecionado.value.movimentacoes
+                )
+            )
+        )
+    }
+    var periodosUtilizados by remember {
+        mutableStateOf(getPeriodosFromMovimentacoes(membroSelecionado.value.movimentacoes))
+    }
 
     var isSheetOpen by rememberSaveable { mutableStateOf(false) }
 
@@ -84,6 +98,11 @@ fun NewDashboard() {
         backgroundDark
     }else{
         backgroundLight
+    }
+
+    fun atualizar() {
+        periodosUtilizados = getPeriodosFromMovimentacoes(membroSelecionado.value.movimentacoes)
+        periodoSelecionado.value = getPeriodoFromNome(periodoSelecionado.value.nome, periodosUtilizados) ?: getUltimoPeriodoUtilizado(periodosUtilizados)
     }
 
     Column(
@@ -97,9 +116,9 @@ fun NewDashboard() {
             .verticalScroll(rememberScrollState()),
         ){
             NovoResumoFinanceiro(
-                recebimentos = membroSelecionado.value.recebimentos,
-                gastos = membroSelecionado.value.gastos,
-                saldo = membroSelecionado.value.saldo
+                recebimentos = membroSelecionado.value.getRecebimentosTotais(periodoSelecionado.value),
+                gastos = membroSelecionado.value.getGastosTotais(periodoSelecionado.value),
+                saldo = membroSelecionado.value.getSaldo(periodoSelecionado.value)
             )
             Box(modifier = Modifier.padding(
                 horizontal = 16.dp,
@@ -107,26 +126,33 @@ fun NewDashboard() {
             ) {
                 Divider(color = MaterialTheme.colorScheme.onBackground, thickness = 1.dp)
             }
-            NovaListaDeMembros(membros = getMembros(), membroSelecionado)
+            NovaListaDeMembros(
+                membros = getMembros(),
+                membroSelecionado,
+                onClick = { atualizar() }
+            )
             ListaDeMovimentacoes(movimentacoes = membroSelecionado.value.movimentacoes)
 
 
             Spacer(modifier = Modifier.height(64.dp))
         }
-
     }
     Footer(
-        getDatasUtilizadas(membroSelecionado.value.movimentacoes),
+        periodosUtilizados = periodosUtilizados,
+        periodoSelecionado = periodoSelecionado,
         openBottomSheetClick = { isSheetOpen = true }
         )
     BottomSheet(
         isSheetOpen = isSheetOpen,
         onDismiss = { isSheetOpen = false },
-        membroSelecionado = membroSelecionado
+        membroSelecionado = membroSelecionado,
+        onConfirmFormulario = {
+            atualizar()
+
+        }
     )
 
 }
-
 
 
 
@@ -139,6 +165,9 @@ fun NewDashboard() {
 fun DashboardPreview() {
     testeCadastro()
     gerarCategoriasBasicas()
+    testeAdicionarMovimentacao(Login.getCasaLogada())
+
+
 
     FinanceTheme {
         // A surface container using the 'background' color from the theme
