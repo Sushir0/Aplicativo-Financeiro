@@ -32,8 +32,7 @@ import com.example.finance.lvl1.gerarCategoriasBasicas
 import com.example.finance.lvl1.getCategorias
 import com.example.finance.lvl2.Getters.getMembros
 import com.example.finance.lvl2.Login.testeCadastro
-import com.example.finance.lvl2.Movimentacao.adicionarMovimentacaoCasa
-import com.example.finance.lvl2.Movimentacao.adicionarMovimentacaoPessoa
+import com.example.finance.lvl2.Movimentacao.adicionarMovimentacao
 import com.example.finance.lvl3.utils.avisoDeErros
 import com.example.finance.lvl3.widgets.BuscaDeDatas
 import com.example.finance.lvl3.widgets.DropdownCategoria
@@ -192,23 +191,14 @@ private fun adicionar(
     onDismiss: () -> Unit,
     context: Context
 ){
-    val erros = if(membroSelecionado.isCasa){
-         adicionarMovimentacaoCasa(
+    val erros = adicionarMovimentacao(
              assunto = assunto,
              valorStr = valor,
              data = data,
              categoria = categoria,
-             casa = Login.getCasaLogada()
+             movimentacaoHolder = membroSelecionado
          )
-    }else{
-        adicionarMovimentacaoPessoa(
-            assunto = assunto,
-            valorStr = valor,
-            data = data,
-            categoria = categoria,
-            pessoa = membroSelecionado as Pessoa
-        )
-    }
+
 
     if(erros.isEmpty()){
         onDismiss()

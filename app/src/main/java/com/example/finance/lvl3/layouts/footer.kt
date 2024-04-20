@@ -30,7 +30,7 @@ import com.example.finance.lvl1.Periodo
 import com.example.finance.lvl1.getPeriodoFromDatasUtilizadas
 import com.example.finance.lvl1.getUltimoPeriodoUtilizado
 import com.example.finance.lvl2.Login.testeCadastro
-import com.example.finance.lvl2.Movimentacao.adicionarMovimentacaoCasa
+import com.example.finance.lvl2.Movimentacao.adicionarMovimentacao
 import com.example.finance.lvl3.componentes.listas.ListaDePeriodos
 import com.example.finance.lvl3.utils.retirarExclamacao
 import com.example.finance.lvl3.widgets.ButtonAdicionar
@@ -61,18 +61,18 @@ fun FooterPrev() {
     val periodos = remember{ getPeriodoFromDatasUtilizadas(Login.getCasaLogada().movimentacoes) }
     val periodoSelecionado = remember{ mutableStateOf( getUltimoPeriodoUtilizado(periodos) )}
 
-    adicionarMovimentacaoCasa(
+    adicionarMovimentacao(
         assunto = "teste",
         valorStr = "10.00",
         data = Data(10,5,2020),
-        casa = Login.getCasaLogada(),
+        movimentacaoHolder = Login.getCasaLogada(),
         categoria = null
     )
-    adicionarMovimentacaoCasa(
+    adicionarMovimentacao(
         assunto = "teste",
         valorStr = "10.00",
         data = Data(10,6,2021),
-        casa = Login.getCasaLogada(),
+        movimentacaoHolder = Login.getCasaLogada(),
         categoria = null
     )
     Footer(
