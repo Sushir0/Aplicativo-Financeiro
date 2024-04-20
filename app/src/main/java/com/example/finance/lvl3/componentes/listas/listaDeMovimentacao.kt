@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.example.finance.lvl1.Data
 import com.example.finance.lvl1.Login
 import com.example.finance.lvl1.Movimentacao
+import com.example.finance.lvl1.Periodo
 import com.example.finance.lvl1.gerarCategoriasBasicas
 import com.example.finance.lvl1.getCategorias
 import com.example.finance.lvl2.Login.testeCadastro
@@ -154,7 +155,7 @@ fun ListaDeGastosPreview() {
     val gasto = Movimentacao("assunto", Data(15,10,2024), 3596.5, categoria1)
 
     ListaDeMovimentacoes(
-        movimentacoes = Login.getCasaLogada().getGastos(ano = 2024)
+        movimentacoes = Login.getCasaLogada().getGastos(Periodo( ano = 2024))
     )
 }
 

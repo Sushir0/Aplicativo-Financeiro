@@ -1,9 +1,6 @@
 package com.example.finance.lvl1
 
-import androidx.compose.material3.DatePickerState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import java.util.Calendar
-import java.util.Date
 
 class Data (val dia : Int, val mes : Int, val ano : Int){
 
@@ -22,32 +19,13 @@ class Data (val dia : Int, val mes : Int, val ano : Int){
     }
 }
 
-fun getDatasUtilizadas(movimentacoes: List<Movimentacao>) : MutableList<String>{
-    var datas = getDatasDeMovimentacoes(movimentacoes)
-    ordenarDatas(datas, false)
-
-    var anosUtilizados = getAnosUtilizados(datas).toList()
-    var datasUtilizadas = mutableListOf<String>()
-
-    anosUtilizados.forEach(){ano ->
-
-        /* Exclamação serve como uma flag para saber se é um ano
-    ou um mês, para poder aplicar ao tipografia correta*/
-        datasUtilizadas.add("!"+ano.toString())
-
-        getMesesUtilizados(datas, ano).forEach(){mes ->
-            datasUtilizadas.add(formataMeseUtilizado(mes, ano))
-        }
-    }
-    return datasUtilizadas
-}
 
 
 fun getDatasDeMovimentacoes(movimentacoes: List<Movimentacao>): MutableList<Data>{
     var datas = mutableListOf<Data>()
-    movimentacoes.forEach({
+    movimentacoes.forEach {
         datas.add(it.data)
-    })
+    }
     return datas
 }
 fun ordenarDatas(datas: MutableList<Data>, ordemCrescente: Boolean = true){
@@ -122,3 +100,10 @@ fun converterDataMillisParaData(dataMillis : Long, datePicker : Boolean = false)
     return Data(dia, mes, ano)
 }
 
+fun main() {
+    val movimentacoes = ArrayList<Movimentacao>()
+    movimentacoes.add(gerarMovimentacaoTeste())
+    movimentacoes.add(gerarMovimentacaoTeste())
+
+    print( getPeriodoFromDatasUtilizadas(movimentacoes).toString())
+}

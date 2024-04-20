@@ -24,7 +24,12 @@ import com.example.finance.lvl2.Login.testeCadastro
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomSheet(isSheetOpen: Boolean, onDismiss : ()-> Unit, membroSelecionado : MutableState<MovimentacaoHolder>){
+fun BottomSheet(
+    isSheetOpen: Boolean,
+    onDismiss : ()-> Unit,
+    membroSelecionado : MutableState<MovimentacaoHolder>,
+    onConfirmFormulario: ()->Unit = {  }
+){
 
     if(isSheetOpen){
         ModalBottomSheet(
@@ -33,7 +38,8 @@ fun BottomSheet(isSheetOpen: Boolean, onDismiss : ()-> Unit, membroSelecionado :
         ) {
             FormularioMovimentacao(
                 onDismiss,
-                membroSelecionado = membroSelecionado
+                membroSelecionado = membroSelecionado,
+                onConfirm = onConfirmFormulario
             )
         }
     }

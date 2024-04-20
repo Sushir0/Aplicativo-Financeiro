@@ -19,11 +19,19 @@ class Movimentacao (var assunto: String, var  data: Data, var  valor: Double, va
         return categoria!!.isGasto
     }
 
-    fun isOnPeriodo(mes: Int? = null, ano: Int): Boolean {
-        return if (mes == null) {
-            ano == data!!.ano
-        } else {
-            ano == data!!.ano && mes == data!!.mes
-        }
+    fun isOnPeriodo(periodo: Periodo): Boolean {
+        return periodo.isOnPeriodo(this.data)
     }
+    override fun toString(): String {
+        return "Movimentacao(id=$id, assunto='$assunto', data=$data, valor=$valor, categoria=$categoria)"
+    }
+}
+
+fun gerarMovimentacaoTeste(): Movimentacao {
+    return Movimentacao(
+        assunto = "assunto",
+        data = Data(10,5,15),
+        valor = 10.0,
+        categoria = gerarCategoriaTeste()
+    )
 }

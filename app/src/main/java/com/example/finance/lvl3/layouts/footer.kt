@@ -17,70 +17,69 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.finance.lvl3.utils.contemExclamacao
+import com.example.finance.lvl1.Data
+import com.example.finance.lvl1.Login
+import com.example.finance.lvl1.Periodo
+import com.example.finance.lvl1.getPeriodoFromDatasUtilizadas
+import com.example.finance.lvl1.getUltimoPeriodoUtilizado
+import com.example.finance.lvl2.Login.testeCadastro
+import com.example.finance.lvl2.Movimentacao.adicionarMovimentacaoCasa
+import com.example.finance.lvl3.componentes.listas.ListaDePeriodos
 import com.example.finance.lvl3.utils.retirarExclamacao
 import com.example.finance.lvl3.widgets.ButtonAdicionar
 
 @Composable
-fun Footer(datasUtilizadas : List<String>, openBottomSheetClick:  () -> Unit) {
+fun Footer(
+    periodosUtilizados : List<Periodo>,
+    openBottomSheetClick:  () -> Unit,
+    periodoSelecionado: MutableState<Periodo>
+    ) {
     Column(
         modifier = Modifier
             .fillMaxSize(),
         verticalArrangement = Arrangement.Bottom
     ) {
         ButtonAdicionar(openBottomSheetClick)
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(64.dp)
-                .horizontalScroll(rememberScrollState()),
-            horizontalArrangement = Arrangement.Start
-        ) {
-            datasUtilizadas.forEach({ Item(it) })
-        }
-    }
-}
-
-@Composable
-private fun Item(texto : String) {
-    /* Exclamação serve como uma flag para saber se é um ano
-    ou um mês, para poder aplicar ao tipografia correta*/
-
-    var style = if(texto.equals(retirarExclamacao(texto))){
-        MaterialTheme.typography.titleSmall
-    }else{
-        MaterialTheme.typography.titleMedium
-    }
-
-    ElevatedCard (
-        shape = RoundedCornerShape(
-            topStart = 8.dp,
-            topEnd = 8.dp
-        )
-    ){
-        Box(modifier = Modifier
-            .fillMaxHeight()
-            .width(92.dp),
-            contentAlignment = Alignment.Center,
-        ){
-            Text(
-                text = retirarExclamacao(texto),
-                modifier = Modifier.padding(vertical = 8.dp,),
-                style = style
+            ListaDePeriodos(
+                periodos = periodosUtilizados,
+                periodoSelecionado = periodoSelecionado
             )
-        }
     }
 }
 
 @Preview
 @Composable
 fun FooterPrev() {
-    var lista = mutableListOf<String>()
-    lista.add("Ano atual")
-    Footer(lista, {  })
+    testeCadastro()
+    val periodos = remember{ getPeriodoFromDatasUtilizadas(Login.getCasaLogada().movimentacoes) }
+    val periodoSelecionado = remember{ mutableStateOf( getUltimoPeriodoUtilizado(periodos) )}
+
+    adicionarMovimentacaoCasa(
+        assunto = "teste",
+        valorStr = "10.00",
+        data = Data(10,5,2020),
+        casa = Login.getCasaLogada(),
+        categoria = null
+    )
+    adicionarMovimentacaoCasa(
+        assunto = "teste",
+        valorStr = "10.00",
+        data = Data(10,6,2021),
+        casa = Login.getCasaLogada(),
+        categoria = null
+    )
+    Footer(
+        getPeriodoFromDatasUtilizadas(Login.getCasaLogada().movimentacoes),
+        periodoSelecionado = periodoSelecionado,
+        openBottomSheetClick = {}
+    )
 
 }
+

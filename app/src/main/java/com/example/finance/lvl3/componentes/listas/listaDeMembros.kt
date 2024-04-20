@@ -116,7 +116,7 @@ private fun ItemDetalhado(residente: Pessoa) {
 */
 
 @Composable
-fun NovaListaDeMembros(membros: List<MovimentacaoHolder>, membroSelecionado : MutableState<MovimentacaoHolder>) {
+fun NovaListaDeMembros(membros: List<MovimentacaoHolder>, membroSelecionado : MutableState<MovimentacaoHolder>, onClick: () -> Unit = {  }) {
     OutlinedCard (
         modifier = Modifier
             .fillMaxWidth()
@@ -134,7 +134,12 @@ fun NovaListaDeMembros(membros: List<MovimentacaoHolder>, membroSelecionado : Mu
                     nome = membro.nome,
                     perfil = membro.perfil,
                     onClick = {
+                        if(membroSelecionado.value.equals(membro)){
+                            membroSelecionado.value = membros.get(0)
+                        }else{
                             membroSelecionado.value = membro
+                        }
+                        onClick()
                               },
                     isSelected = membroSelecionado.value == membro
                 )
