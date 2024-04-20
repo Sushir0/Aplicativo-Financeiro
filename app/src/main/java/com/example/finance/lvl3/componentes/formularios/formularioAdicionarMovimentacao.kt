@@ -1,6 +1,7 @@
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,10 +19,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.isDebugInspectorInfoEnabled
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.os.BuildCompat
+import com.example.finance.BuildConfig
 import com.example.finance.lvl1.Categoria
 import com.example.finance.lvl1.Data
 import com.example.finance.lvl1.Login
@@ -33,7 +37,9 @@ import com.example.finance.lvl1.getCategorias
 import com.example.finance.lvl2.Getters.getMembros
 import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.lvl2.Movimentacao.adicionarMovimentacao
+import com.example.finance.lvl2.Movimentacao.testeAdicionarMovimentacao
 import com.example.finance.lvl3.utils.avisoDeErros
+import com.example.finance.lvl3.utils.avisoLongo
 import com.example.finance.lvl3.widgets.BuscaDeDatas
 import com.example.finance.lvl3.widgets.DropdownCategoria
 import com.example.finance.lvl3.widgets.DropdownMembro
@@ -50,12 +56,18 @@ fun FormularioMovimentacao(
 
 ) {
     val paddingValue = 6.dp
+    val context = LocalContext.current
+
     var assunto by remember { mutableStateOf("") }
     var valor by remember { mutableStateOf("") }
     var categoriaSelecionada = remember { mutableStateOf<Categoria?>(null) }
     var data by remember { mutableStateOf(converterDataMillisParaData(System.currentTimeMillis())) }
-    val context = LocalContext.current
 
+    if(BuildConfig.DEBUG){
+        testeAdicionarMovimentacao(membroSelecionado.value)
+        onConfirm()
+        onDismiss()
+    }
 
 
 

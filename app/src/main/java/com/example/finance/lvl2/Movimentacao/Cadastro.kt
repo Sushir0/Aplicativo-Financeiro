@@ -6,6 +6,7 @@ import com.example.finance.lvl1.Data
 import com.example.finance.lvl1.Movimentacao
 import com.example.finance.lvl1.MovimentacaoHolder
 import com.example.finance.lvl1.Pessoa
+import com.example.finance.lvl1.gerarCategoriaTeste
 import com.example.finance.lvl2.validações.validarMovimentacao
 
 fun adicionarMovimentacao(assunto : String, valorStr: String, data : Data, categoria: Categoria?, movimentacaoHolder: MovimentacaoHolder): List<String>{
@@ -25,6 +26,13 @@ fun adicionarMovimentacao(assunto : String, valorStr: String, data : Data, categ
 
 
 fun testeAdicionarMovimentacao(movimentacaoHolder: MovimentacaoHolder){
-
+    movimentacaoHolder.addMovimentacao(
+        Movimentacao(
+        "assunto",
+        Data(20,5,2024),
+        100.0,
+        gerarCategoriaTeste()
+        )
+    )
 
 }
