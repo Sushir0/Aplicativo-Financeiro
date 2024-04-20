@@ -16,7 +16,7 @@ fun cadastrarComCasaExistente(nome : String, email : String, senha : String, idC
 }
 
 fun cadastrarComNovaCasa(nome: String, email: String, senha: String, nomeCasa: String): List<String>{
-    val erros = mutableListOf<String>()
+    val erros = ArrayList<String>()
         erros.addAll(validarFormularioCadastroLogin(nome, email, senha))
     if(!verificarNome(nomeCasa)){erros.add("Nome da casa inválido.")}
 
@@ -32,9 +32,9 @@ fun testeCadastro() : Int{
     val emailTeste = "email teste"
     val senhaTeste = "senha teste"
     val nomeCasaTeste = "nome casa teste"
-    val erros = cadastrarComNovaCasa(nomeTeste, emailTeste, senhaTeste, nomeCasaTeste)
-    cadastrarComCasaExistente(nomeTeste, emailTeste, senhaTeste, Login.getCasaLogada().id)
-    cadastrarComCasaExistente(nomeTeste, emailTeste, senhaTeste, Login.getCasaLogada().id)
+    val erros = cadastrarComNovaCasa("pessoa 1", "email 1", "senha 1", nomeCasaTeste)
+    cadastrarComCasaExistente("pessoa 2", "email 2", "senha 2", Login.getCasaLogada().id)
+    cadastrarComCasaExistente("pessoa 3", "email 3", "senha 3", Login.getCasaLogada().id)
     cadastrarComCasaExistente(nomeTeste, emailTeste, senhaTeste, Login.getCasaLogada().id)
     return Login.getCasaLogada().id
 }
