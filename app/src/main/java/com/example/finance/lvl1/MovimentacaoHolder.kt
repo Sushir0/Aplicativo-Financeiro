@@ -6,10 +6,10 @@ abstract class MovimentacaoHolder {
     abstract val perfil: Perfil
     abstract val isCasa: Boolean
 
-    fun getGastos(mes: Int? = null, ano: Int): ArrayList<Movimentacao>{
+    fun getGastos(periodo: Periodo): ArrayList<Movimentacao>{
         val gastos = ArrayList<Movimentacao>()
         for (movimentacao in movimentacoes) {
-            if(movimentacao.isOnPeriodo(mes, ano)){
+            if(movimentacao.isOnPeriodo(periodo)){
                 if (movimentacao.isGasto()) {
                     gastos.add(movimentacao)
                 }
@@ -18,10 +18,10 @@ abstract class MovimentacaoHolder {
         return gastos
     }
 
-    fun getRecebimentos(mes: Int? = null, ano: Int): ArrayList<Movimentacao>{
+    fun getRecebimentos(periodo: Periodo): ArrayList<Movimentacao>{
         val recebimentos = ArrayList<Movimentacao>()
         for (movimentacao in movimentacoes) {
-            if(movimentacao.isOnPeriodo(mes, ano)){
+            if(movimentacao.isOnPeriodo(periodo)){
                 if (!movimentacao.isGasto()) {
                     recebimentos.add(movimentacao)
                 }
@@ -30,10 +30,10 @@ abstract class MovimentacaoHolder {
         return recebimentos
     }
 
-    fun getGastosTotais(mes: Int? = null, ano: Int):Double{
+    fun getGastosTotais(periodo: Periodo):Double{
         var soma = 0.0
         for (movimentacao in movimentacoes) {
-            if (movimentacao.isOnPeriodo(mes, ano)){
+            if (movimentacao.isOnPeriodo(periodo)){
                 if (movimentacao.isGasto()) {
                     soma += movimentacao.valor
                 }
@@ -41,10 +41,10 @@ abstract class MovimentacaoHolder {
         }
         return soma
     }
-    fun getRecebimentosTotais(mes: Int? = null, ano: Int):Double{
+    fun getRecebimentosTotais(periodo: Periodo):Double{
         var soma = 0.0
         for (movimentacao in movimentacoes) {
-            if(movimentacao.isOnPeriodo(mes, ano)){
+            if(movimentacao.isOnPeriodo(periodo)){
                 if (!movimentacao.isGasto()) {
                     soma += movimentacao.valor
                 }
@@ -52,8 +52,8 @@ abstract class MovimentacaoHolder {
         }
         return soma
     }
-    fun getSaldo(mes: Int? = null, ano: Int):Double{
-        return getRecebimentosTotais(mes, ano) - getGastosTotais(mes, ano)
+    fun getSaldo(periodo: Periodo):Double{
+        return getRecebimentosTotais(periodo) - getGastosTotais(periodo)
     }
 
     fun addMovimentacao(movimentacao: Movimentacao): Boolean {
