@@ -43,11 +43,11 @@ import java.text.DecimalFormat
 
 
 @RequiresApi(Build.VERSION_CODES.O)
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormularioMovimentacao(
     onDismiss : ()-> Unit = {  },
-    membroSelecionado: MutableState<MovimentacaoHolder>
+    membroSelecionado: MutableState<MovimentacaoHolder>,
+    onConfirm: ()-> Unit = {  }
 
 ) {
     val paddingValue = 6.dp
@@ -156,7 +156,8 @@ fun FormularioMovimentacao(
                 membroSelecionado = membroSelecionado.value,
                 onDismiss = onDismiss,
                 context = context
-            )},
+            )
+                      onConfirm()},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
