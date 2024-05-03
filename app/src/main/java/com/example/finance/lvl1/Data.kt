@@ -106,5 +106,5 @@ fun main() {
     movimentacoes.add(gerarMovimentacaoTeste())
     movimentacoes.add(gerarMovimentacaoTeste())
 
-    print( getPeriodoFromDatasUtilizadas(movimentacoes).toString())
+    print( getPeriodosFromMovimentacoes(movimentacoes).toString())
 }

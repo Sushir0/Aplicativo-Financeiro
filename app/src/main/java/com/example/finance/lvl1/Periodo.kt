@@ -56,7 +56,7 @@ fun getUltimoPeriodoUtilizado(periodosOrdenados: List<Periodo>):Periodo{
         return periodosOrdenados[0]
     }
 }
-fun getPeriodoFromDatasUtilizadas(movimentacoes: List<Movimentacao>) : List<Periodo>{
+fun getPeriodosFromMovimentacoes(movimentacoes: List<Movimentacao>) : List<Periodo>{
     var datas = getDatasDeMovimentacoes(movimentacoes)
     ordenarDatas(datas, false)
 
