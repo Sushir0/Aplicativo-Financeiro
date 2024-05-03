@@ -1,14 +1,14 @@
 package com.example.finance.lvl1
 
-import androidx.compose.runtime.MutableState
+import java.io.Serializable
 
 
 class Categoria (
-    var nome : String,
-    var afetaPessoa: Boolean,
-    var afetaCasa: Boolean,
-    var isGasto: Boolean) {
-
+    val nome : String,
+    val afetaPessoa: Boolean = false,
+    val afetaCasa: Boolean = false,
+    val isGasto: Boolean = false
+) : Serializable{
 
 
 }

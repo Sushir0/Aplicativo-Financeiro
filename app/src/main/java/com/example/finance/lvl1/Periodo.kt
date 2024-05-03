@@ -1,8 +1,11 @@
 package com.example.finance.lvl1
 
+import com.example.finance.lvl2.Login.testeCadastro
+import com.example.finance.lvl2.Movimentacao.testeAdicionarMovimentacao
+import java.io.Serializable
 import java.util.Random
 
-class Periodo {
+class Periodo : Serializable {
     val dataInicial: Data
     val dataFinal: Data
     val nome: String

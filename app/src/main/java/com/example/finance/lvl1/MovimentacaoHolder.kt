@@ -1,6 +1,12 @@
 package com.example.finance.lvl1
 
-abstract class MovimentacaoHolder {
+import com.example.finance.lvl2.Getters.getMembros
+import com.example.finance.lvl2.Login.testeCadastro
+import com.example.finance.lvl2.Movimentacao.testeAdicionarMovimentacao
+import java.io.Serializable
+
+abstract class MovimentacaoHolder :Serializable{
+    abstract val id: Int
     abstract val nome: String
     abstract val movimentacoes: ArrayList<Movimentacao>
     abstract val perfil: Perfil

@@ -2,8 +2,9 @@ package com.example.finance.lvl1
 
 import androidx.compose.ui.graphics.Color
 import com.example.finance.R
+import java.io.Serializable
 
-class Perfil (isCasa : Boolean = false){
+class Perfil (isCasa : Boolean = false): Serializable{
     var fotoURL = if (!isCasa){
         GeradorDeImagem.obterImagem()
     }else{

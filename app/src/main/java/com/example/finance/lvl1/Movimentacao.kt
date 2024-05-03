@@ -1,9 +1,10 @@
 package com.example.finance.lvl1
 
 import android.util.Log
+import java.io.Serializable
 import java.util.Random
 
-class Movimentacao (var assunto: String, var  data: Data, var  valor: Double, var categoria: Categoria){
+class Movimentacao (var assunto: String, var  data: Data, var  valor: Double, var categoria: Categoria): Serializable{
 
     val random = Random()
     val id = random.nextInt(100000)

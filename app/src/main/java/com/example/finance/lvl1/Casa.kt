@@ -3,7 +3,7 @@ package com.example.finance.lvl1
 import java.util.Random
 
 class Casa(override var nome: String) : MovimentacaoHolder() {
-    val id: Int
+    override val id: Int
     override val movimentacoes = ArrayList<Movimentacao>()
     override val perfil = Perfil(true)
     override val isCasa = true

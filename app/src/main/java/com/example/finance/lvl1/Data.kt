@@ -1,8 +1,9 @@
 package com.example.finance.lvl1
 
+import java.io.Serializable
 import java.util.Calendar
 
-class Data (val dia : Int, val mes : Int, val ano : Int){
+class Data (val dia : Int, val mes : Int, val ano : Int): Serializable{
 
     override fun toString() : String{
         val diaString = if (dia < 10){

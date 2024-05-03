@@ -4,7 +4,7 @@ import android.util.Log
 import java.util.Random
 
 class Pessoa(override val nome: String, casa: Casa): MovimentacaoHolder() {
-    private val id: Int
+    override val id: Int
     override val movimentacoes = ArrayList<Movimentacao>()
     override val perfil = Perfil()
     override val isCasa = false
