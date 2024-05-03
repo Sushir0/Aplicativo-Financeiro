@@ -146,6 +146,97 @@ private fun ItemDetalhado(movimentacao: Movimentacao) {
     }
 }
 
+@Composable
+fun NewListaDeMovimentacao(
+    movimentacoes: List<Movimentacao>,
+    isAlways: Boolean = false
+) {
+    LazyColumn (modifier = Modifier
+        .fillMaxWidth()
+        .padding(8.dp)
+    ) {
+        itemsIndexed(movimentacoes){ index, movimentacao->
+            ItemLista(
+                movimentacao = movimentacao,
+                isAlways = isAlways
+            )
+            if(index < movimentacoes.size-1){
+                Box(modifier = Modifier.padding(horizontal = 4.dp)){
+                    HorizontalDivider(
+                        thickness = 1.dp,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                }
+            }
+
+        }
+    }
+}
+
+@Composable
+private fun ItemLista(
+    movimentacao: Movimentacao,
+    onClick: ()->Unit = {  },
+    isAlways: Boolean = false) {
+    Box(modifier = Modifier.clickable { onClick() }){
+        Row (
+            modifier = Modifier
+                .padding(12.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceAround,
+
+            ){
+            Row (verticalAlignment = Alignment.CenterVertically){
+                if(isAlways) {
+                    SetaMovimentacao(isGasto = movimentacao.isGasto())
+                }
+                Column(modifier = Modifier
+                    .padding(horizontal = 18.dp, vertical = 4.dp)) {
+                    Text(
+                        text = movimentacao.assunto,
+                        style = MaterialTheme.typography.titleSmall
+                    )
+                    Text(
+                        text = valorMonetario(movimentacao.valor),
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(vertical = 1.dp)
+                    )
+                    Text(text = movimentacao.data.toString(),
+                        style = MaterialTheme.typography.labelSmall)
+
+
+                }
+            }
+            Text(text = "Ver Mais ->", color = MaterialTheme.colorScheme.onBackground)
+        }
+    }
+
+}
+
+@Composable
+private fun SetaMovimentacao(isGasto: Boolean) {
+    val icon = if(isGasto){ Icons.Sharp.KeyboardArrowUp }else{ Icons.Sharp.KeyboardArrowDown }
+    val color = if(isGasto){ backgroundGasto }else{ backgroundRecebimento }
+    val descricao = if (isGasto){ "Gasto"}else{ "Recebimento" }
+
+    OutlinedCard(shape = CircleShape) {
+        Icon(
+            modifier = Modifier
+                .padding(3.dp)
+                .size(32.dp),
+            imageVector = icon,
+            contentDescription = descricao,
+            tint = color
+        )
+        
+
+    }
+    
+}
+
+
+
 @Preview
 @Composable
 fun ListaDeGastosPreview() {
