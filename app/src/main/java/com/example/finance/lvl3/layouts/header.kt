@@ -17,8 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.finance.VariaveisDeAmbiente
 import com.example.finance.lvl1.Casa
+import com.example.finance.lvl1.Login
+import com.example.finance.lvl2.Movimentacao.testeAdicionarMovimentacao
+import com.example.finance.lvl3.utils.avisoDeErros
+import com.example.finance.lvl3.utils.avisoLongo
 
 @Composable
 fun Header(nome : String) {
@@ -29,6 +35,7 @@ fun Header(nome : String) {
         MaterialTheme.colorScheme.onBackground
     }else{
         MaterialTheme.colorScheme.onPrimary}
+    val contexto = LocalContext.current
 
     Row (
         modifier = Modifier
@@ -46,7 +53,14 @@ fun Header(nome : String) {
             style = MaterialTheme.typography.displaySmall
         )
         IconButton(
-            onClick = { },
+            onClick = {
+                VariaveisDeAmbiente.debugMode = !VariaveisDeAmbiente.debugMode
+                avisoLongo(
+                    context = contexto,
+                    texto = "debugMode: ${VariaveisDeAmbiente.debugMode}"
+                )
+
+            },
             modifier = Modifier
                 .padding(8.dp)
         ) {
