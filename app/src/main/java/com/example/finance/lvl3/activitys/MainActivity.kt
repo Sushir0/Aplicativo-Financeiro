@@ -1,4 +1,4 @@
-package com.example.finance.lvl3.telas
+package com.example.finance.lvl3.activitys
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -31,16 +30,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.finance.lvl1.Data
 import com.example.finance.lvl1.Login
-import com.example.finance.lvl1.Movimentacao
+import com.example.finance.lvl1.gerarCategoriasBasicas
 import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.lvl3.componentes.formularios.CadastroForm
 import com.example.finance.lvl3.componentes.formularios.LoginForm
 import com.example.finance.ui.theme.FinanceTheme
 import com.example.finance.ui.theme.backgroundDark
 import com.example.finance.ui.theme.backgroundLight
-import com.example.finance.ui.theme.contentBackground
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,10 +45,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             FinanceTheme() {
                 testeCadastro()
-                val gasto = Movimentacao("assunto", Data(15,10,2024), 3596.5)
-                Login.getCasaLogada().addGasto(gasto)
-                Login.getCasaLogada().addGasto(gasto)
-                TelaInicialDeLogin()
+                if(Login.isAlguemLogado()){
+                    gerarCategoriasBasicas()
+                    abrirDashboard(LocalContext.current)
+                }else{
+                    TelaInicialDeLogin()
+                }
+
+
             }
         }
     }
@@ -131,9 +132,8 @@ fun TelaInicialDeLogin() {
 fun MainPreview(){
     FinanceTheme() {
         testeCadastro()
-        val gasto = Movimentacao("assunto", Data(15,10,2024), 3596.5)
-        Login.getCasaLogada().addGasto(gasto)
-        Login.getCasaLogada().addGasto(gasto)
+
+
         TelaInicialDeLogin()
     }
 
