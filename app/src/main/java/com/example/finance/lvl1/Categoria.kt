@@ -10,53 +10,43 @@ class Categoria (
     val isGasto: Boolean = false
 ) : Serializable{
 
-
-}
-var categorias = mutableListOf<Categoria>()
-
-
-fun getCategorias(
-    afetaCasa : Boolean = false,
-    afetaPessoa: Boolean = false,
-):List<Categoria>{
-    return categorias.filter {
-        (it.afetaPessoa && afetaPessoa) || (it.afetaCasa && afetaCasa)
+    override fun toString(): String {
+        return "Categoria(nome='$nome', afetaPessoa=$afetaPessoa, afetaCasa=$afetaCasa, isGasto=$isGasto)"
     }
+
+
 }
 
 fun gerarCategoriasBasicas(){
-    categorias.add( Categoria(
-        nome = "Contas da casa",
-        afetaPessoa = false,
-        afetaCasa = true,
-        isGasto = true)
-    )
+    val contas = MacroCategoria(
+    nome = "Contas",
+    afetaPessoa = true,
+    afetaCasa = true,
+    isGasto = true)
+    contas.addCategoria("mercado")
+    contas.addCategoria("streaming")
 
-    categorias.add( Categoria(
+    val recebimentos = MacroCategoria(
         nome = "Recebimentos",
         afetaPessoa = true,
         afetaCasa = false,
         isGasto = false)
-    )
+    recebimentos.addCategoria("recebimento fixo")
 
-    categorias.add( Categoria(
-        nome = "Gastos pessoais",
-        afetaPessoa = true,
-        afetaCasa = false,
-        isGasto = true)
-    )
+    Login.getCasaLogada().macroCategorias.add( contas )
+    Login.getCasaLogada().macroCategorias.add( recebimentos )
 
-    categorias.add( Categoria(nome = "Mercado",
-        afetaPessoa = true,
-        afetaCasa = true,
-        isGasto = true)
-    )
 
-    categorias.add( Categoria(nome = "Serviços de streaming",
-        afetaPessoa = true,
-        afetaCasa = true,
-        isGasto = true)
-    )
+
+
 }
 
 
+fun gerarCategoriaTeste():Categoria{
+    return Categoria(
+        nome = "categoria",
+        afetaPessoa = true,
+        afetaCasa = true,
+        isGasto = true
+    )
+}
