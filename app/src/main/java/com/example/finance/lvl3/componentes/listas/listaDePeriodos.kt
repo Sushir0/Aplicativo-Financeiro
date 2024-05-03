@@ -25,12 +25,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.finance.lvl1.MovimentacaoHolder
 import com.example.finance.lvl1.Periodo
 import com.example.finance.lvl3.utils.retirarExclamacao
 
 
 @Composable
-fun ListaDePeriodos(periodos: List<Periodo>, periodoSelecionado: MutableState<Periodo>) {
+fun ListaDePeriodos(periodos: List<Periodo>, periodoSelecionado: Periodo, onChoice: (Periodo) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -41,17 +42,19 @@ fun ListaDePeriodos(periodos: List<Periodo>, periodoSelecionado: MutableState<Pe
         periodos.forEach {
             Item(
                 it,
-                isSelected = it == periodoSelecionado.value
-            ) { periodoSelecionado.value = it }
+                isSelected = it == periodoSelecionado
+            ) {
+                onChoice(it)
+            }
             println("periodo: ")
             println(it.toString())
-            println("  ${periodoSelecionado.value.toString()}")
+            println("  ${periodoSelecionado.toString()}")
         }
     }
 }
 
 @Composable
-private fun Item(periodo: Periodo, isSelected: Boolean = false, onClick: ()->Unit) {
+private fun Item(periodo: Periodo, isSelected: Boolean = false, onClick: (Periodo)->Unit) {
 
     var style = if(periodo.isAno){
         MaterialTheme.typography.titleMedium
@@ -65,7 +68,7 @@ private fun Item(periodo: Periodo, isSelected: Boolean = false, onClick: ()->Uni
             topStart = 8.dp,
             topEnd = 8.dp
         ),
-        modifier = Modifier.clickable { onClick() }
+        modifier = Modifier.clickable { onClick(periodo) }
     ){
         Box(modifier = Modifier
             .fillMaxHeight()
@@ -91,5 +94,8 @@ private fun ListaDePeriodosPrev() {
     val periodoSelecionado = remember {
         mutableStateOf(Periodo(ano = 5))
     }
-    ListaDePeriodos(periodos = periodos, periodoSelecionado = periodoSelecionado)
+    ListaDePeriodos(periodos = periodos,
+        periodoSelecionado = periodoSelecionado.value,
+        onChoice = { periodoSelecionado.value = it }
+    )
 }
