@@ -35,26 +35,6 @@ import com.example.finance.lvl1.Perfil
 import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.lvl3.utils.avisoLongo
 
-@Composable
-private fun ItemSimples(residente: Pessoa) {
-    ElevatedCard(
-        shape = RoundedCornerShape(4.dp),
-        modifier = Modifier
-            .padding(horizontal = 4.dp)
-            .clickable(onClick = {
-
-            }),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 6.dp
-        ),
-    ) {
-        Text(
-            text = residente.nome,
-            modifier = Modifier
-                .padding(6.dp),
-            style = MaterialTheme.typography.bodyLarge)
-    }
-}
 
 @Composable
 private fun ItemDetalhado(residente: Pessoa) {
