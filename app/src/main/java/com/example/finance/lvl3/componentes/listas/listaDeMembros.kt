@@ -33,38 +33,7 @@ import com.example.finance.lvl1.Login
 import com.example.finance.lvl1.MovimentacaoHolder
 import com.example.finance.lvl1.Perfil
 import com.example.finance.lvl2.Login.testeCadastro
-
-/*
-@Composable
-fun ListaDeMembros(casa: Casa) {
-    var expandirConteudo by remember { mutableStateOf(true) }
-    var modoVertical = isPortrait()
-
-
-    Column (
-        modifier = Modifier,
-        horizontalAlignment = Alignment.End
-    ) {
-        if(modoVertical) {
-            BotaoExpandirConteudo(
-                expandirConteudo = expandirConteudo,
-                onClick = { expandirConteudo = !expandirConteudo }
-            )
-        }else{
-            expandirConteudo = false
-        }
-        LazyRow(modifier = Modifier.fillMaxWidth(),){
-            items(casa.moradores){residente ->
-                if(expandirConteudo){
-                    ItemDetalhado(residente = residente)
-                }else{
-                    ItemSimples(residente = residente)
-                }
-            }
-        }
-    }
-
-}
+import com.example.finance.lvl3.utils.avisoLongo
 
 @Composable
 private fun ItemSimples(residente: Pessoa) {
