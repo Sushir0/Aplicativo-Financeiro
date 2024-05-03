@@ -31,6 +31,10 @@
             android:label="Dashboard"
             android:theme="@style/Theme.Finance" />
 
+        <activity android:name=".lvl3.activitys.DetalhesActivity"
+            android:label="Detalhes"
+            android:theme="@style/Theme.Finance" />
+
     </application>
 
 </manifest>
