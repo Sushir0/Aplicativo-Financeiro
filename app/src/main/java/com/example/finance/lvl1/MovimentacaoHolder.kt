@@ -36,6 +36,16 @@ abstract class MovimentacaoHolder :Serializable{
         return recebimentos
     }
 
+    fun getMovimentacoes(periodo: Periodo):ArrayList<Movimentacao>{
+        val movimentacoes = ArrayList<Movimentacao>()
+        for (movimentacao in this.movimentacoes) {
+            if(movimentacao.isOnPeriodo(periodo)){
+                movimentacoes.add(movimentacao)
+            }
+        }
+        return movimentacoes
+    }
+
     fun getGastosTotais(periodo: Periodo):Double{
         var soma = 0.0
         for (movimentacao in movimentacoes) {
@@ -78,4 +88,19 @@ abstract class MovimentacaoHolder :Serializable{
         return movimentacoes.remove(movimentacaoASerExcluida)
     }
 
+    fun sameID(id:Int):Boolean{
+        return this.id==id
+    }
+}
+
+fun getMovimentacaoHolderById(id: Int): MovimentacaoHolder{
+    return getMembros().find { it.sameID(id) } ?: Login.getCasaLogada()
+}
+
+fun main() {
+    testeCadastro()
+    gerarCategoriasBasicas()
+    testeAdicionarMovimentacao(Login.getCasaLogada())
+    val movimentacoes = Login.getCasaLogada().getMovimentacoes(Periodo(ano = 2024))
+    print(movimentacoes)
 }
