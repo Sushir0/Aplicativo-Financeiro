@@ -50,7 +50,7 @@ public class Login {
 
     private static Casa buscarCasaPorPessoa(Pessoa pessoa){
         for (Casa casa : listaDeCasas){
-            for (Pessoa morador : casa.moradores){
+            for (Pessoa morador : casa.getMoradores()){
                 if (morador.equals(pessoa)){
                     return casa;
                 }
@@ -60,11 +60,15 @@ public class Login {
     }
     private static Casa buscarCasaPorID(Integer idCasa){
         for(Casa casa : listaDeCasas){
-            if(casa.id.equals(idCasa)){
+            if(idCasa.equals(casa.getId())){
                 return casa;
             }
         }
         return null;
+    }
+
+    public static boolean isAlguemLogado() {
+        return usuarioLogado != null;
     }
 
     public static Casa getCasaLogada(){return casaLogada;}
