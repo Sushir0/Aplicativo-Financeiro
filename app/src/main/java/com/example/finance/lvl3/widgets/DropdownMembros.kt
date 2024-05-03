@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
@@ -17,18 +16,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.finance.lvl1.Casa
 import com.example.finance.lvl1.Login
 import com.example.finance.lvl1.MovimentacaoHolder
-import com.example.finance.lvl1.Pessoa
+import com.example.finance.lvl2.Getters.getMembros
 import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.ui.theme.FinanceTheme
 
@@ -38,7 +36,9 @@ fun DropdownMembro(
     expandedInicial : Boolean = false,
     membros : List<MovimentacaoHolder>,
     modifier : Modifier = Modifier,
-    membroSelecionado : MutableState<MovimentacaoHolder>,
+    membroSelecionado : MovimentacaoHolder,
+    lockedMembro : Boolean = false,
+    onChoice: (MovimentacaoHolder)->Unit = {  }
 ) {
     var expandedMenu = remember { mutableStateOf<Boolean>(expandedInicial) }
 
@@ -49,18 +49,21 @@ fun DropdownMembro(
             modifier = modifier,
             shape = RoundedCornerShape(4.dp),
             onClick = { expandedMenu.value = true },
+            enabled = !lockedMembro
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Image(
-                    painter = painterResource(id = membroSelecionado.value.perfil.fotoURL)
-                    , contentDescription = membroSelecionado.value.nome,
+                    painter = painterResource(id = membroSelecionado.perfil.fotoURL)
+                    , contentDescription = membroSelecionado.nome,
                     modifier = Modifier.size(24.dp))
                 Text(
                     modifier = Modifier.padding(start = 6.dp),
-                    text = membroSelecionado.value.nome,
+                    text = membroSelecionado.nome,
                     style = MaterialTheme.typography.titleSmall,
                 )
             }
@@ -73,10 +76,11 @@ fun DropdownMembro(
             modifier = modifier.fillMaxWidth(.95f)
         ) {
             membros.forEach { membro ->
-                DropdownItemPessoa(
+                DropdownItem(
                     membro = membro,
-                    expanded = expandedMenu,
-                    membroSelecionado = membroSelecionado,
+                    onChoice = {
+                        onChoice(it)
+                        expandedMenu.value = false },
                     modifier = modifier
                 )
             }
@@ -86,11 +90,10 @@ fun DropdownMembro(
 
 
 @Composable
-private fun DropdownItemPessoa(
+private fun DropdownItem(
     membro : MovimentacaoHolder,
-    expanded: MutableState<Boolean>,
-    membroSelecionado: MutableState<MovimentacaoHolder>,
-    modifier: Modifier,
+    onChoice: (MovimentacaoHolder) -> Unit = {},
+    modifier: Modifier
 ) {
     Divider(
         color = MaterialTheme.colorScheme.onBackground,
@@ -103,8 +106,7 @@ private fun DropdownItemPessoa(
             style = MaterialTheme.typography.titleSmall,
         ) },
         onClick = {
-            membroSelecionado.value = membro
-            expanded.value = false
+            onChoice(membro)
         },
         modifier = modifier.background(membro.perfil.corPerfil),
         leadingIcon = {
@@ -122,16 +124,21 @@ private fun DropdownItemPessoa(
 @Composable
 private fun DropdownMembroPrev() {
     FinanceTheme {
-        testeCadastro()
-        val membros = ArrayList<MovimentacaoHolder>()
-        membros.add(Login.getCasaLogada())
-        membros.addAll(Login.getCasaLogada().moradores)
+        var flag by remember {
+            mutableStateOf(true)
+        }
+        if(flag){
+            testeCadastro()
+            flag = false
+        }
+
+        val membros = getMembros()
         var membroSelecionado = remember { mutableStateOf<MovimentacaoHolder>(Login.getCasaLogada()) }
         DropdownMembro(
             expandedInicial = false,
             membros = membros,
-            membroSelecionado = membroSelecionado,
-
+            onChoice = { membroSelecionado.value = it },
+            membroSelecionado = membroSelecionado.value
         )
     }
 }
