@@ -29,11 +29,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.finance.lvl1.Login
 import com.example.finance.lvl2.Login.cadastrarComCasaExistente
 import com.example.finance.lvl2.Login.cadastrarComNovaCasa
 import com.example.finance.lvl2.Login.testeCadastro
-import com.example.finance.lvl3.telas.abrirDashboard
+import com.example.finance.lvl3.activitys.abrirDashboard
 import com.example.finance.lvl3.utils.avisoDeErros
 import com.example.finance.lvl3.utils.avisoLongo
 import com.example.finance.ui.theme.FinanceTheme
@@ -214,7 +213,6 @@ fun CadastroFormPreview() {
 fun cadastrarNovaCasa(nome: String, email: String, senha: String, nomeCasa: String, context: Context){
     val erros = cadastrarComNovaCasa(nome, email, senha, nomeCasa)
     if(erros.isEmpty()){
-        Login.getCasaLogada().showCasa()
         abrirDashboard(context)
     }else{
         avisoDeErros(context, erros)
@@ -224,7 +222,6 @@ fun cadastrarEmCasaExistente(nome: String, email: String, senha: String, idCasa:
     val idCasaTeste = testeCadastro()
     val erros = cadastrarComCasaExistente(nome, email, senha, idCasaTeste)
     if(erros.isEmpty()){
-        Login.getCasaLogada().showCasa()
         abrirDashboard(context)
     }else{
         avisoDeErros(context, erros)

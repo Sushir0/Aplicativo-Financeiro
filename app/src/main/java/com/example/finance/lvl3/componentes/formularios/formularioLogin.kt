@@ -26,9 +26,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.finance.lvl1.Login
 import com.example.finance.lvl2.Login.logar
-import com.example.finance.lvl3.telas.abrirDashboard
+import com.example.finance.lvl3.activitys.abrirDashboard
 import com.example.finance.lvl3.utils.avisoDeErros
 import com.example.finance.lvl3.utils.avisoLongo
 
@@ -129,7 +128,6 @@ fun LoginFormPreview() {
 fun logar(email: String, senha: String, context: Context){
     val erros = logar(email, senha)
     if(erros.isEmpty()){
-        Login.getCasaLogada().showCasa()
         abrirDashboard(context)
     }else{
         avisoDeErros(context, erros)
