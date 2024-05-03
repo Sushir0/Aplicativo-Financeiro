@@ -1,6 +1,7 @@
 package com.example.finance.lvl3.componentes
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -36,10 +37,16 @@ import com.example.finance.ui.theme.contentResumo
 
 
 @Composable
-fun NovoResumoFinanceiro(recebimentos: Double, gastos: Double, saldo: Double) {
+fun NovoResumoFinanceiro(
+    recebimentos: Double,
+    gastos: Double,
+    saldo: Double,
+    onClickRecebimentos: ()->Unit = {  },
+    onClickGastos: ()->Unit = {  }
+    ) {
     Column {
-        ItemOutlined(texto = "Recebimentos", valor = recebimentos) {    }
-        ItemOutlined(texto = "Gastos", valor = gastos) {    }
+        ItemOutlined(texto = "Recebimentos", valor = recebimentos) {  onClickRecebimentos()  }
+        ItemOutlined(texto = "Gastos", valor = gastos) {  onClickGastos()  }
         ItemSaldo(valor = saldo)
     }
 }
@@ -63,6 +70,8 @@ fun ItemSaldo(valor: Double){
             Box(
                 modifier = Modifier
                     .background(background)
+                    .fillMaxWidth(.7f),
+                contentAlignment = Alignment.Center
             ){
                 Column (
                     modifier = Modifier
@@ -82,7 +91,7 @@ fun ItemSaldo(valor: Double){
 }
 
 @Composable
-fun ItemOutlined(texto:String, valor:Double, onClick:()-> Unit) {
+private fun ItemOutlined(texto:String, valor:Double, onClick:()-> Unit) {
     var background: Color
     background = if(isSystemInDarkTheme()){
         backgroundDark
@@ -90,7 +99,7 @@ fun ItemOutlined(texto:String, valor:Double, onClick:()-> Unit) {
         backgroundLight
     }
     Box(modifier = Modifier.fillMaxWidth()){
-        OutlinedCard (modifier = Modifier.padding(start = 16.dp, end = 32.dp, top = 24.dp)) {
+        OutlinedCard (modifier = Modifier.padding(start = 16.dp, end = 32.dp, top = 24.dp).clickable { onClick() }) {
             Box(modifier = Modifier.background(background)){
                 Row (modifier = Modifier
                     .fillMaxWidth()
