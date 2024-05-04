@@ -46,9 +46,6 @@ fun ListaDePeriodos(periodos: List<Periodo>, periodoSelecionado: Periodo, onChoi
             ) {
                 onChoice(it)
             }
-            println("periodo: ")
-            println(it.toString())
-            println("  ${periodoSelecionado.toString()}")
         }
     }
 }

@@ -25,7 +25,7 @@ import com.example.finance.lvl1.getPeriodoFromNome
 import com.example.finance.lvl1.getPeriodosFromMovimentacoes
 import com.example.finance.lvl1.getUltimoPeriodoUtilizado
 import com.example.finance.lvl2.Getters.getMovimentacoes
-import com.example.finance.lvl3.componentes.ItemSaldo
+import com.example.finance.lvl3.componentes.ItemValue
 import com.example.finance.lvl3.componentes.listas.NewListaDeMovimentacao
 import com.example.finance.lvl3.layouts.Footer
 import com.example.finance.lvl3.layouts.Header
@@ -73,7 +73,7 @@ class Detalhes (
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             Header(nome = membroSelecionado.nome)
-            ItemSaldo(valor = membroSelecionado.getSaldo(periodoSelecionado))
+            ItemValue(valor = membroSelecionado.getSaldo(periodoSelecionado))
             DropdownIsGasto(
                 tipoSelecionado = tipoSelecionado,
                 modifier = Modifier
@@ -84,7 +84,7 @@ class Detalhes (
                     )
             ) {
                 tipoSelecionado = it
-                atualizar(context)
+                atualizar()
             }
             NewListaDeMovimentacao(
                 movimentacoes = movimentacoes,
@@ -99,7 +99,7 @@ class Detalhes (
             periodoSelecionado =    periodoSelecionado,
             onChoicePeriodo = {
                 periodoSelecionado = it
-                atualizar(context)
+                atualizar()
             }
         )
 
@@ -109,7 +109,7 @@ class Detalhes (
             FormularioMovimentacao(
                 membroPreSelecionado = membroSelecionado,
                 onConfirm = {
-                    atualizar(context)
+                    atualizar()
                 },
                 lockedMembro = true,
                 onDismiss = { isSheetOpen = false }
@@ -118,7 +118,7 @@ class Detalhes (
 
     }
 
-    fun atualizar(context: Context) {
+    fun atualizar() {
         periodosUtilizados = getPeriodosFromMovimentacoes(membroSelecionado.movimentacoes)
         periodoSelecionado = getPeriodoFromNome(periodoSelecionado.nome, periodosUtilizados) ?: getUltimoPeriodoUtilizado(periodosUtilizados)
         movimentacoes = when(tipoSelecionado){
@@ -126,8 +126,6 @@ class Detalhes (
             Tipo.RECEBIMENTO -> membroSelecionado.getRecebimentos(periodoSelecionado)
             Tipo.TODOS -> membroSelecionado.getMovimentacoes(periodoSelecionado)
         }
-        avisoLongo(context, periodoSelecionado.nome)
-
     }
 
 
