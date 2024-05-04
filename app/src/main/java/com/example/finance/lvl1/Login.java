@@ -15,7 +15,8 @@ public class Login {
         Login login = new Login();
         login.email = email;
         login.senha = senha;
-        login.pessoa = new Pessoa(nome, buscarCasaPorID(idCasa));
+        login.pessoa = new Pessoa(nome);
+        buscarCasaPorID(idCasa).addMorador(login.pessoa);
         listaDeLogins.add(login);
         usuarioLogado = login.pessoa;
         casaLogada = buscarCasaPorPessoa(usuarioLogado);
