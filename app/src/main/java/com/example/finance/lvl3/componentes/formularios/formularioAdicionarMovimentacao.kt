@@ -1,7 +1,6 @@
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -19,25 +17,23 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.isDebugInspectorInfoEnabled
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.os.BuildCompat
-import com.example.finance.BuildConfig
+import com.example.finance.VariaveisDeAmbiente
 import com.example.finance.lvl1.Categoria
 import com.example.finance.lvl1.Data
 import com.example.finance.lvl1.Login
 import com.example.finance.lvl1.MovimentacaoHolder
-import com.example.finance.lvl1.Pessoa
 import com.example.finance.lvl1.converterDataMillisParaData
 import com.example.finance.lvl1.gerarCategoriasBasicas
-import com.example.finance.lvl1.getCategorias
 import com.example.finance.lvl2.Getters.getMembros
 import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.lvl2.Movimentacao.adicionarMovimentacao
 import com.example.finance.lvl2.Movimentacao.testeAdicionarMovimentacao
+import com.example.finance.lvl3.componentes.listas.ListaDeMovimentacoes
+import com.example.finance.lvl3.componentes.listas.NovaListaDeMembros
 import com.example.finance.lvl3.utils.avisoDeErros
 import com.example.finance.lvl3.utils.avisoLongo
 import com.example.finance.lvl3.widgets.BuscaDeDatas
@@ -51,22 +47,26 @@ import java.text.DecimalFormat
 @Composable
 fun FormularioMovimentacao(
     onDismiss : ()-> Unit = {  },
-    membroSelecionado: MutableState<MovimentacaoHolder>,
-    onConfirm: ()-> Unit = {  }
-
+    membroPreSelecionado: MovimentacaoHolder,
+    onConfirm: ()-> Unit = {  },
+    lockedMembro: Boolean = false
 ) {
     val paddingValue = 6.dp
     val context = LocalContext.current
 
     var assunto by remember { mutableStateOf("") }
     var valor by remember { mutableStateOf("") }
-    var categoriaSelecionada = remember { mutableStateOf<Categoria?>(null) }
+    var categoriaSelecionada by remember { mutableStateOf<Categoria?>(null) }
     var data by remember { mutableStateOf(converterDataMillisParaData(System.currentTimeMillis())) }
+    var membroSelecionado by remember{ mutableStateOf(membroPreSelecionado) }
+    
 
-    if(BuildConfig.DEBUG){
-        testeAdicionarMovimentacao(membroSelecionado.value)
+
+    if(VariaveisDeAmbiente.debugMode){
+        testeAdicionarMovimentacao(membroPreSelecionado)
         onConfirm()
         onDismiss()
+        return
     }
 
 
@@ -81,8 +81,12 @@ fun FormularioMovimentacao(
                 expandedInicial = false,
                 membros = getMembros(),
                 membroSelecionado = membroSelecionado,
-                modifier = Modifier
+                modifier = Modifier,
+                lockedMembro = lockedMembro,
+                onChoice = { membroSelecionado = it }
             )
+
+
         }
 
         OutlinedTextField(
@@ -133,9 +137,9 @@ fun FormularioMovimentacao(
         ) {
 
             DropdownCategoria(
-                categorias = getCategorias(
-                    afetaCasa = (membroSelecionado.value.isCasa),
-                    afetaPessoa = (!membroSelecionado.value.isCasa)
+                categorias = Login.getCasaLogada().getCategorias(
+                    afetaCasa = (membroSelecionado.isCasa),
+                    afetaPessoa = (!membroSelecionado.isCasa)
                 ),
                 categoriaSelecionada = categoriaSelecionada,
                 modifier = Modifier
@@ -143,8 +147,11 @@ fun FormularioMovimentacao(
                     .padding(
                         start = 4.dp,
                         top = 4.dp
-                    )
+                    ),
+                onChoice = { categoriaSelecionada = it }
             )
+
+
             BuscaDeDatas(
                 onConfirm = { dataSelecionada ->
                     data = dataSelecionada
@@ -163,8 +170,8 @@ fun FormularioMovimentacao(
                 assunto = assunto,
                 valor = valor,
                 data = data,
-                categoria = categoriaSelecionada.value,
-                membroSelecionado = membroSelecionado.value,
+                categoria = categoriaSelecionada,
+                membroSelecionado = membroSelecionado,
                 onDismiss = onDismiss,
                 context = context
             )
@@ -229,7 +236,7 @@ fun datePrev() {
         testeCadastro()
         gerarCategoriasBasicas()
         FormularioMovimentacao(
-            membroSelecionado = remember {mutableStateOf<MovimentacaoHolder>(Login.getCasaLogada())}
+            membroPreSelecionado = Login.getCasaLogada()
         )
     }
 }
