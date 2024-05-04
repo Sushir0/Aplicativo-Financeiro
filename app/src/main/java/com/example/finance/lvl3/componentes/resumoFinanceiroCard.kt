@@ -7,12 +7,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
@@ -23,17 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.finance.lvl1.Casa
-import com.example.finance.lvl1.Login
-import com.example.finance.lvl1.Pessoa
 import com.example.finance.lvl2.Login.testeCadastro
-import com.example.finance.lvl3.utils.isPortrait
 import com.example.finance.lvl3.utils.valorMonetario
 import com.example.finance.ui.theme.backgroundDark
 import com.example.finance.ui.theme.backgroundGasto
 import com.example.finance.ui.theme.backgroundLight
 import com.example.finance.ui.theme.backgroundRecebimento
-import com.example.finance.ui.theme.contentResumo
 
 
 @Composable
@@ -47,12 +38,12 @@ fun NovoResumoFinanceiro(
     Column {
         ItemOutlined(texto = "Recebimentos", valor = recebimentos) {  onClickRecebimentos()  }
         ItemOutlined(texto = "Gastos", valor = gastos) {  onClickGastos()  }
-        ItemSaldo(valor = saldo)
+        ItemValue(valor = saldo)
     }
 }
 
 @Composable
-fun ItemSaldo(valor: Double){
+fun ItemValue(valor: Double, texto: String = "Saldo"){
     var background = if(valor>=0){
         backgroundRecebimento
     }else{
@@ -78,7 +69,7 @@ fun ItemSaldo(valor: Double){
                         .padding(horizontal = 40.dp, vertical = 8.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ){
-                    Text(text = "Saldo", style = MaterialTheme.typography.titleLarge)
+                    Text(text = texto, style = MaterialTheme.typography.titleLarge)
                     Text(text = valorMonetario(valor), style = MaterialTheme.typography.titleMedium)
 
 
