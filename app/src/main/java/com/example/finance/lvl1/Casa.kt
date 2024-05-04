@@ -21,7 +21,7 @@ class Casa(override var nome: String) : MovimentacaoHolder() {
         return moradores.add(morador)
     }
 
-    fun addCategoria(categoria: MacroCategoria):Boolean{
+    fun addMacroCategoria(categoria: MacroCategoria):Boolean{
         return macroCategorias.add(categoria)
     }
 

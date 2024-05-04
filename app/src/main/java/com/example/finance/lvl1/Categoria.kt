@@ -23,15 +23,15 @@ fun gerarCategoriasBasicas(){
     afetaPessoa = true,
     afetaCasa = true,
     isGasto = true)
-    contas.addCategoria("mercado")
-    contas.addCategoria("streaming")
+    contas.createCategoria("mercado")
+    contas.createCategoria("streaming")
 
     val recebimentos = MacroCategoria(
         nome = "Recebimentos",
         afetaPessoa = true,
         afetaCasa = false,
         isGasto = false)
-    recebimentos.addCategoria("recebimento fixo")
+    recebimentos.createCategoria("recebimento fixo")
 
     Login.getCasaLogada().macroCategorias.add( contas )
     Login.getCasaLogada().macroCategorias.add( recebimentos )

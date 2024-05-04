@@ -15,7 +15,7 @@ class MacroCategoria (
         return "MacroCategoria(nome='$nome', afetaPessoa=$afetaPessoa, afetaCasa=$afetaCasa, isGasto=$isGasto)"
     }
 
-    fun addCategoria(nome: String):Boolean{
+    fun createCategoria(nome: String):Boolean{
         return categorias.add(Categoria(nome, afetaPessoa, afetaCasa, isGasto))
     }
 
@@ -36,8 +36,8 @@ fun main() {
         afetaPessoa = true,
         afetaCasa = true,
         isGasto = true)
-    macroCategoria.addCategoria("mercado")
-    macroCategoria.addCategoria("streaming")
+    macroCategoria.createCategoria("mercado")
+    macroCategoria.createCategoria("streaming")
 
     println(macroCategoria.toString())
     println(macroCategoria.getCategorias().toString())
