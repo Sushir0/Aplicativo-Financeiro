@@ -17,21 +17,38 @@ class Categoria (
 
 }
 
+val categorias_Contas = arrayOf(
+    "mercado",
+    "streaming"
+)
+
+val categorias_Recebimentos = arrayOf(
+    "recebimento fixo"
+)
+
+fun getSizeCategoriasBase():Int{
+    return categorias_Contas.size + categorias_Recebimentos.size
+}
+
 fun gerarCategoriasBasicas(){
     val contas = MacroCategoria(
     nome = "Contas",
     afetaPessoa = true,
     afetaCasa = true,
     isGasto = true)
-    contas.createCategoria("mercado")
-    contas.createCategoria("streaming")
 
     val recebimentos = MacroCategoria(
         nome = "Recebimentos",
         afetaPessoa = true,
         afetaCasa = false,
         isGasto = false)
-    recebimentos.createCategoria("recebimento fixo")
+
+    categorias_Contas.forEach {
+        contas.createCategoria(it)
+    }
+    categorias_Recebimentos.forEach {
+        recebimentos.createCategoria(it)
+    }
 
     Login.getCasaLogada().macroCategorias.add( contas )
     Login.getCasaLogada().macroCategorias.add( recebimentos )
