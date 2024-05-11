@@ -1,4 +1,4 @@
-package com.example.finance.lvl3.widgets
+package com.example.finance.lvl3.widgets.dropdown
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
