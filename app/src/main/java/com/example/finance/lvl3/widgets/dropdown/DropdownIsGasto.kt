@@ -20,29 +20,6 @@ import androidx.compose.ui.unit.dp
 import com.example.finance.ui.theme.FinanceTheme
 
 
-enum class Tipo {
-    GASTO,
-    RECEBIMENTO,
-    TODOS;
-
-    override fun toString(): String {
-        return when (this) {
-            GASTO -> "Gasto"
-            RECEBIMENTO -> "Recebimento"
-            TODOS -> "Todos"
-        }
-    }
-
-    companion object {
-        fun getTipos(): List<Tipo> {
-            return enumValues<Tipo>().toList()
-        }
-        fun getTipoFromIsGasto(isGasto: Boolean): Tipo {
-            return if(isGasto){ GASTO }else{ RECEBIMENTO }
-        }
-    }
-}
-
 @Composable
 fun DropdownIsGasto(
     expandedInicial : Boolean = false,
