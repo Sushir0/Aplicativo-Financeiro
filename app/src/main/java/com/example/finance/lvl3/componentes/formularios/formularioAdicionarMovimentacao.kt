@@ -32,13 +32,10 @@ import com.example.finance.lvl2.Getters.getMembros
 import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.lvl2.Movimentacao.adicionarMovimentacao
 import com.example.finance.lvl2.Movimentacao.testeAdicionarMovimentacao
-import com.example.finance.lvl3.componentes.listas.ListaDeMovimentacoes
-import com.example.finance.lvl3.componentes.listas.NovaListaDeMembros
 import com.example.finance.lvl3.utils.avisoDeErros
-import com.example.finance.lvl3.utils.avisoLongo
 import com.example.finance.lvl3.widgets.BuscaDeDatas
-import com.example.finance.lvl3.widgets.DropdownCategoria
-import com.example.finance.lvl3.widgets.DropdownMembro
+import com.example.finance.lvl3.widgets.dropdown.DropdownCategoria
+import com.example.finance.lvl3.widgets.dropdown.DropdownMembro
 import com.example.finance.ui.theme.FinanceTheme
 import java.text.DecimalFormat
 

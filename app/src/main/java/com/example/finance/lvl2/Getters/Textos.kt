@@ -6,7 +6,6 @@ import com.example.finance.lvl1.MovimentacaoHolder
 import com.example.finance.lvl1.Periodo
 import com.example.finance.lvl1.getPeriodosFromMovimentacoes
 import com.example.finance.lvl1.getUltimoPeriodoUtilizado
-import com.example.finance.lvl3.widgets.Tipo
 
 fun getMembros(): ArrayList<MovimentacaoHolder> {
     val membros =  ArrayList<MovimentacaoHolder>()

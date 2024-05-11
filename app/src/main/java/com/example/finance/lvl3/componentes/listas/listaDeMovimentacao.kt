@@ -2,7 +2,6 @@ package com.example.finance.lvl3.componentes.listas
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,7 +20,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.KeyboardArrowDown
 import androidx.compose.material.icons.sharp.KeyboardArrowUp
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -36,7 +34,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.finance.lvl1.Login
@@ -48,11 +45,9 @@ import com.example.finance.lvl2.Movimentacao.testeAdicionarMovimentacao
 
 import com.example.finance.lvl3.utils.isPortrait
 import com.example.finance.lvl3.utils.valorMonetario
-import com.example.finance.lvl3.widgets.BotaoExpandirConteudo
+import com.example.finance.lvl3.widgets.buttons.BotaoExpandirConteudo
 import com.example.finance.ui.theme.FinanceTheme
-import com.example.finance.ui.theme.backgroundDark
 import com.example.finance.ui.theme.backgroundGasto
-import com.example.finance.ui.theme.backgroundLight
 import com.example.finance.ui.theme.backgroundRecebimento
 
 @Composable

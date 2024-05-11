@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -17,7 +16,7 @@ import com.example.finance.lvl1.getUltimoPeriodoUtilizado
 import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.lvl2.Movimentacao.adicionarMovimentacao
 import com.example.finance.lvl3.componentes.listas.ListaDePeriodos
-import com.example.finance.lvl3.widgets.ButtonAdicionar
+import com.example.finance.lvl3.widgets.buttons.ButtonAdicionar
 
 @Composable
 fun Footer(

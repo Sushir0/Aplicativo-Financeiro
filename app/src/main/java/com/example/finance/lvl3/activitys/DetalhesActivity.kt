@@ -38,14 +38,14 @@ import com.example.finance.lvl2.Getters.getMembroById
 import com.example.finance.lvl2.Getters.getMovimentacoes
 import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.lvl2.Movimentacao.testeAdicionarMovimentacao
-import com.example.finance.lvl3.componentes.ItemSaldo
+import com.example.finance.lvl3.componentes.ItemValue
 import com.example.finance.lvl3.componentes.listas.NewListaDeMovimentacao
 import com.example.finance.lvl3.layouts.Footer
 import com.example.finance.lvl3.layouts.Header
 import com.example.finance.lvl3.telas.Detalhes
 import com.example.finance.lvl3.widgets.BottomSheet
-import com.example.finance.lvl3.widgets.DropdownIsGasto
-import com.example.finance.lvl3.widgets.Tipo
+import com.example.finance.lvl3.widgets.dropdown.DropdownIsGasto
+import com.example.finance.lvl3.widgets.dropdown.Tipo
 import com.example.finance.ui.theme.FinanceTheme
 import com.example.finance.ui.theme.backgroundDark
 import com.example.finance.ui.theme.backgroundLight
@@ -135,7 +135,7 @@ fun Detalhes(
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         Header(nome = membroSelecionado.value.nome)
-        ItemSaldo(valor = membroSelecionado.value.getSaldo(periodoSelecionado.value))
+        ItemValue(valor = membroSelecionado.value.getSaldo(periodoSelecionado.value))
         DropdownIsGasto(
             tipoSelecionado = tipoSelecionado,
             modifier = Modifier
