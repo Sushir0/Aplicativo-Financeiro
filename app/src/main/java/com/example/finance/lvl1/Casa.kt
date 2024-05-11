@@ -1,5 +1,6 @@
 package com.example.finance.lvl1
 
+
 import java.util.Random
 
 class Casa(override var nome: String) : MovimentacaoHolder() {
@@ -36,11 +37,12 @@ class Casa(override var nome: String) : MovimentacaoHolder() {
 
     fun getCategorias(
         afetaCasa: Boolean = false,
-        afetaPessoa: Boolean = false
+        afetaPessoa: Boolean = false,
+        tipo: Tipo? = null
     ) :List<Categoria>{
         var categorias = mutableListOf<Categoria>()
         macroCategorias.forEach {
-            if((it.afetaCasa && afetaCasa) || (it.afetaPessoa && afetaPessoa)){
+            if(((it.afetaCasa && afetaCasa) || (it.afetaPessoa && afetaPessoa)) && (it.verificarTipo(tipo))){
                 categorias.addAll(it.getCategorias())
             }
         }
