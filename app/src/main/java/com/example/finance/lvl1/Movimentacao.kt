@@ -20,8 +20,8 @@ class Movimentacao (var assunto: String, var  data: Data, var  valor: Double, va
         return categoria!!.isGasto
     }
 
-    fun isOnPeriodo(periodo: Periodo): Boolean {
-        return periodo.isOnPeriodo(this.data)
+    fun isOnPeriodo(periodo: Periodo?): Boolean {
+        return periodo?.isOnPeriodo(data) ?: true
     }
     override fun toString(): String {
         return "Movimentacao(id=$id, assunto='$assunto', data=$data, valor=$valor, categoria=$categoria)"
