@@ -14,7 +14,7 @@ class Periodo : Serializable {
     constructor(mes: Int? = null, ano: Int, nome: String? = null){
         this.dataInicial = Data(1, mes ?: 1 , ano)
         this.dataFinal = Data(31, mes ?: 12, ano)
-        this.nome = nome?: "Período personalizado"
+        this.nome = nome?: "entre \n${dataInicial} e ${dataFinal}"
         isAno = mes == null
         id = Random().nextInt(100000)
 
@@ -30,7 +30,7 @@ class Periodo : Serializable {
             dataFinal.mes,
             dataFinal.ano
         )
-        this.nome = "Período personalizado"
+        this.nome = "entre ${dataInicial} e ${dataFinal}"
         isAno = false
         id = Random().nextInt(100000)
     }
