@@ -12,7 +12,7 @@ abstract class MovimentacaoHolder :Serializable{
     abstract val perfil: Perfil
     abstract val isCasa: Boolean
 
-    fun getGastos(periodo: Periodo): ArrayList<Movimentacao>{
+    fun getGastos(periodo: Periodo? = null): ArrayList<Movimentacao>{
         val gastos = ArrayList<Movimentacao>()
         for (movimentacao in movimentacoes) {
             if(movimentacao.isOnPeriodo(periodo)){
@@ -24,7 +24,7 @@ abstract class MovimentacaoHolder :Serializable{
         return gastos
     }
 
-    fun getRecebimentos(periodo: Periodo): ArrayList<Movimentacao>{
+    fun getRecebimentos(periodo: Periodo? = null): ArrayList<Movimentacao>{
         val recebimentos = ArrayList<Movimentacao>()
         for (movimentacao in movimentacoes) {
             if(movimentacao.isOnPeriodo(periodo)){
@@ -36,7 +36,7 @@ abstract class MovimentacaoHolder :Serializable{
         return recebimentos
     }
 
-    fun getMovimentacoes(periodo: Periodo):ArrayList<Movimentacao>{
+    fun getMovimentacoes(periodo: Periodo? = null):ArrayList<Movimentacao>{
         val movimentacoes = ArrayList<Movimentacao>()
         for (movimentacao in this.movimentacoes) {
             if(movimentacao.isOnPeriodo(periodo)){
@@ -46,7 +46,7 @@ abstract class MovimentacaoHolder :Serializable{
         return movimentacoes
     }
 
-    fun getGastosTotais(periodo: Periodo):Double{
+    fun getGastosTotais(periodo: Periodo? = null):Double{
         var soma = 0.0
         for (movimentacao in movimentacoes) {
             if (movimentacao.isOnPeriodo(periodo)){
@@ -57,7 +57,7 @@ abstract class MovimentacaoHolder :Serializable{
         }
         return soma
     }
-    fun getRecebimentosTotais(periodo: Periodo):Double{
+    fun getRecebimentosTotais(periodo: Periodo? = null):Double{
         var soma = 0.0
         for (movimentacao in movimentacoes) {
             if(movimentacao.isOnPeriodo(periodo)){
@@ -68,7 +68,7 @@ abstract class MovimentacaoHolder :Serializable{
         }
         return soma
     }
-    fun getSaldo(periodo: Periodo):Double{
+    fun getSaldo(periodo: Periodo? = null):Double{
         return getRecebimentosTotais(periodo) - getGastosTotais(periodo)
     }
 
@@ -76,7 +76,7 @@ abstract class MovimentacaoHolder :Serializable{
         return movimentacoes.add(movimentacao)
     }
 
-    private fun editMovimentacao(
+    fun editMovimentacao(
         movimentacaoOriginal: Movimentacao,
         movimentacaoModificada: Movimentacao
     ) {
@@ -84,7 +84,7 @@ abstract class MovimentacaoHolder :Serializable{
         movimentacoes[index] = movimentacaoModificada
     }
 
-    private fun excluirMovimentacao(movimentacaoASerExcluida: Movimentacao): Boolean {
+    fun removeMovimentacao(movimentacaoASerExcluida: Movimentacao): Boolean {
         return movimentacoes.remove(movimentacaoASerExcluida)
     }
 
