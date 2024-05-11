@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
@@ -34,11 +36,12 @@ fun ButtonAbrirFiltros(nomePeriodo: String, nomeCategoria: String, onClick: () -
                     .padding(16.dp),
                     horizontalArrangement = Arrangement.SpaceAround,
                     verticalAlignment = Alignment.CenterVertically){
-                    Column (Modifier.padding(8.dp)){
-                        Text(text = "Exibindo: $nomeCategoria")
-                        Text(text = "Periodo: $nomePeriodo")
+                    Column (Modifier.padding(8.dp).weight(4.0f)){
+                        Text(text = "Exibindo: $nomeCategoria", style = MaterialTheme.typography.bodyMedium)
+                        Spacer(modifier = Modifier.height(6.dp))
+                        Text(text = "Periodo: $nomePeriodo", style = MaterialTheme.typography.bodyMedium)
                     }
-                    Text(text = "Editar Filtros ->", color = MaterialTheme.colorScheme.onBackground)
+                    Text(modifier = Modifier.weight(1.2f), text = "Editar Filtros ->", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.titleSmall)
                 }
             }
         }
