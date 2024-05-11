@@ -96,11 +96,3 @@ abstract class MovimentacaoHolder :Serializable{
 fun getMovimentacaoHolderById(id: Int): MovimentacaoHolder{
     return getMembros().find { it.sameID(id) } ?: Login.getCasaLogada()
 }
-
-fun main() {
-    testeCadastro()
-    gerarCategoriasBasicas()
-    testeAdicionarMovimentacao(Login.getCasaLogada())
-    val movimentacoes = Login.getCasaLogada().getMovimentacoes(Periodo(ano = 2024))
-    print(movimentacoes)
-}
