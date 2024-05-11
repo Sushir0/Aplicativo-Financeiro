@@ -23,6 +23,19 @@ class MacroCategoria (
         return categorias
     }
 
+    fun verificarTipo(tipo: Tipo?): Boolean{
+        if (tipo == Tipo.TODOS || tipo == null){
+            return true
+        }
+        if (tipo == Tipo.GASTO && isGasto){
+            return true
+        }
+        if (tipo == Tipo.RECEBIMENTO && !isGasto){
+            return true
+        }
+        return false
+    }
+
 
 
 

@@ -2,6 +2,7 @@ package com.example.finance
 
 import com.example.finance.lvl1.Categoria
 import com.example.finance.lvl1.MacroCategoria
+import com.example.finance.lvl1.Tipo
 import org.junit.Assert
 import org.junit.Test
 
@@ -35,5 +36,24 @@ class MacroCategoriaUnitTest {
         Assert.assertTrue(categorias.any { it.toString() == Categoria("Categoria1").toString()})
         Assert.assertTrue(categorias.any { it.toString() == Categoria("Categoria2").toString()})
         Assert.assertTrue(categorias.any { it.toString() == Categoria("Categoria3").toString()})
+    }
+
+    @Test
+    fun testVerificarTipo(){
+        //Arrange
+        val macroCategoria = MacroCategoria("macroCategoria", isGasto = false)
+
+        //Act
+        val verificacaoRecebimento = macroCategoria.verificarTipo(Tipo.RECEBIMENTO)
+        val verificacaoGasto = macroCategoria.verificarTipo(Tipo.GASTO)
+        val verificacaoTodos = macroCategoria.verificarTipo(Tipo.TODOS)
+        val verificacaoNull = macroCategoria.verificarTipo(null)
+
+        //Assert
+        Assert.assertTrue(verificacaoRecebimento)
+        Assert.assertFalse(verificacaoGasto)
+        Assert.assertTrue(verificacaoTodos)
+        Assert.assertTrue(verificacaoNull)
+
     }
 }
