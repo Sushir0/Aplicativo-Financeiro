@@ -60,10 +60,5 @@ fun gerarCategoriasBasicas(){
 
 
 fun gerarCategoriaTeste():Categoria{
-    return Categoria(
-        nome = "categoria",
-        afetaPessoa = true,
-        afetaCasa = true,
-        isGasto = true
-    )
+    return Login.getCasaLogada().macroCategorias.random().getCategorias().random()
 }
