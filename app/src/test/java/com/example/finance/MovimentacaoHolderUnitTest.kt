@@ -92,6 +92,48 @@ class MovimentacaoHolderUnitTest {
     }
 
     @Test
+    fun testGetMovimentacoesComCategoria(){
+        //Arrange
+        val categoria = Categoria("categoria", isGasto = true)
+        val movimentacao1 = Movimentacao("assunto", Data(1, 1, 2023), 100.0, categoria)
+        val movimentacao2 = Movimentacao("assunto", Data(1, 2, 2023), 100.0, categoria)
+        val movimentacao3 = Movimentacao("assunto", Data(1, 3, 2023), 100.0, Categoria("categoria2", isGasto = true))
+        val pessoa = Pessoa("João")
+        pessoa.addMovimentacao(movimentacao1)
+        pessoa.addMovimentacao(movimentacao2)
+        pessoa.addMovimentacao(movimentacao3)
+
+        //Act
+        val result = pessoa.getMovimentacoes(categoria = categoria)
+
+        //Assert
+        Assert.assertEquals(2, result.size)
+        Assert.assertTrue(result.any{ it.toString() == movimentacao1.toString() })
+        Assert.assertTrue(result.any{ it.toString() == movimentacao2.toString() })
+        Assert.assertFalse(result.any{ it.toString() == movimentacao3.toString() })
+    }
+
+    @Test
+    fun testGetValorTotal_FromCategoria(){
+        //Arrange
+        val categoria = Categoria("categoria", isGasto = true)
+        val movimentacao1 = Movimentacao("assunto", Data(1, 1, 2023), 100.0, categoria)
+        val movimentacao2 = Movimentacao("assunto", Data(1, 2, 2023), 100.0, categoria)
+        val movimentacao3 = Movimentacao("assunto", Data(1, 3, 2023), 100.0, Categoria("categoria2", isGasto = true))
+        val pessoa = Pessoa("João")
+        pessoa.addMovimentacao(movimentacao1)
+        pessoa.addMovimentacao(movimentacao2)
+        pessoa.addMovimentacao(movimentacao3)
+
+        //Act
+        val result = pessoa.getValorTotalCategoria(categoria)
+
+        //Assert
+        Assert.assertEquals(200.0, result, 0.0)
+    }
+
+
+    @Test
     fun testGetGastosTotaisSemPeriodo(){
         //Arrange
         val movimentacao1 = Movimentacao("assunto", Data(1, 1, 2023), 100.0, Categoria("categoria", isGasto = true))
