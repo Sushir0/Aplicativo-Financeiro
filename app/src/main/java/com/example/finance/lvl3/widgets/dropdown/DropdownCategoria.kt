@@ -34,7 +34,6 @@ fun DropdownCategoria(
     var expandedMenu by remember { mutableStateOf<Boolean>(expandedInicial) }
     var textoBotao = categoriaSelecionada?.nome ?: "Selecione uma categoria."
 
-    var categoriasFiltradas by remember { mutableStateOf(categorias) }
 
 
     Column(modifier = modifier) {
@@ -57,7 +56,7 @@ fun DropdownCategoria(
             modifier = modifier
 
         ) {
-            categoriasFiltradas.forEach { categoria ->
+            categorias.forEach { categoria ->
                 DropdownItem(
                     categoria = categoria,
                     onChoice = {
