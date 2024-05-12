@@ -36,11 +36,13 @@ abstract class MovimentacaoHolder :Serializable{
         return recebimentos
     }
 
-    fun getMovimentacoes(periodo: Periodo? = null):ArrayList<Movimentacao>{
+    fun getMovimentacoes(periodo: Periodo? = null, categoria: Categoria? = null):ArrayList<Movimentacao>{
         val movimentacoes = ArrayList<Movimentacao>()
         for (movimentacao in this.movimentacoes) {
             if(movimentacao.isOnPeriodo(periodo)){
-                movimentacoes.add(movimentacao)
+                if (categoria == null || categoria == movimentacao.categoria) {
+                    movimentacoes.add(movimentacao)
+                }
             }
         }
         return movimentacoes
