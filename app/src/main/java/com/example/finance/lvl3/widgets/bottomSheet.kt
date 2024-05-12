@@ -10,7 +10,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,7 +34,9 @@ fun BottomSheet(
 
     if(isSheetOpen){
         ModalBottomSheet(
-            sheetState = rememberModalBottomSheetState(),
+            sheetState = rememberModalBottomSheetState(
+                skipPartiallyExpanded = true
+            ),
             onDismissRequest = onDismiss
         ) {
             Column (
