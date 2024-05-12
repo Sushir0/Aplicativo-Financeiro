@@ -12,6 +12,13 @@ enum class Tipo {
             TODOS -> "Todos"
         }
     }
+    fun getNome_Trocando_Todos_Por_Saldo():String{
+        return when (this) {
+            GASTO -> "Gasto"
+            RECEBIMENTO -> "Recebimento"
+            TODOS -> "Saldo"
+        }
+    }
 
     companion object {
         fun getTipos(): List<Tipo> {
