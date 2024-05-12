@@ -70,6 +70,34 @@ abstract class MovimentacaoHolder :Serializable{
         }
         return soma
     }
+
+    fun getValorTotalFromCategoria(categoria: Categoria, periodo: Periodo? = null):Double{
+        var soma = 0.0
+        for (movimentacao in movimentacoes) {
+            if (movimentacao.isOnPeriodo(periodo)) {
+                if (movimentacao.categoria == categoria) {
+                    soma += movimentacao.valor
+                }
+            }
+        }
+        return soma
+    }
+
+    fun getMovimentacoesFromCategoria(
+        categoria: Categoria?,
+        periodo: Periodo?
+    ):ArrayList<Movimentacao>{
+        val movimentacoes = ArrayList<Movimentacao>()
+        for (movimentacao in movimentacoes) {
+            if (movimentacao.isOnPeriodo(periodo)) {
+                if (movimentacao.categoria == categoria || categoria == null) {
+                    movimentacoes.add(movimentacao)
+                }
+            }
+        }
+        return movimentacoes
+    }
+
     fun getSaldo(periodo: Periodo? = null):Double{
         return getRecebimentosTotais(periodo) - getGastosTotais(periodo)
     }
