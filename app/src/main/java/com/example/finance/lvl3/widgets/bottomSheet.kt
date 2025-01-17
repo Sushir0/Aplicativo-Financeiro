@@ -17,10 +17,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.finance.lvl1.Login
-import com.example.finance.lvl1.MovimentacaoHolder
-import com.example.finance.lvl1.gerarCategoriasBasicas
-import com.example.finance.lvl2.Login.testeCadastro
+import com.example.finance.a_Domain.model.MovimentacaoHolder.MovimentacaoHolder
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -55,11 +52,12 @@ fun BottomSheet(
 @Preview
 @Composable
 private fun BottomSheetPrev() {
+    /*
     var isSheetOpen by rememberSaveable {
         mutableStateOf(true)
     }
-    gerarCategoriasBasicas()
-    testeCadastro()
+    CategoriaDebbug().gerarCategoriasBasicas()
+    LoginController().testeCadastro()
     val membroSelecionado by remember {
         mutableStateOf<MovimentacaoHolder>(Login.getCasaLogada())
     }
@@ -70,5 +68,6 @@ private fun BottomSheetPrev() {
         FormularioMovimentacao(membroPreSelecionado = membroSelecionado,
             onDismiss = {isSheetOpen = false})
     }
-}
 
+     */
+}

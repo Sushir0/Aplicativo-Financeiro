@@ -13,6 +13,11 @@ val contentResumo = Color(0x56218DC7)
 val backgroundLista = Color(0x1A808080)
 val backgroundGasto = Color(0x409B0C0C)
 val backgroundRecebimento = Color(0x400EDA18)
+val corSetaGasto = Color(0xF29B0C0C)
+val corSetaRecebimento = Color(0x8C0EDA18)
+
+val anitaMiranda = Color(0xFFFF20B5)
+
 //Color(0xAB218DC7)
 val primary = Color(0xFF7090BA)
 val secondary = Color(0xFF02acf8)

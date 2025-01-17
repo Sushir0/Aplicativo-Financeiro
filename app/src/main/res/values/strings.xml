@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Finance</string>
+    <string name="title_activity_configuracao">ConfiguracaoActivity</string>
+    <string name="title_activity_config_macro_categorias">Config_CategoriasActivity</string>
 </resources>

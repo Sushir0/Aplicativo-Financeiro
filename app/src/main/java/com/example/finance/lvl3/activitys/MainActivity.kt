@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -30,27 +31,27 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.finance.lvl1.Login
-import com.example.finance.lvl1.gerarCategoriasBasicas
-import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.lvl3.componentes.formularios.CadastroForm
 import com.example.finance.lvl3.componentes.formularios.LoginForm
 import com.example.finance.ui.theme.FinanceTheme
 import com.example.finance.ui.theme.backgroundDark
 import com.example.finance.ui.theme.backgroundLight
 
+@ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            FinanceTheme() {
-                testeCadastro()
+            FinanceTheme() {/*
+                LoginController().testeCadastro()
                 if(Login.isAlguemLogado()){
-                    gerarCategoriasBasicas()
+                    CategoriaDebbug().gerarCategoriasBasicas()
+                    MovimentacaoController().testeAdicionarMovimentacao(Login.getCasaLogada())
                     abrirDashboard(LocalContext.current)
                 }else{
                     TelaInicialDeLogin()
                 }
+                */
 
 
             }
@@ -131,8 +132,9 @@ fun TelaInicialDeLogin() {
 @Composable
 fun MainPreview(){
     FinanceTheme() {
-        testeCadastro()
-
+        /*
+        LoginController().testeCadastro()
+         */
 
         TelaInicialDeLogin()
     }

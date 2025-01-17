@@ -1,9 +1,7 @@
 package com.example.finance.lvl2.validações
 
-fun validarTamanhoString(frase: String, tamanhoMinimo: Int, tamanhoMaximo: Int): Boolean{
-    if(frase.length> tamanhoMaximo && frase.length<tamanhoMinimo){
-        return true
-    }else{ return false }
+fun validarTamanhoString(texto: String, min: Int, max: Int): Boolean {
+    return texto.length < min || texto.length > max
 }
 
 fun validarDisponibilidadeValor(valor : Double, valorMaximo : Int, canNegativo: Boolean = false): Boolean{

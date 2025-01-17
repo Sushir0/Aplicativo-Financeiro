@@ -1,5 +1,6 @@
 package com.example.finance.lvl3.componentes
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -14,12 +15,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.lvl3.utils.valorMonetario
 import com.example.finance.ui.theme.backgroundDark
 import com.example.finance.ui.theme.backgroundGasto
@@ -44,11 +45,15 @@ fun NovoResumoFinanceiro(
 
 @Composable
 fun ItemValue(valor: Double, texto: String = "Saldo"){
-    var background = if(valor>=0){
-        backgroundRecebimento
-    }else{
-        backgroundGasto
-    }
+
+    val saldoColor by animateColorAsState(
+        targetValue = if(valor>=0){
+            backgroundRecebimento
+        }else{
+            backgroundGasto
+        }
+    )
+
     Box(
         modifier = Modifier
             .fillMaxWidth(),
@@ -60,7 +65,7 @@ fun ItemValue(valor: Double, texto: String = "Saldo"){
         ) {
             Box(
                 modifier = Modifier
-                    .background(background)
+                    .background(saldoColor)
                     .fillMaxWidth(.7f),
                 contentAlignment = Alignment.Center
             ){
@@ -114,7 +119,10 @@ private fun ItemOutlined(texto:String, valor:Double, onClick:()-> Unit) {
 @Preview
 @Composable
 fun NovoResumoPreview() {
-    testeCadastro()
+    /*
+    LoginController().testeCadastro()
+
+     */
     NovoResumoFinanceiro(888.88, 888.88, 80.0)
 }
 

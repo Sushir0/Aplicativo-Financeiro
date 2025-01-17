@@ -8,7 +8,6 @@ import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
@@ -17,30 +16,37 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.finance.lvl1.Data
-import com.example.finance.lvl1.converterDataMillisParaData
+import com.example.finance.a_Domain.model.Dados.Data
+import com.example.finance.a_Domain.model.Dados.converterDataMillisParaData
+import com.example.finance.a_Domain.model.Dados.dataFromTimeStamp
 
 
 @Composable
 fun BuscaDeDatas(
     onConfirm: (Data) -> Unit,
-    modifier : Modifier = Modifier
+    modifier : Modifier = Modifier,
+    enabled : Boolean = true,
+    dataInicial : Data = converterDataMillisParaData(System.currentTimeMillis())
 ) {
     var showDialog by remember { mutableStateOf(false) }
-    var data by remember { mutableStateOf(converterDataMillisParaData(System.currentTimeMillis())) }
+    var data by remember { mutableStateOf(dataInicial) }
     val onDismiss = { showDialog = false }
     var textButton = data.toString()
+    val cor = if(!enabled) MaterialTheme.colorScheme.onSurface.copy(0.8f) else Color.Unspecified
 
     OutlinedButton(
         modifier = modifier,
         shape = RoundedCornerShape(4.dp),
-        onClick = { showDialog = !showDialog }
+        onClick = { showDialog = !showDialog },
+        enabled = enabled
     ) {
         Text(
             text = textButton,
             style = MaterialTheme.typography.titleSmall,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(8.dp),
+            color = cor
         )
     }
     if (showDialog) {
@@ -72,12 +78,7 @@ fun BuscaDeDatasDialog(
             Button(onClick = {
 
                 val selectedDateMillis = dateState.selectedDateMillis ?: System.currentTimeMillis()
-
-                val dataSelecionada = converterDataMillisParaData(
-                    selectedDateMillis,
-                    datePicker = (dateState.selectedDateMillis != null ||
-                            dateState.selectedDateMillis?.let { converterDataMillisParaData(dataMillis = it).dia } == 1))
-
+                val dataSelecionada = dataFromTimeStamp(selectedDateMillis)
 
                 onConfirm(dataSelecionada)
 

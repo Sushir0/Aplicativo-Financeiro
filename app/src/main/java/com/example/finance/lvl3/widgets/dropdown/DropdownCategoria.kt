@@ -14,11 +14,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.finance.lvl1.Categoria
-import com.example.finance.lvl1.Login
-import com.example.finance.lvl1.gerarCategoriasBasicas
+import com.example.finance.a_Domain.model.Categorizacao.Categoria
 import com.example.finance.ui.theme.FinanceTheme
 
 
@@ -29,10 +28,13 @@ fun DropdownCategoria(
     categorias: List<Categoria>,
     categoriaSelecionada : Categoria?,
     modifier: Modifier = Modifier,
-    onChoice: (Categoria) -> Unit
-) {
+    enabled : Boolean = true,
+    onChoice: (Categoria) -> Unit,
+
+    ) {
     var expandedMenu by remember { mutableStateOf<Boolean>(expandedInicial) }
     var textoBotao = categoriaSelecionada?.nome ?: "Selecione uma categoria."
+    val cor = if(!enabled) MaterialTheme.colorScheme.onSurface.copy(0.8f) else Color.Unspecified
 
 
 
@@ -41,10 +43,12 @@ fun DropdownCategoria(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(4.dp),
             onClick = { expandedMenu = true },
+            enabled = enabled
         ) {
             Text(
                 text = textoBotao,
                 style = MaterialTheme.typography.titleSmall,
+                color = cor
                 )
 
         }
@@ -89,12 +93,13 @@ private fun DropdownItem(
 @Preview
 @Composable
 private fun DropdownCategoriaPrev() {
+    /*
     FinanceTheme {
         var flag by remember {
             mutableStateOf(true)
         }
         if (flag){
-            gerarCategoriasBasicas()
+            CategoriaDebbug().gerarCategoriasBasicas()
             flag = false
         }
         var categoriaSelecionada by remember { mutableStateOf<Categoria?>(null) }
@@ -106,4 +111,6 @@ private fun DropdownCategoriaPrev() {
             }
         )
     }
+
+     */
 }

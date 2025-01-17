@@ -1,4 +1,3 @@
-import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
@@ -9,8 +8,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -21,77 +23,80 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.finance.VariaveisDeAmbiente
-import com.example.finance.lvl1.Categoria
-import com.example.finance.lvl1.Data
-import com.example.finance.lvl1.Login
-import com.example.finance.lvl1.MovimentacaoHolder
-import com.example.finance.lvl1.converterDataMillisParaData
-import com.example.finance.lvl1.gerarCategoriasBasicas
-import com.example.finance.lvl2.Getters.getMembros
-import com.example.finance.lvl2.Login.testeCadastro
-import com.example.finance.lvl2.Movimentacao.adicionarMovimentacao
-import com.example.finance.lvl2.Movimentacao.testeAdicionarMovimentacao
+import com.example.finance.Presentation.VM.Movimentacao.AdicionarMovimentacaoViewModel
+import com.example.finance.a_Domain.model.MetaDados.SelecaoUsuario
+import com.example.finance.a_Domain.model.MovimentacaoHolder.MovimentacaoHolder
 import com.example.finance.lvl3.utils.avisoDeErros
+import com.example.finance.lvl3.utils.avisoLongo
 import com.example.finance.lvl3.widgets.BuscaDeDatas
-import com.example.finance.lvl3.widgets.dropdown.DropdownCategoria
+import com.example.finance.lvl3.widgets.Escolher.EscolhaSelecaoUsuarioNew
 import com.example.finance.lvl3.widgets.dropdown.DropdownMembro
 import com.example.finance.ui.theme.FinanceTheme
-import java.text.DecimalFormat
+import kotlinx.coroutines.launch
 
-
+@OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun FormularioMovimentacao(
     onDismiss : ()-> Unit = {  },
-    membroPreSelecionado: MovimentacaoHolder,
-    onConfirm: ()-> Unit = {  },
-    lockedMembro: Boolean = false
+    membroPreSelecionado: MovimentacaoHolder?,
+    viewModel: AdicionarMovimentacaoViewModel,
 ) {
-    val paddingValue = 6.dp
-    val context = LocalContext.current
-
-    var assunto by remember { mutableStateOf("") }
-    var valor by remember { mutableStateOf("") }
-    var categoriaSelecionada by remember { mutableStateOf<Categoria?>(null) }
-    var data by remember { mutableStateOf(converterDataMillisParaData(System.currentTimeMillis())) }
-    var membroSelecionado by remember{ mutableStateOf(membroPreSelecionado) }
-    
-
-
-    if(VariaveisDeAmbiente.debugMode){
-        testeAdicionarMovimentacao(membroPreSelecionado)
-        onConfirm()
-        onDismiss()
-        return
+    LaunchedEffect(Unit) {
+        viewModel.inicializar(membroPreSelecionado)
     }
 
+    val paddingValue = 8.dp
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
 
+    val mensagemAviso by viewModel.mensagemAviso.collectAsState()
+    if (mensagemAviso.isNotEmpty()) {
+        avisoDeErros(context = LocalContext.current, mensagemAviso)
+        viewModel.limparAviso()
+    }
+
+    val descricao by viewModel.descricao
+    val valor by viewModel.valor
+    val data by viewModel.data
+    var membroSelecionado by viewModel.membroSelecionado
+    val categoria by viewModel.categoriaEscolhida
+
+    var membros by viewModel.membros
+
+    val textoBotaoAdicionar by viewModel.textoBotaoAdicionar
+    val textoBotaoCategoria by viewModel.textoBotaoCategoria
 
     Column(
         modifier = Modifier
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(
+            text = "Adicionar",
+            style = MaterialTheme.typography.headlineMedium,
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth()
+        )
         Box(modifier = Modifier.padding(8.dp)){
             DropdownMembro(
                 expandedInicial = false,
-                membros = getMembros(),
+                membros = membros,
                 membroSelecionado = membroSelecionado,
                 modifier = Modifier,
-                lockedMembro = lockedMembro,
-                onChoice = { membroSelecionado = it }
+                onChoice = {
+                    viewModel.setMembro(it)
+                }
             )
-
-
         }
 
         OutlinedTextField(
-            value = assunto,
-            onValueChange = {assunto = it},
+            value = descricao,
+            onValueChange = { viewModel.setDescricao(it) },
             label = {
                 Text(
-                    text = "Assunto",
+                    text = "Descrição",
                     style = MaterialTheme.typography.labelMedium) },
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Next
@@ -101,15 +106,11 @@ fun FormularioMovimentacao(
                 .fillMaxWidth()
                 .padding(
                     paddingValue
-                )
+                ),
         )
         OutlinedTextField(
             value = valor,
-            onValueChange = { newValue ->
-                if (validarValor(newValue)) {
-                    valor = newValue
-                }
-            },
+            onValueChange = { viewModel.setValor(it) },
 
             label = {
                 Text(
@@ -123,7 +124,7 @@ fun FormularioMovimentacao(
             singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(paddingValue)
+                .padding(paddingValue),
         )
 
 
@@ -132,26 +133,21 @@ fun FormularioMovimentacao(
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-
-            DropdownCategoria(
-                categorias = Login.getCasaLogada().getCategorias(
-                    afetaCasa = (membroSelecionado.isCasa),
-                    afetaPessoa = (!membroSelecionado.isCasa)
-                ),
-                categoriaSelecionada = categoriaSelecionada,
+            OutlinedCard(
                 modifier = Modifier
                     .fillMaxWidth(.4f)
-                    .padding(
-                        start = 4.dp,
-                        top = 4.dp
-                    ),
-                onChoice = { categoriaSelecionada = it }
-            )
-
-
+                    .padding(start = 4.dp, top = 4.dp),
+                onClick = {
+                    viewModel.abrirDialogoDeCategoria()
+                }
+            ) {
+                Text(
+                    text = textoBotaoCategoria
+                )
+            }
             BuscaDeDatas(
                 onConfirm = { dataSelecionada ->
-                    data = dataSelecionada
+                    viewModel.setData(dataSelecionada)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -159,81 +155,80 @@ fun FormularioMovimentacao(
                         start = 8.dp,
                         top = 4.dp,
                         end = 6.dp
-                    )
+                    ),
+                dataInicial = data,
             )
         }
-        Button(
-            onClick = { adicionar(
-                assunto = assunto,
-                valor = valor,
-                data = data,
-                categoria = categoriaSelecionada,
-                membroSelecionado = membroSelecionado,
-                onDismiss = onDismiss,
-                context = context
-            )
-                      onConfirm()},
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-        ) {
-            Text(
-                text = "Adicionar",
-                style = MaterialTheme.typography.titleMedium)
-        }
+
+            Button(
+                onClick = {
+                    coroutineScope.launch {
+                        viewModel.onSave()
+                        onDismiss()
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                Text(
+                    text = textoBotaoAdicionar,
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+    }
+    if(viewModel.showDialogDeCategoria){
+        AlertDialog(
+            modifier = Modifier,
+            onDismissRequest = { viewModel.fecharDialogoDeCategoria() },
+            title = { Text(text = "Escolha uma categoria") },
+            text = {
+                EscolhaSelecaoUsuarioNew(
+                    isCasa = membroSelecionado!!.isCasa,
+                    macroCategorias = viewModel.macroCategorias.value,
+                    categorias = viewModel.categorias.value,
+                    categoriaInicial = categoria,
+                    needConfirmation = true,
+                    onlyCategoria = true,
+                    onDismiss = { viewModel.fecharDialogoDeCategoria() },
+                    onConfirm = {
+                        avisoLongo(context, "Categoria escolhida: ${it.Nome}")
+                        if (it is SelecaoUsuario.categoriaSelecionada) {
+                            viewModel.setCategoria(categoria = it.categoria)
+                        }
+
+                    }
+                )
+//                EscolhaDeCategoria2(
+//                    isCasa = membroSelecionado!!.isCasa,
+//                    macroCategorias = viewModel.macroCategorias.value,
+//                    categorias = viewModel.categorias.value,
+//                    categoriaInicial = categoria,
+//                    needConfirmation = true,
+//                    onDismiss = { viewModel.fecharDialogoDeCategoria() },
+//                    onConfirm = {
+//                        avisoLongo(context, "Categoria escolhida: ${it.nome}")
+//                        viewModel.setCategoria(it)
+//                    }
+//                )
+
+            },
+            confirmButton = {
+
+            }
+        )
+        
     }
 
 
 }
-
-
-private fun validarValor(valor: String): Boolean {
-    return try {
-        val parsedValue = valor.toDouble()
-        val decimalFormat = DecimalFormat("#,##0.00")
-        decimalFormat.format(parsedValue)
-        true
-    } catch (e: NumberFormatException) {
-        false
-    }
-}
-
-private fun adicionar(
-    assunto: String,
-    valor: String,
-    data : Data,
-    categoria: Categoria?,
-    membroSelecionado: MovimentacaoHolder,
-    onDismiss: () -> Unit,
-    context: Context
-){
-    val erros = adicionarMovimentacao(
-             assunto = assunto,
-             valorStr = valor,
-             data = data,
-             categoria = categoria,
-             movimentacaoHolder = membroSelecionado
-         )
-
-
-    if(erros.isEmpty()){
-        onDismiss()
-    }else{
-        avisoDeErros(context = context, erros = erros)
-    }
-}
-
-
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview
 @Composable
-fun datePrev() {
+fun FormularioMovimentacaoPreview() {
+
     FinanceTheme {
-        testeCadastro()
-        gerarCategoriasBasicas()
-        FormularioMovimentacao(
-            membroPreSelecionado = Login.getCasaLogada()
-        )
+        //FormularioMovimentacao()
     }
 }

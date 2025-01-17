@@ -1,5 +1,7 @@
 package com.example.finance.lvl3.componentes.listas
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,17 +16,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.sharp.KeyboardArrowDown
-import androidx.compose.material.icons.sharp.KeyboardArrowUp
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,15 +31,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.finance.lvl1.Login
-import com.example.finance.lvl1.Movimentacao
-import com.example.finance.lvl1.Periodo
-import com.example.finance.lvl1.gerarCategoriasBasicas
-import com.example.finance.lvl2.Login.testeCadastro
-import com.example.finance.lvl2.Movimentacao.testeAdicionarMovimentacao
-
+import com.example.finance.a_Domain.VariaveisDeAmbiente.VariaveisDeAmbiente
+import com.example.finance.a_Domain.model.Dados.Movimentacao
+import com.example.finance.a_Domain.model.MetaDados.Periodo
 import com.example.finance.lvl3.utils.isPortrait
 import com.example.finance.lvl3.utils.valorMonetario
+import com.example.finance.lvl3.widgets.DivisorHorizontalPersonalizado
+import com.example.finance.lvl3.widgets.SetaMovimentacao
 import com.example.finance.lvl3.widgets.buttons.BotaoExpandirConteudo
 import com.example.finance.ui.theme.FinanceTheme
 import com.example.finance.ui.theme.backgroundGasto
@@ -68,7 +61,15 @@ fun ListaDeMovimentacoes(movimentacoes : List<Movimentacao>) {
         }else{
             expandirConteudo = false
         }
-        LazyRow(modifier = Modifier.fillMaxWidth(),){
+        LazyRow(modifier = Modifier
+            .fillMaxWidth()
+            .animateContentSize(
+                animationSpec = spring(
+                    dampingRatio = VariaveisDeAmbiente.dampingRatioBouncy,
+                    stiffness = VariaveisDeAmbiente.stiffness
+                )
+            )
+        ){
             items(movimentacoes){movimentacao ->
                 if(expandirConteudo){
                     ItemDetalhado(movimentacao = movimentacao)
@@ -88,7 +89,7 @@ fun ListaDeMovimentacoes(movimentacoes : List<Movimentacao>) {
 
 @Composable
 private fun ItemSimples(movimentacao: Movimentacao) {
-    val corDoCard = if(movimentacao.isGasto()){
+    val corDoCard = if(movimentacao.isGasto){
         backgroundGasto
     }else{
         backgroundRecebimento
@@ -109,7 +110,7 @@ private fun ItemSimples(movimentacao: Movimentacao) {
 
             ) {
                 Text(
-                    text = movimentacao.assunto,
+                    text = movimentacao.descricao,
                     style = MaterialTheme.typography.titleMedium
                 )
                 Text(
@@ -123,7 +124,7 @@ private fun ItemSimples(movimentacao: Movimentacao) {
 
 @Composable
 private fun ItemDetalhado(movimentacao: Movimentacao) {
-    val corDoCard = if(movimentacao.isGasto()){
+    val corDoCard = if(movimentacao.isGasto){
         backgroundGasto
     }else{
         backgroundRecebimento
@@ -144,7 +145,7 @@ private fun ItemDetalhado(movimentacao: Movimentacao) {
 
             ) {
                 Text(
-                    text = movimentacao.assunto,
+                    text = movimentacao.descricao,
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.padding(4.dp)
                 )
@@ -166,23 +167,23 @@ private fun ItemDetalhado(movimentacao: Movimentacao) {
 @Composable
 fun NewListaDeMovimentacao(
     movimentacoes: List<Movimentacao>,
-    isAlways: Boolean = false
+    isAlways: Boolean = false,
+    onItemClick: (Movimentacao) -> Unit = { }
 ) {
-    LazyColumn (modifier = Modifier
+    LazyColumn (
+        modifier = Modifier
         .fillMaxWidth()
         .padding(8.dp)
     ) {
         itemsIndexed(movimentacoes){ index, movimentacao->
             ItemLista(
                 movimentacao = movimentacao,
-                isAlways = isAlways
+                isAlways = isAlways,
+                onClick = { onItemClick(movimentacao) }
             )
             if(index < movimentacoes.size-1){
                 Box(modifier = Modifier.padding(horizontal = 4.dp)){
-                    HorizontalDivider(
-                        thickness = 1.dp,
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
+                    DivisorHorizontalPersonalizado()
                 }
             }
 
@@ -193,75 +194,69 @@ fun NewListaDeMovimentacao(
 @Composable
 private fun ItemLista(
     movimentacao: Movimentacao,
-    onClick: ()->Unit = {  },
-    isAlways: Boolean = false) {
-    Box(modifier = Modifier.clickable { onClick() }){
-        Row (
+    onClick: (Movimentacao) -> Unit = { },
+    isAlways: Boolean = true
+) {
+    Box(modifier = Modifier.clickable { onClick(movimentacao) }) {
+        Row(
             modifier = Modifier
                 .padding(12.dp)
                 .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceAround,
-
-            ){
-            Row (verticalAlignment = Alignment.CenterVertically){
-                if(isAlways) {
-                    SetaMovimentacao(isGasto = movimentacao.isGasto())
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(
+                modifier = Modifier.weight(1f),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                if (isAlways) {
+                    SetaMovimentacao(isGasto = movimentacao.isGasto,
+                        modifier = Modifier
+                            .padding(3.dp)
+                            .size(32.dp))
                 }
-                Column(modifier = Modifier
-                    .padding(horizontal = 18.dp, vertical = 4.dp)) {
+                Column(
+                    modifier = Modifier
+                        .padding(horizontal = 18.dp, vertical = 4.dp)
+                ) {
                     Text(
-                        text = movimentacao.assunto,
-                        style = MaterialTheme.typography.titleSmall
+                        text = movimentacao.descricao,
+                        style = MaterialTheme.typography.titleSmall,
+                        modifier = Modifier.fillMaxWidth(1f)
                     )
                     Text(
                         text = valorMonetario(movimentacao.valor),
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(vertical = 1.dp)
                     )
-                    Text(text = movimentacao.data.toString(),
-                        style = MaterialTheme.typography.labelSmall)
-
-
+                    Text(
+                        text = movimentacao.data.toString(),
+                        style = MaterialTheme.typography.labelSmall
+                    )
                 }
             }
-            Text(text = "Ver Mais ->", color = MaterialTheme.colorScheme.onBackground)
+            Box(
+                modifier = Modifier,
+                contentAlignment = Alignment.CenterEnd
+            ) {
+                Text(text = "Ver Mais ->", color = MaterialTheme.colorScheme.onBackground)
+            }
         }
     }
-
 }
 
-@Composable
-private fun SetaMovimentacao(isGasto: Boolean) {
-    val icon = if(isGasto){ Icons.Sharp.KeyboardArrowUp }else{ Icons.Sharp.KeyboardArrowDown }
-    val color = if(isGasto){ backgroundGasto }else{ backgroundRecebimento }
-    val descricao = if (isGasto){ "Gasto"}else{ "Recebimento" }
-
-    OutlinedCard(shape = CircleShape) {
-        Icon(
-            modifier = Modifier
-                .padding(3.dp)
-                .size(32.dp),
-            imageVector = icon,
-            contentDescription = descricao,
-            tint = color
-        )
-        
-
-    }
-    
-}
 
 
 
 @Preview
 @Composable
 fun ListaDeGastosPreview() {
-    testeCadastro()
-    gerarCategoriasBasicas()
-    testeAdicionarMovimentacao(Login.getCasaLogada())
-    testeAdicionarMovimentacao(Login.getCasaLogada())
-    testeAdicionarMovimentacao(Login.getCasaLogada())
+    /*
+    LoginController().testeCadastro()
+    CategoriaDebbug().gerarCategoriasBasicas()
+    MovimentacaoController().testeAdicionarMovimentacao(Login.getCasaLogada())
+    MovimentacaoController().testeAdicionarMovimentacao(Login.getCasaLogada())
+    MovimentacaoController().testeAdicionarMovimentacao(Login.getCasaLogada())
     FinanceTheme (darkTheme = true){
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -273,5 +268,7 @@ fun ListaDeGastosPreview() {
         }
     }
 
+
+     */
 }
 

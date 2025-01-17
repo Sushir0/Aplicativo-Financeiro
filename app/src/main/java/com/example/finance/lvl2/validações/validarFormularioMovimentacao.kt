@@ -1,7 +1,7 @@
 package com.example.finance.lvl2.validações
 
-import com.example.finance.lvl1.Categoria
-import com.example.finance.lvl1.Data
+import com.example.finance.a_Domain.model.Categorizacao.Categoria
+import com.example.finance.a_Domain.model.Dados.Data
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -10,7 +10,7 @@ const val tamanhoMaximoAssunto = 30
 
 const val valorMaximoValor = 99999999
 
-fun validarAssunto(assunto : String): Boolean {
+fun validarAssunto(assunto : String?): Boolean {
     if (assunto.isNullOrBlank()) {
         return false
     }
@@ -43,21 +43,14 @@ fun validarData(data: Data): Boolean{
     }
 }
 
-fun validarMovimentacao(assunto: String, valorStr: String, data: Data, categoria: Categoria?): List<String>{
-    val erros = mutableListOf<String>()
-    if(categoria == null){
-        erros.add("Categoria não escolhida")
-    }
-    if(valorStr.isNullOrBlank()){
-        erros.add("Valor nulo")
-    }else{
-        if(!validarValor(valorStr.toDouble())){
-            erros.add("Valor inválido")
-        }
+fun validarMovimentacao(descricao: String?, valor: Double, data: Data): ArrayList<String>{
+    val erros = ArrayList<String>()
+    if(!validarValor(valor)){
+        erros.add("Valor inválido")
     }
 
-    if(!validarAssunto(assunto)){
-        erros.add("Assunto inválido")
+    if(!validarAssunto(descricao)){
+        erros.add("Descrição inválida")
     }
 
     if(!validarData(data)){

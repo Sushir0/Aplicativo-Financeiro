@@ -29,9 +29,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.finance.lvl2.Login.cadastrarComCasaExistente
-import com.example.finance.lvl2.Login.cadastrarComNovaCasa
-import com.example.finance.lvl2.Login.testeCadastro
 import com.example.finance.lvl3.activitys.abrirDashboard
 import com.example.finance.lvl3.utils.avisoDeErros
 import com.example.finance.lvl3.utils.avisoLongo
@@ -210,21 +207,30 @@ fun CadastroFormPreview() {
 }
 
 
+
+@ExperimentalMaterial3Api
 fun cadastrarNovaCasa(nome: String, email: String, senha: String, nomeCasa: String, context: Context){
-    val erros = cadastrarComNovaCasa(nome, email, senha, nomeCasa)
+    /*
+    val erros = LoginController().cadastrarComNovaCasa(nome, email, senha, nomeCasa)
     if(erros.isEmpty()){
         abrirDashboard(context)
     }else{
         avisoDeErros(context, erros)
     }
+
+     */
 }
+@ExperimentalMaterial3Api
 fun cadastrarEmCasaExistente(nome: String, email: String, senha: String, idCasa: String, context: Context){
-    val idCasaTeste = testeCadastro()
-    val erros = cadastrarComCasaExistente(nome, email, senha, idCasaTeste)
+    /*
+    val idCasaTeste = LoginController().testeCadastro()
+    val erros = LoginController().cadastrarComCasaExistente(nome, email, senha, idCasaTeste)
     if(erros.isEmpty()){
         abrirDashboard(context)
     }else{
         avisoDeErros(context, erros)
     }
+
+     */
 }
 

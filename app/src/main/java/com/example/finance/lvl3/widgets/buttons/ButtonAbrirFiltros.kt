@@ -24,7 +24,7 @@ import com.example.finance.ui.theme.backgroundDark
 import com.example.finance.ui.theme.backgroundLight
 
 @Composable
-fun ButtonAbrirFiltros(nomePeriodo: String, nomeCategoria: String, onClick: () -> Unit) {
+fun ButtonAbrirFiltros(nomePeriodo: String?, nomeSelecao: String, onClick: () -> Unit) {
     val background = if (isSystemInDarkTheme()) backgroundDark else backgroundLight
     Box(modifier = Modifier.fillMaxWidth()){
         OutlinedCard (modifier = Modifier
@@ -37,9 +37,12 @@ fun ButtonAbrirFiltros(nomePeriodo: String, nomeCategoria: String, onClick: () -
                     horizontalArrangement = Arrangement.SpaceAround,
                     verticalAlignment = Alignment.CenterVertically){
                     Column (Modifier.padding(8.dp).weight(4.0f)){
-                        Text(text = "Exibindo: $nomeCategoria", style = MaterialTheme.typography.bodyMedium)
+                        Text(text = "Exibindo: $nomeSelecao", style = MaterialTheme.typography.bodyMedium)
                         Spacer(modifier = Modifier.height(6.dp))
-                        Text(text = "Periodo: $nomePeriodo", style = MaterialTheme.typography.bodyMedium)
+                        if (nomePeriodo != null){
+                            Text(text = "Periodo: $nomePeriodo", style = MaterialTheme.typography.bodyMedium)
+                        }
+
                     }
                     Text(modifier = Modifier.weight(1.2f), text = "Editar Filtros ->", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.titleSmall)
                 }

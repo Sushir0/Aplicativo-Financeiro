@@ -13,11 +13,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -25,13 +24,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.finance.lvl1.MovimentacaoHolder
-import com.example.finance.lvl1.Periodo
-import com.example.finance.lvl3.utils.retirarExclamacao
+import com.example.finance.a_Domain.model.MetaDados.Periodo
+import android.util.Log
 
 
 @Composable
-fun ListaDePeriodos(periodos: List<Periodo>, periodoSelecionado: Periodo, onChoice: (Periodo) -> Unit) {
+fun ListaDePeriodos(
+    periodos: List<Periodo>,
+    periodoSelecionado: Periodo?,
+    onChoice: (Periodo) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -58,12 +59,11 @@ private fun Item(periodo: Periodo, isSelected: Boolean = false, onClick: (Period
     }else{
         MaterialTheme.typography.titleSmall
     }
-    val backgroundColor = if (isSelected) Color.Blue else Color.Transparent
+    val backgroundColor = if (isSelected) MaterialTheme.colorScheme.primary.copy(0.5f) else Color.Transparent
 
-    ElevatedCard (
+    OutlinedCard (
         shape = RoundedCornerShape(
-            topStart = 8.dp,
-            topEnd = 8.dp
+            4.dp
         ),
         modifier = Modifier.clickable { onClick(periodo) }
     ){

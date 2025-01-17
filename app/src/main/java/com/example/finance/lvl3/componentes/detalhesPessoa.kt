@@ -17,9 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.finance.lvl1.Login
-import com.example.finance.lvl1.Pessoa
-import com.example.finance.lvl2.Login.testeCadastro
+import com.example.finance.a_Domain.model.MovimentacaoHolder.Pessoa
 import com.example.finance.ui.theme.FinanceTheme
 import com.example.finance.ui.theme.backgroundDark
 import com.example.finance.ui.theme.backgroundLight
@@ -76,6 +74,9 @@ fun detalhesPessoa(pessoa : Pessoa) {
 @Preview
 @Composable
 fun detalhesPessoaPreview() {
-    testeCadastro()
+    /*
+    LoginController().testeCadastro()
     detalhesPessoa(Login.getCasaLogada().moradores[0])
+
+     */
 }
